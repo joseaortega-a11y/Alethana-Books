@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<BorderPane prefHeight="760.0" prefWidth="1280.0"
+            style="-fx-background-color: #ffffff;"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <top>
+        <VBox>
+            <StackPane prefHeight="48.0" style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);">
+                <HBox alignment="CENTER" spacing="22.0">
+                    <Label text="Cyber Days: hasta 70% de descuento en libros seleccionados"
+                           textFill="white"
+                           style="-fx-font-size: 16px; -fx-font-weight: 800;" />
+                    <Label text="Ver ofertas"
+                           textFill="white"
+                           style="-fx-font-size: 16px; -fx-font-weight: 800; -fx-underline: true;" />
+                </HBox>
+            </StackPane>
+
+            <HBox alignment="CENTER_LEFT" prefHeight="82.0" spacing="22.0"
+                  style="-fx-background-color: #ffffff; -fx-border-color: transparent transparent #e5e7eb transparent;">
+                <padding>
+                    <Insets left="28.0" right="28.0" />
+                </padding>
+
+                <VBox spacing="3.0">
+                    <Label text="Alethana Books"
+                           textFill="#7c3aed"
+                           style="-fx-font-size: 25px; -fx-font-weight: 900;" />
+                    <Label text="Enviar a Bogota, Colombia"
+                           textFill="#64748b"
+                           style="-fx-font-size: 14px;" />
+                </VBox>
+
+                <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="540.0" maxWidth="640.0"
+                      HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: white; -fx-border-color: #dfe3ea; -fx-border-radius: 11; -fx-background-radius: 11;">
+                    <TextField promptText="Buscar por titulo, autor o ISBN"
+                               HBox.hgrow="ALWAYS"
+                               style="-fx-background-color: transparent; -fx-font-size: 17px; -fx-padding: 12 18;" />
+                    <Button text="Buscar"
+                            minWidth="110.0"
+                            prefHeight="50.0"
+                            textFill="white"
+                            style="-fx-background-color: #7c3aed; -fx-background-radius: 0 10 10 0; -fx-font-size: 16px; -fx-font-weight: 800;" />
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="16.0">
+                    <Label text="Carrito" textFill="#0f172a" style="-fx-font-size: 14px; -fx-font-weight: 700;" />
+                    <Label text="Favoritos" textFill="#0f172a" style="-fx-font-size: 14px; -fx-font-weight: 700;" />
+                    <Label text="Ayuda" textFill="#0f172a" style="-fx-font-size: 14px; -fx-font-weight: 700;" />
+                    <Label text="Mi Cuenta" textFill="#0f172a" style="-fx-font-size: 14px; -fx-font-weight: 700;" />
+
+                    <VBox spacing="0.0">
+                        <Region prefHeight="8.0" prefWidth="28.0" style="-fx-background-color: #facc15;" />
+                        <Region prefHeight="6.0" prefWidth="28.0" style="-fx-background-color: #1d4ed8;" />
+                        <Region prefHeight="6.0" prefWidth="28.0" style="-fx-background-color: #dc2626;" />
+                    </VBox>
+                </HBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" prefHeight="48.0" spacing="28.0"
+                  style="-fx-background-color: #f8fafc; -fx-border-color: transparent transparent #e5e7eb transparent;">
+                <padding>
+                    <Insets left="28.0" right="28.0" />
+                </padding>
+
+                <Label text="Menu" textFill="#0f172a" style="-fx-font-size: 16px; -fx-font-weight: 800;" />
+                <Label text="Libros recomendados" textFill="#0f172a" style="-fx-font-size: 16px;" />
+                <Label text="Mas vendidos" textFill="#0f172a" style="-fx-font-size: 16px;" />
+                <Label text="Libros importados" textFill="#0f172a" style="-fx-font-size: 16px;" />
+                <Label text="Club de lectura" textFill="#0f172a" style="-fx-font-size: 16px;" />
+                <Label text="Opiniones de clientes" textFill="#0f172a" style="-fx-font-size: 16px;" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff;">
+            <HBox style="-fx-background-color: #ffffff;">
+
+                <VBox minWidth="190.0" prefWidth="200.0" maxWidth="210.0" spacing="18.0"
+                      style="-fx-background-color: #ffffff; -fx-border-color: transparent #e5e7eb transparent transparent;">
+                    <padding>
+                        <Insets top="26.0" right="14.0" bottom="30.0" left="18.0" />
+                    </padding>
+
+                    <Label text="Categorias" textFill="#0f172a" style="-fx-font-size: 23px; -fx-font-weight: 900;" />
+                    <Label text="Artes" textFill="#334155" style="-fx-font-size: 16px;" />
+                    <Label text="Biografias y literatura" textFill="#334155" wrapText="true" style="-fx-font-size: 16px;" />
+                    <Label text="Ciencia" textFill="#334155" style="-fx-font-size: 16px;" />
+                    <Label text="Tecnologia" textFill="#334155" style="-fx-font-size: 16px;" />
+                    <Label text="Negocios y finanzas" textFill="#334155" wrapText="true" style="-fx-font-size: 16px;" />
+                    <Label text="Ficcion" textFill="#334155" style="-fx-font-size: 16px;" />
+                    <Label text="Filosofia" textFill="#334155" style="-fx-font-size: 16px;" />
+                    <Label text="Historia" textFill="#334155" style="-fx-font-size: 16px;" />
+                    <Label text="Literatura juvenil" textFill="#334155" style="-fx-font-size: 16px;" />
+                </VBox>
+
+                <VBox spacing="24.0" HBox.hgrow="ALWAYS" style="-fx-background-color: #ffffff;">
+                    <padding>
+                        <Insets top="28.0" right="24.0" bottom="40.0" left="24.0" />
+                    </padding>
+
+                    <StackPane prefHeight="300.0"
+                               style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899); -fx-background-radius: 16;">
+                        <HBox alignment="CENTER" spacing="38.0">
+                            <VBox alignment="CENTER_LEFT" spacing="14.0">
+                                <Label text="Cyber Days" textFill="#10b981"
+                                       style="-fx-font-size: 44px; -fx-font-weight: 900;" />
+                                <VBox spacing="-6.0">
+                                    <Label text="Hasta 70%" textFill="white"
+                                           style="-fx-font-size: 52px; -fx-font-weight: 900;" />
+                                    <Label text="OFF" textFill="white"
+                                           style="-fx-font-size: 52px; -fx-font-weight: 900;" />
+                                </VBox>
+                                <Button text="Ver mas"
+                                        prefHeight="50.0"
+                                        prefWidth="152.0"
+                                        textFill="#7c3aed"
+                                        style="-fx-background-color: white; -fx-background-radius: 11; -fx-font-size: 18px; -fx-font-weight: 800;" />
+                            </VBox>
+
+                            <HBox alignment="CENTER" spacing="14.0">
+                                <StackPane prefHeight="210.0" prefWidth="130.0"
+                                           style="-fx-background-color: #5f4a4a; -fx-background-radius: 10;">
+                                    <VBox alignment="CENTER" spacing="6.0">
+                                        <Rectangle arcHeight="8.0" arcWidth="8.0" height="34.0" width="90.0" style="-fx-fill: #f472b6;" />
+                                        <Rectangle arcHeight="8.0" arcWidth="8.0" height="34.0" width="112.0" style="-fx-fill: #e5e7eb;" />
+                                        <Rectangle arcHeight="8.0" arcWidth="8.0" height="34.0" width="76.0" style="-fx-fill: #111827;" />
+                                        <Label text="COLLECTION" textFill="white" style="-fx-font-size: 12px; -fx-font-weight: 800;" />
+                                    </VBox>
+                                </StackPane>
+
+                                <StackPane prefHeight="210.0" prefWidth="130.0"
+                                           style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
+                                    <VBox alignment="CENTER" spacing="8.0">
+                                        <Label text="MODERN" textFill="#f59e0b" style="-fx-font-size: 20px; -fx-font-weight: 900;" />
+                                        <Label text="BOOK" textFill="#0f172a" style="-fx-font-size: 22px; -fx-font-weight: 900;" />
+                                        <Label text="ABOUT" textFill="#059669" style="-fx-font-size: 19px; -fx-font-weight: 900;" />
+                                        <Label text="IDEAS" textFill="#dc2626" style="-fx-font-size: 19px; -fx-font-weight: 900;" />
+                                    </VBox>
+                                </StackPane>
+
+                                <StackPane prefHeight="210.0" prefWidth="130.0"
+                                           style="-fx-background-color: #b91c1c; -fx-background-radius: 10; -fx-border-color: #fbbf24; -fx-border-width: 8; -fx-border-radius: 10;">
+                                    <Label text="CLASSIC" textFill="#fef3c7" style="-fx-font-size: 22px; -fx-font-weight: 900;" />
+                                </StackPane>
+                            </HBox>
+                        </HBox>
+                    </StackPane>
+
+                    <HBox spacing="20.0">
+                        <VBox prefHeight="125.0" spacing="10.0" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: #6d28d9; -fx-background-radius: 14;">
+                            <padding>
+                                <Insets top="24.0" right="24.0" bottom="20.0" left="24.0" />
+                            </padding>
+                            <Label text="Mas vendidos 2026" textFill="white" style="-fx-font-size: 24px; -fx-font-weight: 900;" />
+                            <Label text="Descubre los titulos favoritos del ano" textFill="white" wrapText="true" style="-fx-font-size: 16px;" />
+                        </VBox>
+
+                        <VBox prefHeight="125.0" spacing="10.0" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: #0ea574; -fx-background-radius: 14;">
+                            <padding>
+                                <Insets top="24.0" right="24.0" bottom="20.0" left="24.0" />
+                            </padding>
+                            <Label text="Envio gratis" textFill="white" style="-fx-font-size: 24px; -fx-font-weight: 900;" />
+                            <Label text="En libros seleccionados" textFill="white" style="-fx-font-size: 16px;" />
+                        </VBox>
+
+                        <VBox prefHeight="125.0" spacing="10.0" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: #f59e0b; -fx-background-radius: 14;">
+                            <padding>
+                                <Insets top="24.0" right="24.0" bottom="20.0" left="24.0" />
+                            </padding>
+                            <Label text="Mega promo" textFill="white" style="-fx-font-size: 24px; -fx-font-weight: 900;" />
+                            <Label text="Hasta 40% de descuento" textFill="white" style="-fx-font-size: 16px;" />
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="22.0">
+                        <HBox alignment="CENTER_LEFT">
+                            <Label text="Libros importados mas vendidos"
+                                   textFill="#0f172a"
+                                   style="-fx-font-size: 26px; -fx-font-weight: 900;" />
+                            <Region HBox.hgrow="ALWAYS" />
+                            <Label text="Ver todos &gt;" textFill="#7c3aed" style="-fx-font-size: 16px;" />
+                        </HBox>
+
+                        <GridPane hgap="18.0" vgap="20.0">
+                            <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="190.0" spacing="10.0"
+                                  style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+                                <padding>
+                                    <Insets top="18.0" right="18.0" bottom="18.0" left="18.0" />
+                                </padding>
+                                <StackPane prefHeight="210.0" style="-fx-background-color: #5f4a4a; -fx-background-radius: 10;">
+                                    <Label text="DESIGN" textFill="white" style="-fx-font-size: 22px; -fx-font-weight: 900;" />
+                                </StackPane>
+                                <Label text="The Art of Design" textFill="#0f172a" style="-fx-font-size: 16px; -fx-font-weight: 800;" />
+                                <Label text="James Anderson" textFill="#64748b" style="-fx-font-size: 13px;" />
+                                <Label text="US$45.99" textFill="#7c3aed" style="-fx-font-size: 20px; -fx-font-weight: 900;" />
+                                <Button text="Agregar al carrito" maxWidth="Infinity" textFill="white"
+                                        style="-fx-background-color: #7c3aed; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" />
+                            </VBox>
+
+                            <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="190.0" spacing="10.0"
+                                  style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+                                <padding>
+                                    <Insets top="18.0" right="18.0" bottom="18.0" left="18.0" />
+                                </padding>
+                                <StackPane prefHeight="210.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
+                                    <Label text="MODERN PHILOSOPHY" wrapText="true" textFill="#0f172a" style="-fx-font-size: 19px; -fx-font-weight: 900;" />
+                                </StackPane>
+                                <Label text="Modern Philosophy" textFill="#0f172a" style="-fx-font-size: 16px; -fx-font-weight: 800;" />
+                                <Label text="Sarah Mitchell" textFill="#64748b" style="-fx-font-size: 13px;" />
+                                <Label text="US$38.50" textFill="#7c3aed" style="-fx-font-size: 20px; -fx-font-weight: 900;" />
+                                <Button text="Agregar al carrito" maxWidth="Infinity" textFill="white"
+                                        style="-fx-background-color: #ec4899; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" />
+                            </VBox>
+
+                            <VBox GridPane.columnIndex="2" GridPane.rowIndex="0" prefWidth="190.0" spacing="10.0"
+                                  style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+                                <padding>
+                                    <Insets top="18.0" right="18.0" bottom="18.0" left="18.0" />
+                                </padding>
+                                <StackPane prefHeight="210.0"
+                                           style="-fx-background-color: #b91c1c; -fx-background-radius: 10; -fx-border-color: #fbbf24; -fx-border-width: 8; -fx-border-radius: 10;">
+                                    <Label text="CLASSIC" textFill="#fef3c7" style="-fx-font-size: 22px; -fx-font-weight: 900;" />
+                                </StackPane>
+                                <Label text="Classic Literature" textFill="#0f172a" style="-fx-font-size: 16px; -fx-font-weight: 800;" />
+                                <Label text="Robert Thompson" textFill="#64748b" style="-fx-font-size: 13px;" />
+                                <Label text="US$42.00" textFill="#7c3aed" style="-fx-font-size: 20px; -fx-font-weight: 900;" />
+                                <Button text="Agregar al carrito" maxWidth="Infinity" textFill="white"
+                                        style="-fx-background-color: #10b981; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" />
+                            </VBox>
+                        </GridPane>
+                    </VBox>
+                </VBox>
+
+                <VBox minWidth="255.0" prefWidth="280.0" maxWidth="300.0" spacing="18.0"
+                      style="-fx-background-color: #ffffff; -fx-border-color: transparent transparent transparent #e5e7eb;">
+                    <padding>
+                        <Insets top="26.0" right="20.0" bottom="30.0" left="20.0" />
+                    </padding>
+
+                    <Label text="Novedades en libros"
+                           textFill="#0f172a"
+                           style="-fx-font-size: 23px; -fx-font-weight: 900;" />
+
+                    <VBox spacing="16.0"
+                          style="-fx-background-color: #fff7fd; -fx-background-radius: 16; -fx-border-color: #eadcf8; -fx-border-radius: 16;">
+                        <padding>
+                            <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+                        </padding>
+
+                        <StackPane prefHeight="230.0"
+                                   style="-fx-background-color: #1f4a3b; -fx-background-radius: 10; -fx-border-color: #d97706; -fx-border-width: 14; -fx-border-radius: 10;">
+                            <Label text="ORNATE&#10;CLASSICS"
+                                   textFill="#fef3c7"
+                                   style="-fx-font-size: 24px; -fx-font-weight: 900;" />
+                        </StackPane>
+
+                        <Label text="Ornate Classics Collection"
+                               textFill="#0f172a"
+                               wrapText="true"
+                               style="-fx-font-size: 20px; -fx-font-weight: 900;" />
+                        <Label text="Special Edition" textFill="#64748b" style="-fx-font-size: 16px;" />
+                        <Label text="US$89.99" textFill="#7c3aed" style="-fx-font-size: 23px; -fx-font-weight: 900;" />
+                        <Label text="Edicion de lujo"
+                               textFill="white"
+                               style="-fx-background-color: #f59e0b; -fx-background-radius: 14; -fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 7 18;" />
+                        <Button text="Ver detalles"
+                                maxWidth="Infinity"
+                                textFill="white"
+                                style="-fx-background-color: linear-gradient(to right, #ec4899, #7c3aed); -fx-background-radius: 10; -fx-font-size: 16px; -fx-font-weight: 900; -fx-padding: 13;" />
+                    </VBox>
+                </VBox>
+            </HBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
