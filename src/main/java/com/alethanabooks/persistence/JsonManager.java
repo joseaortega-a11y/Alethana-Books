@@ -1,5 +1,11 @@
 package com.alethanabooks.persistence;
 
+import com.alethanabooks.modelo.Cliente;
+import com.alethanabooks.modelo.Libro;
+import com.alethanabooks.modelo.Venta;
+
+import java.util.List;
+
 public class JsonManager {
     private static JsonManager instancia;
 
@@ -13,11 +19,12 @@ public class JsonManager {
         return instancia;
     }
 
-    public void guardarDatos() {
-        System.out.println("Guardando datos en JSON...");
+    public void guardarLibros(List<Libro> libros) {
     }
 
-    public void cargarDatos() {
-        System.out.println("Cargando datos desde JSON...");
+    public void guardarClientes(List<Cliente> clientes) {
+    }
+
+    public void guardarVentas(List<Venta> ventas) {
     }
 }

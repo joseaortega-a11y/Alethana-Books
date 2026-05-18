@@ -13,6 +13,11 @@ public class DetalleVenta {
         return libro.getPrecio() * cantidad;
     }
 
-    public Libro getLibro() { return libro; }
-    public int getCantidad() { return cantidad; }
+    public Libro getLibro() {
+        return libro;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
 }
