@@ -33,9 +33,9 @@
                     <Insets left="28.0" right="28.0" />
                 </padding>
 
-                <VBox spacing="3.0">
-                    <Label style="-fx-font-size: 25px; -fx-font-weight: 900;" text="Alethana Books" textFill="#7c3aed" />
-                    <Label style="-fx-font-size: 14px;" text="Enviar a Bogota, Colombia" textFill="#64748b" />
+                <VBox alignment="CENTER" prefHeight="69.0" prefWidth="193.0" spacing="3.0">
+                    <Label contentDisplay="RIGHT" prefHeight="13.0" prefWidth="184.0" style="-fx-font-size: 25px; -fx-font-weight: 900;" text="Alethana Books" textAlignment="JUSTIFY" textFill="#7c3aed" />
+                    <Label prefHeight="18.0" prefWidth="163.0" style="-fx-font-size: 14px;" text="Enviar a Bogota, Colombia" textFill="#64748b" />
                 </VBox>
 
                 <HBox alignment="CENTER_LEFT" maxHeight="52.0" maxWidth="721.0" prefHeight="52.0" prefWidth="721.0" style="-fx-background-color: white; -fx-border-color: #dfe3ea; -fx-border-radius: 11; -fx-background-radius: 11;">
@@ -84,7 +84,7 @@
                     <Insets left="28.0" right="28.0" />
                 </padding>
 
-                <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Menu" textFill="#0f172a" />
+                <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Menú -&gt;" textFill="#0f172a" />
                 <Label style="-fx-font-size: 16px;" text="Libros recomendados" textFill="#0f172a" />
                 <Label style="-fx-font-size: 16px;" text="Mas vendidos" textFill="#0f172a" />
                 <Label style="-fx-font-size: 16px;" text="Libros importados" textFill="#0f172a" />
@@ -165,7 +165,7 @@
                                 <Insets bottom="20.0" left="24.0" right="24.0" top="24.0" />
                             </padding>
                             <Label style="-fx-font-size: 24px; -fx-font-weight: 900;" text="Mas vendidos 2026" textFill="white" />
-                            <Label style="-fx-font-size: 16px;" text="Descubre los titulos favoritos del ano" textFill="white" wrapText="true" />
+                            <Label style="-fx-font-size: 16px;" text="Descubre los títulos favoritos del año" textFill="white" wrapText="true" />
                         </VBox>
 
                         <VBox prefHeight="125.0" spacing="10.0" style="-fx-background-color: #0ea574; -fx-background-radius: 14;" HBox.hgrow="ALWAYS">
