@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Josea/IdeaProjects/Alethana_Books</OriginalElement>
+  <nodes>
+    <node x="-178.5" y="606.5">com.alethanabooks.factory.LibroFactory</node>
+    <node x="-190.5" y="1226.5">com.alethanabooks.strategy.DescuentoPromocional</node>
+    <node x="33.429467084639555" y="246.50000000000003">com.alethanabooks.functional.FiltroLibro</node>
+    <node x="-457.0" y="1022.5">com.alethanabooks.modelo.DetalleVenta</node>
+    <node x="-432.5" y="97.84796238244513">com.alethanabooks.App</node>
+    <node x="-484.5" y="1310.5">com.alethanabooks.modelo.Venta</node>
+    <node x="-469.0" y="346.5">com.alethanabooks.interfaces.Buscable</node>
+    <node x="-482.0" y="510.5">com.alethanabooks.modelo.Libro</node>
+    <node x="-322.5" y="850.5">com.alethanabooks.modelo.Cliente</node>
+    <node x="-325.5" y="246.5">com.alethanabooks.interfaces.Vendible</node>
+    <node x="-199.87774294670862" y="97.84796238244513">com.alethanabooks.Main</node>
+    <node x="-30.5" y="1346.5">com.alethanabooks.strategy.DescuentoNormal</node>
+    <node x="-41.5" y="886.5">com.alethanabooks.strategy.EstrategiaDescuento</node>
+    <node x="-182.0" y="346.5">com.alethanabooks.interfaces.Descontable</node>
+    <node x="-878.8981191222572" y="850.5">com.alethanabooks.persistence.JsonManager</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.alethanabooks.modelo.Venta" target="com.alethanabooks.modelo.Cliente" relationship="TO_ONE">
+      <point x="0.0" y="-67.5" />
+      <point x="-355.0" y="1158.0" />
+      <point x="-235.0" y="1158.0" />
+      <point x="0.0" y="67.5" />
+    </edge>
+    <edge source="com.alethanabooks.modelo.Libro" target="com.alethanabooks.interfaces.Buscable" relationship="REALIZATION">
+      <point x="0.0" y="-127.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="com.alethanabooks.modelo.Libro" target="com.alethanabooks.interfaces.Vendible" relationship="REALIZATION">
+      <point x="0.0" y="-127.5" />
+      <point x="-355.0" y="478.0" />
+      <point x="-215.0" y="478.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="com.alethanabooks.modelo.Venta" target="com.alethanabooks.modelo.DetalleVenta" relationship="TO_MANY">
+      <point x="0.0" y="-67.5" />
+      <point x="-355.0" y="1158.0" />
+      <point x="-475.0" y="1158.0" />
+      <point x="-475.0" y="998.0" />
+      <point x="-355.0" y="998.0" />
+      <point x="0.0" y="-55.5" />
+    </edge>
+    <edge source="com.alethanabooks.strategy.DescuentoNormal" target="com.alethanabooks.strategy.EstrategiaDescuento" relationship="REALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="com.alethanabooks.strategy.DescuentoPromocional" target="com.alethanabooks.strategy.EstrategiaDescuento" relationship="REALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="-75.0" y="1198.0" />
+      <point x="65.0" y="1198.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="com.alethanabooks.modelo.DetalleVenta" target="com.alethanabooks.modelo.Libro" relationship="TO_ONE">
+      <point x="0.0" y="-55.5" />
+      <point x="0.0" y="127.5" />
+    </edge>
+    <edge source="com.alethanabooks.modelo.Libro" target="com.alethanabooks.interfaces.Descontable" relationship="REALIZATION">
+      <point x="0.0" y="-127.5" />
+      <point x="-355.0" y="478.0" />
+      <point x="-55.0" y="478.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.5629499534213124" showDependencies="true" x="-38.03385411477984" y="942.8880279228579" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

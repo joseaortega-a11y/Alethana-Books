@@ -1,0 +1,80 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class App {
+  + start(Stage): void
+}
+interface Buscable << interface >> {
+  + coincideCon(String): boolean
+}
+class Cliente {
+  + getTelefono(): String
+  + getNombre(): String
+  + getId(): String
+  + getCorreo(): String
+}
+interface Descontable << interface >> {
+  + aplicarDescuento(double): double
+}
+class DescuentoNormal {
+  + aplicar(double): double
+}
+class DescuentoPromocional {
+  + aplicar(double): double
+}
+class DetalleVenta {
+  + getCantidad(): int
+  + calcularSubtotal(): double
+  + getLibro(): Libro
+}
+interface EstrategiaDescuento << interface >> {
+  + aplicar(double): double
+}
+interface FiltroLibro << interface >> {
+  + filtrar(Libro): boolean
+}
+class JsonManager {
+  + guardarLibros(List<Libro>): void
+  + guardarVentas(List<Venta>): void
+  + getInstancia(): JsonManager
+  + guardarClientes(List<Cliente>): void
+}
+class Libro {
+  + getTitulo(): String
+  + aplicarDescuento(double): double
+  + getPrecio(): double
+  + getIsbn(): String
+  + getCategoria(): String
+  + getAutor(): String
+  + calcularPrecioFinal(): double
+  + getStock(): int
+  + coincideCon(String): boolean
+}
+class LibroFactory {
+  + crearLibro(String, String, String, String, double, int): Libro
+}
+class Main {
+  + main(String[]): void
+}
+interface Vendible << interface >> {
+  + calcularPrecioFinal(): double
+}
+class Venta {
+  + getId(): String
+  + agregarDetalle(DetalleVenta): void
+  + getCliente(): Cliente
+  + getDetalles(): List<DetalleVenta>
+}
+
+DescuentoNormal       -[#008200,dashed]-^  EstrategiaDescuento  
+DescuentoPromocional  -[#008200,dashed]-^  EstrategiaDescuento  
+DetalleVenta         "1" *-[#595959,plain]-> "libro\n1" Libro                
+Libro                 -[#008200,dashed]-^  Buscable             
+Libro                 -[#008200,dashed]-^  Descontable          
+Libro                 -[#008200,dashed]-^  Vendible             
+Venta                "1" *-[#595959,plain]-> "cliente\n1" Cliente              
+Venta                "1" *-[#595959,plain]-> "detalles\n*" DetalleVenta         
+@enduml
