@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="575.0" prefWidth="492.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alethanabooks.controlador.LoginController">
+   <children>
+      <Button fx:id="btnUsuario" layoutX="127.0" layoutY="330.0" mnemonicParsing="false" onAction="#onUsuario" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D);-fx-padding: 5 20 5 20; -fx-border-radiu: 10; -fx-background-radius: 10;" text="Usuario" textFill="WHITE" />
+      <Text layoutX="212.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:" />
+      <Text layoutX="121.0" layoutY="542.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Al continuar aceptas nuestros Términos de Servicio y política de Privacidad" textAlignment="CENTER" wrappingWidth="235.79991149902344">
+         <font>
+            <Font size="8.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtId" layoutX="170.0" layoutY="155.0" />
+      <Text layoutX="239.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="o" />
+      <Text layoutX="191.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección de correo:" />
+      <TextField fx:id="txtContra" layoutX="171.0" layoutY="284.0" />
+      <Text fill="#a703ff" layoutX="176.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alethana Books" wrappingWidth="139.44647216796875">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtCorreo" layoutX="169.0" layoutY="198.0" />
+      <TextField fx:id="txtApodo" layoutX="169.0" layoutY="241.0" />
+      <Button fx:id="btnAdmin" layoutX="273.0" layoutY="330.0" mnemonicParsing="false" onAction="#onAdmin" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: linear-gradient(to right, #FF4E8D,#8E2DE2 );-fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 5 20 5 20;" text="Admin" textFill="WHITE" />
+      <Text layoutX="134.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido(a) a Alethana books, nuestra tienda de libros online, por favor digite la información pedida." textAlignment="CENTER" wrappingWidth="225.52340698242188">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Text>
+      <Text layoutX="200.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre y apellidos:" />
+      <Text layoutX="210.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificación" />
+      <ImageView fitHeight="172.0" fitWidth="187.0" layoutX="149.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/imagenes/undraw_fingerprint-login_19qv.png" />
+         </image></ImageView>
+   </children>
+</AnchorPane>

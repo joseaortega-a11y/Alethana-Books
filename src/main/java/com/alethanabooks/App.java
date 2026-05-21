@@ -11,15 +11,15 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(
-                getClass().getResource("/fxml/alethana-books.fxml")
+                getClass().getResource("/fxml/login.fxml")
         );
 
-        Scene scene = new Scene(root, 1280, 760);
+        Scene scene = new Scene(root, 492, 572);
 
         stage.setTitle("Alethana Books");
         stage.setScene(scene);
-        stage.setMinWidth(1000);
-        stage.setMinHeight(700);
+        stage.setMinWidth(492);
+        stage.setMinHeight(574);
         stage.show();
     }
 }
