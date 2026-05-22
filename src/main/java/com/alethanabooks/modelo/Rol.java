@@ -1,7 +1,6 @@
 package com.alethanabooks.modelo;
 
-public enum Roles {
-
+public enum Rol {
     ADMIN,
-
+    USUARIO
 }

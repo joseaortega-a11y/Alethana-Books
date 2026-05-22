@@ -1,0 +1,30 @@
+[
+  {
+    "id": "5229d8e8-2cdc-4b8a-a924-f0e971a8b1ae",
+    "nombre": "Admin",
+    "correo": "admin@alethana.com",
+    "contrasena": "admin123",
+    "rol": "ADMIN"
+  },
+  {
+    "id": "09e202db-bccc-4725-9d54-b6702f2eb4ba",
+    "nombre": "Joselito",
+    "correo": "kjashdkhdask",
+    "contrasena": "1234",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "880694af-e158-499d-8a32-95c4dfc45184",
+    "nombre": "Joselito",
+    "correo": "aksjf",
+    "contrasena": "1234",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "0e977390-ea88-411b-9b9b-0e84cfe7500d",
+    "nombre": "kjhskjhd",
+    "correo": "askjhsah@",
+    "contrasena": "23",
+    "rol": "USUARIO"
+  }
+]

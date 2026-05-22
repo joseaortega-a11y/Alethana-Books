@@ -1,97 +1,107 @@
 package com.alethanabooks.controlador;
 
+import com.alethanabooks.modelo.Rol;
+import com.alethanabooks.modelo.Usuario;
+import com.alethanabooks.service.UsuarioService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.web.WebView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-public class LoginController {
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
+public class LoginController implements Initializable {
 
     @FXML private TextField txtId;
     @FXML private TextField txtCorreo;
     @FXML private TextField txtApodo;
-    @FXML private TextField txtContra;
-
+    @FXML private PasswordField txtContra;
     @FXML private Button btnUsuario;
     @FXML private Button btnAdmin;
 
+    private final UsuarioService usuarioService = new UsuarioService();
 
-    @FXML
-    private void onAdmin(ActionEvent event) {
-        // Esta ruta ya estaba bien estructurada
-        cambiarVentana(
-                "/fxml/admin.fxml",
-                "Alethana Books - Admin"
-        );
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Lambda: inicializar admin por defecto al arrancar
+        Runnable inicializar = () -> usuarioService.inicializarAdminPorDefecto();
+        inicializar.run();
+
+        // Lambda: validar campos en tiempo real
+        txtCorreo.textProperty().addListener((obs, old, nuevo) -> {
+            boolean valido = nuevo.contains("@") && nuevo.contains(".");
+            txtCorreo.setStyle(valido || nuevo.isEmpty()
+                    ? "-fx-background-radius: 8;"
+                    : "-fx-background-radius: 8; -fx-border-color: #ef4444;");
+        });
     }
 
     @FXML
     private void onUsuario(ActionEvent event) {
-        // Corregido: Se eliminó el paquete falso y se arregló el nombre del archivo (con guion medio)
-        cambiarVentana(
-                "/fxml/alethana-books.fxml",
-                "Alethana Books - Catálogo"
-        );
+        String correo = txtCorreo.getText().trim();
+        String nombre = txtApodo.getText().trim();
+        String contra = txtContra.getText();
+
+        if (correo.isEmpty() || nombre.isEmpty() || contra.isEmpty()) {
+            mostrarError("Campos incompletos", "Por favor completa correo, nombre y contraseña.");
+            return;
+        }
+
+        // Registrar si no existe, luego autenticar
+        Optional<Usuario> usuario = usuarioService.autenticar(correo, contra);
+        if (usuario.isEmpty()) {
+            usuarioService.registrar(nombre, correo, contra);
+        }
+
+        cambiarVentana("/fxml/alethana-books.fxml", "Alethana Books - Catálogo");
     }
 
-    private void cambiarVentana(String rutaFXML, String tituloVentana) {
+    @FXML
+    private void onAdmin(ActionEvent event) {
+        String correo = txtCorreo.getText().trim();
+        String contra = txtContra.getText();
 
+        if (correo.isEmpty() || contra.isEmpty()) {
+            mostrarError("Campos incompletos", "Ingresa correo y contraseña de administrador.");
+            return;
+        }
+
+        boolean esAdmin = usuarioService.esAdmin(correo, contra);
+        if (!esAdmin) {
+            mostrarError("Acceso denegado", "Credenciales incorrectas o no eres administrador.");
+            return;
+        }
+
+        cambiarVentana("/fxml/admin.fxml", "Alethana Books - Admin");
+    }
+
+    private void cambiarVentana(String rutaFXML, String titulo) {
         try {
-
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource(rutaFXML)
-            );
-
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
             Parent root = loader.load();
-
             Stage stage = new Stage();
-
-            stage.setTitle(tituloVentana);
+            stage.setTitle(titulo);
             stage.setScene(new Scene(root));
             stage.setResizable(false);
-
             stage.show();
-
-            // cerrar ventana actual
-            Stage actual = (Stage) btnAdmin.getScene().getWindow();
-            actual.close();
-
+            ((Stage) btnAdmin.getScene().getWindow()).close();
         } catch (Exception e) {
-
             e.printStackTrace();
-
-            mostrarError(
-                    "Error",
-                    "No se pudo abrir: " + rutaFXML
-            );
+            mostrarError("Error", "No se pudo abrir: " + rutaFXML);
         }
     }
 
     private void mostrarError(String titulo, String mensaje) {
-
         Alert alerta = new Alert(Alert.AlertType.ERROR);
-
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
-
-        alerta.showAndWait();
-    }
-
-    private void mostrarInfo(String titulo, String mensaje) {
-
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-
-        alerta.setTitle(titulo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
-
         alerta.showAndWait();
     }
 }
