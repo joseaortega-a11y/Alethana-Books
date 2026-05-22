@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="575.0" prefWidth="492.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alethanabooks.controlador.LoginController">
    <children>
-      <Button fx:id="btnUsuario" layoutX="127.0" layoutY="330.0" mnemonicParsing="false" onAction="#onUsuario" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D);-fx-padding: 5 20 5 20; -fx-border-radiu: 10; -fx-background-radius: 10;" text="Usuario" textFill="WHITE" />
+      <Button fx:id="btnUsuario" layoutX="127.0" layoutY="330.0" mnemonicParsing="false" onAction="#onUsuario" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D);-fx-padding: 5 20 5 20; -fx-border-radius: 10; -fx-background-radius: 10;" text="Usuario" textFill="WHITE" />
       <Text layoutX="212.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:" />
       <Text layoutX="121.0" layoutY="542.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Al continuar aceptas nuestros Términos de Servicio y política de Privacidad" textAlignment="CENTER" wrappingWidth="235.79991149902344">
          <font>
@@ -38,7 +38,8 @@
       <Text layoutX="210.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificación" />
       <ImageView fitHeight="172.0" fitWidth="187.0" layoutX="149.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/imagenes/undraw_fingerprint-login_19qv.png" />
-         </image></ImageView>
+            <Image url="@../imagenes/undraw_fingerprint-login_19qv.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

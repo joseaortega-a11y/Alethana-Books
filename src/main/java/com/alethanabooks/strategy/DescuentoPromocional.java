@@ -1,7 +1,8 @@
 package com.alethanabooks.strategy;
 
 public class DescuentoPromocional implements EstrategiaDescuento {
-    private double porcentaje;
+
+    private final double porcentaje;
 
     public DescuentoPromocional(double porcentaje) {
         this.porcentaje = porcentaje;
@@ -9,6 +10,6 @@ public class DescuentoPromocional implements EstrategiaDescuento {
 
     @Override
     public double aplicar(double precio) {
-        return precio - (precio * porcentaje / 100);
+        return precio - (precio * porcentaje);
     }
 }

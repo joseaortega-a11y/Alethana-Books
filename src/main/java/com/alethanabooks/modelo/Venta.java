@@ -1,32 +1,36 @@
 package com.alethanabooks.modelo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Venta {
     private String id;
-    private Cliente cliente;
-    private List<DetalleVenta> detalles;
+    private Usuario usuario;
+    private LocalDateTime fecha;
+    private List<DetalleVenta> detalles = new ArrayList<>();
+    private double total;
 
-    public Venta(String id, Cliente cliente) {
+    public Venta() {
+    }
+
+    public Venta(String id, Usuario usuario, List<DetalleVenta> detalles) {
         this.id = id;
-        this.cliente = cliente;
-        this.detalles = new ArrayList<>();
+        this.usuario = usuario;
+        this.fecha = LocalDateTime.now();
+        this.detalles = detalles;
+        this.total = calcularTotal();
     }
 
-    public void agregarDetalle(DetalleVenta detalle) {
-        detalles.add(detalle);
+    public double calcularTotal() {
+        return detalles.stream()
+                .mapToDouble(DetalleVenta::getSubtotal)
+                .sum();
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public List<DetalleVenta> getDetalles() {
-        return detalles;
-    }
+    public String getId() { return id; }
+    public Usuario getUsuario() { return usuario; }
+    public LocalDateTime getFecha() { return fecha; }
+    public List<DetalleVenta> getDetalles() { return detalles; }
+    public double getTotal() { return total; }
 }
