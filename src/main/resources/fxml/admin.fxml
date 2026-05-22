@@ -7,11 +7,10 @@
 
 <BorderPane prefHeight="700.0" prefWidth="960.0"
             style="-fx-background-color: #f8fafc;"
-            xmlns="http://javafx.com/javafx/21"
+            xmlns="http://javafx.com/javafx/25"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.alethanabooks.controlador.AdminController">
 
-   <!-- ══════════════  HEADER  ══════════════ -->
    <top>
       <VBox style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);">
          <padding><Insets bottom="20" left="28" right="28" top="20"/></padding>
@@ -24,18 +23,14 @@
       </VBox>
    </top>
 
-   <!-- ══════════════  CONTENIDO CENTRAL  ══════════════ -->
    <center>
       <VBox spacing="20.0">
          <padding><Insets bottom="28" left="28" right="28" top="24"/></padding>
 
-         <!-- ── Tarjeta: Agregar libro ── -->
          <VBox spacing="14.0"
-               style="-fx-background-color: white;
-                         -fx-background-radius: 14;
-                         -fx-border-color: #e5e7eb;
-                         -fx-border-radius: 14;
-                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
+               style="-fx-background-color: white; -fx-background-radius: 14;
+                      -fx-border-color: #e5e7eb; -fx-border-radius: 14;
+                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
             <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
 
             <Label text="Agregar nuevo libro"
@@ -43,85 +38,58 @@
                    textFill="#0f172a"/>
 
             <HBox spacing="10.0">
-               <TextField fx:id="txtTitulo"
-                          promptText="Título del libro"
-                          HBox.hgrow="ALWAYS"
+               <TextField fx:id="txtTitulo" promptText="Título del libro" HBox.hgrow="ALWAYS"
                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                      -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-               <TextField fx:id="txtAutor"
-                          promptText="Autor"
-                          HBox.hgrow="ALWAYS"
+                                 -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+               <TextField fx:id="txtAutor" promptText="Autor" HBox.hgrow="ALWAYS"
                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                      -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-               <TextField fx:id="txtCategoria"
-                          promptText="Categoría"
-                          HBox.hgrow="ALWAYS"
+                                 -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+               <ComboBox fx:id="cmbCategoria" promptText="Categoría"
+                         HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                         style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                -fx-border-radius: 8; -fx-font-size: 13px;" />
+               <TextField fx:id="txtPrecio" promptText="Precio (COP)" prefWidth="130"
                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                      -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-               <TextField fx:id="txtPrecio"
-                          promptText="Precio (COP)"
-                          prefWidth="130"
+                                 -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+               <TextField fx:id="txtStock" promptText="Stock" prefWidth="80"
                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                      -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-               <TextField fx:id="txtStock"
-                          promptText="Stock"
-                          prefWidth="80"
-                          style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                      -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-               <Button fx:id="btnAgregar"
-                       text="+ Agregar"
-                       onAction="#onAgregar"
+                                 -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+               <Button fx:id="btnAgregar" text="+ Agregar" onAction="#onAgregar"
                        textFill="white"
-                       style="-fx-background-color: #7c3aed;
-                                   -fx-background-radius: 8;
-                                   -fx-font-weight: 800;
-                                   -fx-font-size: 13px;
-                                   -fx-padding: 9 20;" />
+                       style="-fx-background-color: #7c3aed; -fx-background-radius: 8;
+                              -fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 9 20;" />
             </HBox>
          </VBox>
 
-         <!-- ── Tarjeta: Tabla inventario ── -->
          <VBox spacing="14.0" VBox.vgrow="ALWAYS"
-               style="-fx-background-color: white;
-                         -fx-background-radius: 14;
-                         -fx-border-color: #e5e7eb;
-                         -fx-border-radius: 14;
-                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
+               style="-fx-background-color: white; -fx-background-radius: 14;
+                      -fx-border-color: #e5e7eb; -fx-border-radius: 14;
+                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
             <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
 
-            <!-- Encabezado tabla -->
             <HBox spacing="12.0" alignment="CENTER_LEFT">
                <Label text="Inventario de libros"
-                      style="-fx-font-size: 17px; -fx-font-weight: 900;"
-                      textFill="#0f172a"/>
+                      style="-fx-font-size: 17px; -fx-font-weight: 900;" textFill="#0f172a"/>
                <Region HBox.hgrow="ALWAYS"/>
-               <TextField fx:id="txtBuscar"
-                          promptText="🔍  Buscar por título, autor o categoría..."
+               <TextField fx:id="txtBuscar" promptText="🔍  Buscar por título, autor o categoría..."
                           prefWidth="300"
                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                      -fx-border-radius: 8; -fx-padding: 8 12; -fx-font-size: 13px;" />
-               <Button fx:id="btnEliminar"
-                       text="Eliminar"
-                       onAction="#onEliminar"
+                                 -fx-border-radius: 8; -fx-padding: 8 12; -fx-font-size: 13px;" />
+               <Button fx:id="btnEliminar" text="Eliminar" onAction="#onEliminar"
                        textFill="white"
-                       style="-fx-background-color: #ef4444;
-                                   -fx-background-radius: 8;
-                                   -fx-font-weight: 800;
-                                   -fx-font-size: 13px;
-                                   -fx-padding: 8 18;" />
+                       style="-fx-background-color: #ef4444; -fx-background-radius: 8;
+                              -fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 8 18;" />
             </HBox>
 
-            <!-- Tabla -->
-            <TableView fx:id="tablaLibros"
-                       VBox.vgrow="ALWAYS"
+            <TableView fx:id="tablaLibros" VBox.vgrow="ALWAYS"
                        style="-fx-background-radius: 10; -fx-border-color: #f1f5f9; -fx-border-radius: 10;">
                <columns>
-                  <TableColumn fx:id="colId"        text="ID"        prefWidth="90"  />
-                  <TableColumn fx:id="colTitulo"    text="Título"     prefWidth="220" />
-                  <TableColumn fx:id="colAutor"     text="Autor"      prefWidth="170" />
-                  <TableColumn fx:id="colCategoria" text="Categoría"  prefWidth="130" />
-                  <TableColumn fx:id="colPrecio"    text="Precio"     prefWidth="110" />
-                  <TableColumn fx:id="colStock"     text="Stock"      prefWidth="70"  />
+                  <TableColumn fx:id="colId"        text="ID"       prefWidth="90"  />
+                  <TableColumn fx:id="colTitulo"    text="Título"    prefWidth="220" />
+                  <TableColumn fx:id="colAutor"     text="Autor"     prefWidth="170" />
+                  <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="130" />
+                  <TableColumn fx:id="colPrecio"    text="Precio"    prefWidth="110" />
+                  <TableColumn fx:id="colStock"     text="Stock"     prefWidth="70"  />
                </columns>
                <placeholder>
                   <Label text="No hay libros registrados."
@@ -132,5 +100,4 @@
 
       </VBox>
    </center>
-
 </BorderPane>

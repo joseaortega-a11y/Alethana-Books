@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="760.0" prefWidth="1280.0"
@@ -11,9 +10,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.alethanabooks.controlador.LibrosImportadosController">
 
-    <top>
-        <fx:include source="header.fxml" />
-    </top>
+    <top><fx:include source="header.fxml" /></top>
 
     <center>
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
@@ -21,15 +18,12 @@
             <VBox spacing="28.0" style="-fx-background-color: #ffffff;">
                 <padding><Insets bottom="40" left="40" right="40" top="28"/></padding>
 
-                <!-- ── Encabezado ── -->
                 <HBox alignment="CENTER_LEFT" spacing="16.0">
                     <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                         <Label text="Libros importados para ti"
-                               style="-fx-font-size: 32px; -fx-font-weight: 900;"
-                               textFill="#0f172a" />
+                               style="-fx-font-size: 32px; -fx-font-weight: 900;" textFill="#0f172a" />
                         <Label text="Ediciones internacionales seleccionadas especialmente para nuestros lectores."
-                               style="-fx-font-size: 16px;"
-                               textFill="#64748b" />
+                               style="-fx-font-size: 16px;" textFill="#64748b" />
                     </VBox>
                     <Label text="📦 Envío internacional disponible"
                            style="-fx-background-color: #ede9fe; -fx-background-radius: 10;
@@ -37,7 +31,38 @@
                            textFill="#7c3aed"/>
                 </HBox>
 
-                <!-- ── Banner destacado ── -->
+                <!-- Panel agregar -->
+                <VBox spacing="14.0"
+                      style="-fx-background-color: white; -fx-background-radius: 14;
+                             -fx-border-color: #e5e7eb; -fx-border-radius: 14;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
+                    <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
+                    <Label text="Agregar libro importado"
+                           style="-fx-font-size: 17px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                    <HBox spacing="10.0">
+                        <TextField fx:id="txtTitulo" promptText="Título del libro" HBox.hgrow="ALWAYS"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                        <TextField fx:id="txtAutor" promptText="Autor" HBox.hgrow="ALWAYS"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                        <ComboBox fx:id="cmbCategoria" promptText="Categoría"
+                                  HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                                  style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                         -fx-border-radius: 8; -fx-font-size: 13px;" />
+                        <TextField fx:id="txtPrecio" promptText="Precio (COP)" prefWidth="130"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                        <TextField fx:id="txtStock" promptText="Stock" prefWidth="80"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                        <Button text="+ Agregar" onAction="#onAgregar" textFill="white"
+                                style="-fx-background-color: #7c3aed; -fx-background-radius: 8;
+                                       -fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 9 20;" />
+                    </HBox>
+                </VBox>
+
+                <!-- Banner -->
                 <StackPane prefHeight="160.0"
                            style="-fx-background-color: linear-gradient(to right, #0f172a, #1e293b);
                                   -fx-background-radius: 18;">
@@ -45,11 +70,9 @@
                         <padding><Insets bottom="28" left="36" right="36" top="28"/></padding>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                             <Label text="Colección Internacional 2026"
-                                   style="-fx-font-size: 26px; -fx-font-weight: 900;"
-                                   textFill="white"/>
+                                   style="-fx-font-size: 26px; -fx-font-weight: 900;" textFill="white"/>
                             <Label text="Más de 200 títulos importados directamente de Europa y Norteamérica"
-                                   style="-fx-font-size: 15px;"
-                                   textFill="#94a3b8" wrapText="true"/>
+                                   style="-fx-font-size: 15px;" textFill="#94a3b8" wrapText="true"/>
                         </VBox>
                         <Label text="Hasta 25% OFF"
                                style="-fx-background-color: #f59e0b; -fx-background-radius: 12;
@@ -58,205 +81,12 @@
                     </HBox>
                 </StackPane>
 
-                <!-- ── Grid de libros importados ── -->
                 <Label text="Selección destacada"
-                       style="-fx-font-size: 22px; -fx-font-weight: 900;"
-                       textFill="#0f172a"/>
+                       style="-fx-font-size: 22px; -fx-font-weight: 900;" textFill="#0f172a"/>
 
-                <FlowPane hgap="22.0" vgap="24.0"
-                          prefWrapLength="1200.0"
-                          style="-fx-background-color: transparent;">
-
-                    <!-- Libro 1 -->
-                    <VBox prefWidth="210.0" spacing="10.0"
-                          style="-fx-background-color: white; -fx-background-radius: 14;
-                                 -fx-border-color: #e5e7eb; -fx-border-radius: 14;
-                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
-                        <padding><Insets bottom="18" left="18" right="18" top="18"/></padding>
-                        <StackPane prefHeight="220.0"
-                                   style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image><Image url="@../imagenes/the-art-of-design.jpg"/></image>
-                            </ImageView>
-                            <Label text="IMPORTADO"
-                                   style="-fx-background-color: #7c3aed; -fx-background-radius: 6;
-                                          -fx-font-size: 10px; -fx-font-weight: 800; -fx-padding: 4 8;"
-                                   textFill="white"
-                                   StackPane.alignment="TOP_RIGHT"/>
-                        </StackPane>
-                        <Label text="The Art of Design"
-                               style="-fx-font-size: 15px; -fx-font-weight: 800;"
-                               textFill="#0f172a" wrapText="true"/>
-                        <Label text="James Anderson · EE.UU."
-                               style="-fx-font-size: 12px;"
-                               textFill="#64748b"/>
-                        <HBox alignment="CENTER_LEFT" spacing="8.0">
-                            <Label text="COP 145.900"
-                                   style="-fx-font-size: 18px; -fx-font-weight: 900;"
-                                   textFill="#7c3aed"/>
-                            <Label text="-15%"
-                                   style="-fx-background-color: #fef3c7; -fx-background-radius: 6;
-                                          -fx-font-size: 11px; -fx-font-weight: 800; -fx-padding: 3 7;"
-                                   textFill="#b45309"/>
-                        </HBox>
-                        <Button maxWidth="Infinity" text="Agregar al carrito"
-                                textFill="white"
-                                style="-fx-background-color: #7c3aed; -fx-background-radius: 10;
-                                       -fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 9 0;"/>
-                    </VBox>
-
-                    <!-- Libro 2 -->
-                    <VBox prefWidth="210.0" spacing="10.0"
-                          style="-fx-background-color: white; -fx-background-radius: 14;
-                                 -fx-border-color: #e5e7eb; -fx-border-radius: 14;
-                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
-                        <padding><Insets bottom="18" left="18" right="18" top="18"/></padding>
-                        <StackPane prefHeight="220.0"
-                                   style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image><Image url="@../imagenes/modern.jpg"/></image>
-                            </ImageView>
-                            <Label text="IMPORTADO"
-                                   style="-fx-background-color: #ec4899; -fx-background-radius: 6;
-                                          -fx-font-size: 10px; -fx-font-weight: 800; -fx-padding: 4 8;"
-                                   textFill="white"
-                                   StackPane.alignment="TOP_RIGHT"/>
-                        </StackPane>
-                        <Label text="Modern Philosophy"
-                               style="-fx-font-size: 15px; -fx-font-weight: 800;"
-                               textFill="#0f172a" wrapText="true"/>
-                        <Label text="Roger Ariew · Francia"
-                               style="-fx-font-size: 12px;"
-                               textFill="#64748b"/>
-                        <HBox alignment="CENTER_LEFT" spacing="8.0">
-                            <Label text="COP 118.500"
-                                   style="-fx-font-size: 18px; -fx-font-weight: 900;"
-                                   textFill="#7c3aed"/>
-                            <Label text="-20%"
-                                   style="-fx-background-color: #fef3c7; -fx-background-radius: 6;
-                                          -fx-font-size: 11px; -fx-font-weight: 800; -fx-padding: 3 7;"
-                                   textFill="#b45309"/>
-                        </HBox>
-                        <Button maxWidth="Infinity" text="Agregar al carrito"
-                                textFill="white"
-                                style="-fx-background-color: #ec4899; -fx-background-radius: 10;
-                                       -fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 9 0;"/>
-                    </VBox>
-
-                    <!-- Libro 3 -->
-                    <VBox prefWidth="210.0" spacing="10.0"
-                          style="-fx-background-color: white; -fx-background-radius: 14;
-                                 -fx-border-color: #e5e7eb; -fx-border-radius: 14;
-                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
-                        <padding><Insets bottom="18" left="18" right="18" top="18"/></padding>
-                        <StackPane prefHeight="220.0"
-                                   style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image><Image url="@../imagenes/metamorfosis.jpg"/></image>
-                            </ImageView>
-                            <Label text="IMPORTADO"
-                                   style="-fx-background-color: #7c3aed; -fx-background-radius: 6;
-                                          -fx-font-size: 10px; -fx-font-weight: 800; -fx-padding: 4 8;"
-                                   textFill="white"
-                                   StackPane.alignment="TOP_RIGHT"/>
-                        </StackPane>
-                        <Label text="Metamorphosis — Edición de lujo"
-                               style="-fx-font-size: 15px; -fx-font-weight: 800;"
-                               textFill="#0f172a" wrapText="true"/>
-                        <Label text="Franz Kafka · Alemania"
-                               style="-fx-font-size: 12px;"
-                               textFill="#64748b"/>
-                        <HBox alignment="CENTER_LEFT" spacing="8.0">
-                            <Label text="COP 289.900"
-                                   style="-fx-font-size: 18px; -fx-font-weight: 900;"
-                                   textFill="#7c3aed"/>
-                            <Label text="Lujo"
-                                   style="-fx-background-color: #fef3c7; -fx-background-radius: 6;
-                                          -fx-font-size: 11px; -fx-font-weight: 800; -fx-padding: 3 7;"
-                                   textFill="#b45309"/>
-                        </HBox>
-                        <Button maxWidth="Infinity" text="Ver detalles"
-                                textFill="white"
-                                style="-fx-background-color: linear-gradient(to right, #ec4899, #7c3aed);
-                                       -fx-background-radius: 10;
-                                       -fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 9 0;"/>
-                    </VBox>
-
-                    <!-- Libro 4 -->
-                    <VBox prefWidth="210.0" spacing="10.0"
-                          style="-fx-background-color: white; -fx-background-radius: 14;
-                                 -fx-border-color: #e5e7eb; -fx-border-radius: 14;
-                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
-                        <padding><Insets bottom="18" left="18" right="18" top="18"/></padding>
-                        <StackPane prefHeight="220.0"
-                                   style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image><Image url="@../imagenes/berserk.jpg"/></image>
-                            </ImageView>
-                            <Label text="IMPORTADO"
-                                   style="-fx-background-color: #10b981; -fx-background-radius: 6;
-                                          -fx-font-size: 10px; -fx-font-weight: 800; -fx-padding: 4 8;"
-                                   textFill="white"
-                                   StackPane.alignment="TOP_RIGHT"/>
-                        </StackPane>
-                        <Label text="Berserk — Edición deluxe"
-                               style="-fx-font-size: 15px; -fx-font-weight: 800;"
-                               textFill="#0f172a" wrapText="true"/>
-                        <Label text="Kentaro Miura · Japón"
-                               style="-fx-font-size: 12px;"
-                               textFill="#64748b"/>
-                        <HBox alignment="CENTER_LEFT" spacing="8.0">
-                            <Label text="COP 99.900"
-                                   style="-fx-font-size: 18px; -fx-font-weight: 900;"
-                                   textFill="#7c3aed"/>
-                            <Label text="-25%"
-                                   style="-fx-background-color: #fef3c7; -fx-background-radius: 6;
-                                          -fx-font-size: 11px; -fx-font-weight: 800; -fx-padding: 3 7;"
-                                   textFill="#b45309"/>
-                        </HBox>
-                        <Button maxWidth="Infinity" text="Agregar al carrito"
-                                textFill="white"
-                                style="-fx-background-color: #10b981; -fx-background-radius: 10;
-                                       -fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 9 0;"/>
-                    </VBox>
-
-                    <!-- Libro 5 -->
-                    <VBox prefWidth="210.0" spacing="10.0"
-                          style="-fx-background-color: white; -fx-background-radius: 14;
-                                 -fx-border-color: #e5e7eb; -fx-border-radius: 14;
-                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
-                        <padding><Insets bottom="18" left="18" right="18" top="18"/></padding>
-                        <StackPane prefHeight="220.0"
-                                   style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image><Image url="@../imagenes/la_sombra.jpg"/></image>
-                            </ImageView>
-                            <Label text="IMPORTADO"
-                                   style="-fx-background-color: #f59e0b; -fx-background-radius: 6;
-                                          -fx-font-size: 10px; -fx-font-weight: 800; -fx-padding: 4 8;"
-                                   textFill="white"
-                                   StackPane.alignment="TOP_RIGHT"/>
-                        </StackPane>
-                        <Label text="La Sombra del Viento"
-                               style="-fx-font-size: 15px; -fx-font-weight: 800;"
-                               textFill="#0f172a" wrapText="true"/>
-                        <Label text="Carlos Ruiz Zafón · España"
-                               style="-fx-font-size: 12px;"
-                               textFill="#64748b"/>
-                        <HBox alignment="CENTER_LEFT" spacing="8.0">
-                            <Label text="COP 112.000"
-                                   style="-fx-font-size: 18px; -fx-font-weight: 900;"
-                                   textFill="#7c3aed"/>
-                        </HBox>
-                        <Button maxWidth="Infinity" text="Agregar al carrito"
-                                textFill="white"
-                                style="-fx-background-color: #f59e0b; -fx-background-radius: 10;
-                                       -fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 9 0;"/>
-                    </VBox>
-
-                </FlowPane>
+                <FlowPane fx:id="flowLibros" hgap="22.0" vgap="24.0"
+                          prefWrapLength="1200.0" style="-fx-background-color: transparent;"/>
             </VBox>
         </ScrollPane>
     </center>
-
 </BorderPane>

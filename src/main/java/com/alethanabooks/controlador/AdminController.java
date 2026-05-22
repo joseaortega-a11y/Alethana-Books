@@ -28,7 +28,7 @@ public class AdminController implements Initializable {
 
     @FXML private TextField txtTitulo;
     @FXML private TextField txtAutor;
-    @FXML private TextField txtCategoria;
+    @FXML private ComboBox<String> cmbCategoria;
     @FXML private TextField txtPrecio;
     @FXML private TextField txtStock;
     @FXML private TextField txtBuscar;
@@ -37,6 +37,18 @@ public class AdminController implements Initializable {
 
     private final CatalogoService catalogoService = new CatalogoService();
     private ObservableList<Libro> librosObservable;
+
+    public static final List<String> CATEGORIAS = List.of(
+            "Artes",
+            "Biografias y literatura",
+            "Ciencia",
+            "Tecnologia",
+            "Negocios y finanzas",
+            "Ficcion",
+            "Filosofia",
+            "Historia",
+            "Literatura juvenil"
+    );
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,9 +59,11 @@ public class AdminController implements Initializable {
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
+        cmbCategoria.setItems(FXCollections.observableArrayList(CATEGORIAS));
+        cmbCategoria.setPromptText("Seleccionar categoría");
+
         cargarLibros();
 
-        // Lambda: filtrar tabla al escribir en buscador
         txtBuscar.textProperty().addListener((obs, old, texto) -> {
             FiltroLibro filtro = libro -> libro.coincideCon(texto);
             List<Libro> filtrados = catalogoService.obtenerTodos().stream()
@@ -58,7 +72,6 @@ public class AdminController implements Initializable {
             tablaLibros.setItems(FXCollections.observableArrayList(filtrados));
         });
 
-        // Lambda: botón eliminar habilitado solo si hay selección
         btnEliminar.disableProperty().bind(
                 tablaLibros.getSelectionModel().selectedItemProperty().isNull()
         );
@@ -69,16 +82,18 @@ public class AdminController implements Initializable {
         try {
             String titulo = txtTitulo.getText().trim();
             String autor = txtAutor.getText().trim();
-            String categoria = txtCategoria.getText().trim();
-            double precio = Double.parseDouble(txtPrecio.getText().trim());
-            int stock = Integer.parseInt(txtStock.getText().trim());
+            String categoria = cmbCategoria.getValue();
+            String precioStr = txtPrecio.getText().trim();
+            String stockStr = txtStock.getText().trim();
 
-            if (titulo.isEmpty() || autor.isEmpty() || categoria.isEmpty()) {
+            if (titulo.isEmpty() || autor.isEmpty() || categoria == null || categoria.isEmpty()) {
                 mostrarAlerta("Error", "Todos los campos son obligatorios.");
                 return;
             }
 
-            // Usar Factory Method
+            double precio = Double.parseDouble(precioStr);
+            int stock = Integer.parseInt(stockStr);
+
             Libro nuevo = LibroFactory.crearLibro(
                     LibroFactory.TipoLibro.FISICO,
                     UUID.randomUUID().toString(),
@@ -118,7 +133,8 @@ public class AdminController implements Initializable {
     private void limpiarCampos() {
         txtTitulo.clear();
         txtAutor.clear();
-        txtCategoria.clear();
+        cmbCategoria.setValue(null);
+        cmbCategoria.setPromptText("Seleccionar categoría");
         txtPrecio.clear();
         txtStock.clear();
     }

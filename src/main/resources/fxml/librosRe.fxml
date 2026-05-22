@@ -1,145 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="760.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="760.0" prefWidth="1280.0"
+            style="-fx-background-color: #ffffff;"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.alethanabooks.controlador.librosReControlador">
 
-    <top>
-        <fx:include source="header.fxml" />
-    </top>
+    <top><fx:include source="header.fxml" /></top>
 
     <center>
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff;">
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+                    style="-fx-background-color: #ffffff;">
             <VBox spacing="24.0" style="-fx-background-color: #ffffff;">
-                <padding>
-                    <Insets bottom="40.0" left="40.0" right="40.0" top="28.0" />
-                </padding>
+                <padding><Insets bottom="40.0" left="40.0" right="40.0" top="28.0" /></padding>
 
-                <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1118.0" spacing="16.0">
-                    <VBox prefHeight="80.0" prefWidth="495.0" spacing="6.0">
-                        <Label style="-fx-font-size: 32px; -fx-font-weight: 900;" text="Libros recomendados para ti" textFill="#0f172a" />
-
-                        <Label style="-fx-font-size: 16px;" text="Una selección especial de libros que podrían interesarte." textFill="#64748b" />
+                <HBox alignment="CENTER_LEFT" spacing="16.0">
+                    <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                        <Label style="-fx-font-size: 32px; -fx-font-weight: 900;"
+                               text="Libros recomendados para ti" textFill="#0f172a" />
+                        <Label style="-fx-font-size: 16px;"
+                               text="Una selección especial de libros que podrían interesarte."
+                               textFill="#64748b" />
                     </VBox>
-
-                    <Button alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="38.0" prefWidth="438.0" style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D); -fx-background-radius: 12; -fx-font-size: 16px; -fx-font-weight: 800; -fx-padding: 14 24;" text="Generar recomendación" textAlignment="CENTER" textFill="white" />
+                    <Button style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D);
+                                   -fx-background-radius: 12; -fx-font-size: 16px;
+                                   -fx-font-weight: 800; -fx-padding: 14 24;"
+                            text="Generar recomendación" textFill="white"
+                            onAction="#onGenerarRecomendacion"/>
                 </HBox>
 
-                <FlowPane hgap="22.0" prefWrapLength="1100.0" style="-fx-background-color: #ffffff;" vgap="24.0">
+                <!-- Panel agregar -->
+                <VBox spacing="14.0"
+                      style="-fx-background-color: white; -fx-background-radius: 14;
+                             -fx-border-color: #e5e7eb; -fx-border-radius: 14;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
+                    <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
+                    <Label text="Agregar libro recomendado"
+                           style="-fx-font-size: 17px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                    <HBox spacing="10.0">
+                        <TextField fx:id="txtTitulo" promptText="Título del libro" HBox.hgrow="ALWAYS"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                        <TextField fx:id="txtAutor" promptText="Autor" HBox.hgrow="ALWAYS"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                        <ComboBox fx:id="cmbCategoria" promptText="Categoría"
+                                  HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                                  style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                         -fx-border-radius: 8; -fx-font-size: 13px;" />
+                        <TextField fx:id="txtPrecio" promptText="Precio (COP)" prefWidth="130"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                        <TextField fx:id="txtStock" promptText="Stock" prefWidth="80"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                        <Button text="+ Agregar" onAction="#onAgregar" textFill="white"
+                                style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D);
+                                       -fx-background-radius: 8; -fx-font-weight: 800;
+                                       -fx-font-size: 13px; -fx-padding: 9 20;" />
+                    </HBox>
+                </VBox>
 
-                    <VBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
-                        <padding>
-                            <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                        </padding>
-                        <StackPane prefHeight="220.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/the-art-of-design.jpg" />
-                                </image>
-                            </ImageView>
-                        </StackPane>
-                        <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="The Art of Design" textFill="#0f172a" />
-                        <Label style="-fx-font-size: 13px;" text="James Anderson" textFill="#64748b" />
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 145.900" textFill="#7c3aed" />
-                        <Button maxWidth="Infinity" style="-fx-background-color: #7c3aed; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                    </VBox>
+                <Label text="Libros disponibles"
+                       style="-fx-font-size: 22px; -fx-font-weight: 900;" textFill="#0f172a"/>
 
-                    <VBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
-                        <padding>
-                            <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                        </padding>
-                        <StackPane prefHeight="220.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/modern.jpg" />
-                                </image>
-                            </ImageView>
-                        </StackPane>
-                        <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Modern Philosophy" textFill="#0f172a" />
-                        <Label style="-fx-font-size: 13px;" text="Roger Ariew" textFill="#64748b" />
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 118.500" textFill="#7c3aed" />
-                        <Button maxWidth="Infinity" style="-fx-background-color: #ec4899; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                    </VBox>
+                <FlowPane fx:id="flowLibros" hgap="22.0" prefWrapLength="1100.0"
+                          style="-fx-background-color: #ffffff;" vgap="24.0"/>
 
-                    <VBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
-                        <padding>
-                            <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                        </padding>
-                        <StackPane prefHeight="220.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="194.0" fitWidth="126.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/don quijote.jpg" />
-                                </image>
-                            </ImageView>
-                        </StackPane>
-                        <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Don Quijote" textFill="#0f172a" wrapText="true" />
-                        <Label style="-fx-font-size: 13px;" text="Miguel de Cervantes" textFill="#64748b" />
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 132.000" textFill="#7c3aed" />
-                        <Button maxWidth="Infinity" style="-fx-background-color: #10b981; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                    </VBox>
-
-                    <VBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
-                        <padding>
-                            <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                        </padding>
-                        <StackPane prefHeight="220.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/metamorfosis.jpg" />
-                                </image>
-                            </ImageView>
-                        </StackPane>
-                        <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Metamorphosis" textFill="#0f172a" />
-                        <Label style="-fx-font-size: 13px;" text="Franz Kafka" textFill="#64748b" />
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 289.900" textFill="#7c3aed" />
-                        <Button maxWidth="Infinity" style="-fx-background-color: #f59e0b; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                    </VBox>
-
-                    <VBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
-                        <padding>
-                            <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                        </padding>
-                        <StackPane prefHeight="220.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/el-principito.jpg" />
-                                </image>
-                            </ImageView>
-                        </StackPane>
-                        <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="El Principito" textFill="#0f172a" />
-                        <Label style="-fx-font-size: 13px;" text="Antoine de Saint-Exupéry" textFill="#64748b" />
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 79.900" textFill="#7c3aed" />
-                        <Button maxWidth="Infinity" style="-fx-background-color: #7c3aed; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                    </VBox>
-
-                    <VBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
-                        <padding>
-                            <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                        </padding>
-                        <StackPane prefHeight="220.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/berserk.jpg" />
-                                </image>
-                            </ImageView>
-                        </StackPane>
-                        <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Berserk" textFill="#0f172a" />
-                        <Label style="-fx-font-size: 13px;" text="Kentaro Miura" textFill="#64748b" />
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 99.900" textFill="#7c3aed" />
-                        <Button maxWidth="Infinity" style="-fx-background-color: #ec4899; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                    </VBox>
-
-                </FlowPane>
             </VBox>
         </ScrollPane>
     </center>

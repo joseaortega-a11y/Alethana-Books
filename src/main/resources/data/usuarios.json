@@ -26,5 +26,12 @@
     "correo": "askjhsah@",
     "contrasena": "23",
     "rol": "USUARIO"
+  },
+  {
+    "id": "7a08ae60-0d74-4f24-9992-09153a04b5c0",
+    "nombre": "Joseph",
+    "correo": "kjashfdkh",
+    "contrasena": "1234",
+    "rol": "USUARIO"
   }
 ]
