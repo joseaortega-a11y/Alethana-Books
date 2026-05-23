@@ -1,9 +1,8 @@
 package com.alethanabooks.controlador;
 
-import com.alethanabooks.factory.LibroFactory;
 import com.alethanabooks.modelo.Libro;
 import com.alethanabooks.service.CatalogoService;
-import javafx.collections.FXCollections;
+import com.alethanabooks.Util.ImagenUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -15,66 +14,35 @@ import javafx.scene.paint.Color;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 public class MasVendidosController implements Initializable {
 
-    @FXML private TextField txtTitulo;
-    @FXML private TextField txtAutor;
-    @FXML private ComboBox<String> cmbCategoria;
-    @FXML private TextField txtPrecio;
-    @FXML private TextField txtStock;
     @FXML private VBox listaLibros;
 
     private final CatalogoService catalogoService = new CatalogoService();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cmbCategoria.setItems(FXCollections.observableArrayList(AdminController.CATEGORIAS));
-        cmbCategoria.setPromptText("Seleccionar categoría");
         cargarLibros();
-    }
-
-    @FXML
-    private void onAgregar() {
-        try {
-            String titulo = txtTitulo.getText().trim();
-            String autor = txtAutor.getText().trim();
-            String categoria = cmbCategoria.getValue();
-            String precioStr = txtPrecio.getText().trim();
-            String stockStr = txtStock.getText().trim();
-
-            if (titulo.isEmpty() || autor.isEmpty() || categoria == null) {
-                mostrarAlerta("Error", "Todos los campos son obligatorios.");
-                return;
-            }
-
-            double precio = Double.parseDouble(precioStr);
-            int stock = Integer.parseInt(stockStr);
-
-            Libro nuevo = LibroFactory.crearLibro(
-                    LibroFactory.TipoLibro.FISICO,
-                    UUID.randomUUID().toString(),
-                    titulo, autor, categoria, precio, stock, ""
-            );
-
-            catalogoService.agregar(nuevo);
-            cargarLibros();
-            limpiarCampos();
-
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "Precio y stock deben ser números válidos.");
-        }
     }
 
     private void cargarLibros() {
         listaLibros.getChildren().clear();
         List<Libro> libros = catalogoService.obtenerTodos();
-        String[] colores = {"#f59e0b", "#94a3b8", "#cd7c3e", "#10b981", "#7c3aed"};
+        String[] colores = {"#f59e0b", "#94a3b8", "#b45309", "#10b981", "#7c3aed",
+                "#ec4899", "#3b82f6", "#0ea574", "#ef4444", "#6366f1"};
+
+        if (libros.isEmpty()) {
+            Label lbl = new Label("No hay libros en el catálogo aún.");
+            lbl.setStyle("-fx-font-size: 15px;");
+            lbl.setTextFill(Color.web("#94a3b8"));
+            listaLibros.getChildren().add(lbl);
+            return;
+        }
 
         for (int i = 0; i < libros.size(); i++) {
-            String color = colores[Math.min(i, colores.length - 1)];
-            listaLibros.getChildren().add(crearFilaLibro(libros.get(i), i + 1, color));
+            listaLibros.getChildren().add(
+                    crearFilaLibro(libros.get(i), i + 1, colores[Math.min(i, colores.length - 1)]));
         }
     }
 
@@ -91,12 +59,7 @@ public class MasVendidosController implements Initializable {
         lblNum.setTextFill(Color.web(colorPos));
         lblNum.setPrefWidth(60);
 
-        StackPane imgPane = new StackPane();
-        imgPane.setPrefSize(95, 140);
-        imgPane.setStyle("-fx-background-color: #f8fafc; -fx-background-radius: 10;");
-        Label emoji = new Label("📚");
-        emoji.setStyle("-fx-font-size: 40px;");
-        imgPane.getChildren().add(emoji);
+        StackPane imgPane = ImagenUtil.crearPanelImagen(libro.getImagen(), 95, 140);
 
         VBox info = new VBox(6);
         HBox.setHgrow(info, Priority.ALWAYS);
@@ -131,22 +94,5 @@ public class MasVendidosController implements Initializable {
         acciones.getChildren().addAll(lblPrecio, btnCarrito);
         fila.getChildren().addAll(lblNum, imgPane, info, acciones);
         return fila;
-    }
-
-    private void limpiarCampos() {
-        txtTitulo.clear();
-        txtAutor.clear();
-        cmbCategoria.setValue(null);
-        cmbCategoria.setPromptText("Seleccionar categoría");
-        txtPrecio.clear();
-        txtStock.clear();
-    }
-
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert a = new Alert(Alert.AlertType.ERROR);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(mensaje);
-        a.showAndWait();
     }
 }

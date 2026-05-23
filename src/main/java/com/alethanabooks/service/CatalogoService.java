@@ -23,26 +23,20 @@ public class CatalogoService {
 
     public List<Libro> buscar(String texto) {
         FiltroLibro filtro = libro -> libro.coincideCon(texto);
-        return libroRepository.obtenerTodos()
-                .stream()
-                .filter(filtro::filtrar)
-                .collect(Collectors.toList());
+        return libroRepository.obtenerTodos().stream()
+                .filter(filtro::filtrar).collect(Collectors.toList());
     }
 
     public List<Libro> filtrarPorCategoria(String categoria) {
         FiltroLibro filtro = libro -> libro.getCategoria().equalsIgnoreCase(categoria);
-        return libroRepository.obtenerTodos()
-                .stream()
-                .filter(filtro::filtrar)
-                .collect(Collectors.toList());
+        return libroRepository.obtenerTodos().stream()
+                .filter(filtro::filtrar).collect(Collectors.toList());
     }
 
     public List<Libro> obtenerRecomendadosAleatorios(int limite) {
         List<Libro> libros = new ArrayList<>(libroRepository.obtenerTodos());
         Collections.shuffle(libros);
-        return libros.stream()
-                .limit(limite)
-                .collect(Collectors.toList());
+        return libros.stream().limit(limite).collect(Collectors.toList());
     }
 
     public void agregar(Libro libro) {
@@ -51,5 +45,9 @@ public class CatalogoService {
 
     public void eliminar(String id) {
         libroRepository.eliminar(id);
+    }
+
+    public void actualizar(Libro libro) {
+        libroRepository.actualizar(libro);
     }
 }

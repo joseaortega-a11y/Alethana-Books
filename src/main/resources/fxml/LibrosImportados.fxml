@@ -1,91 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="760.0" prefWidth="1280.0"
-            style="-fx-background-color: #ffffff;"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.alethanabooks.controlador.LibrosImportadosController">
+<BorderPane prefHeight="760.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alethanabooks.controlador.LibrosImportadosController">
 
     <top><fx:include source="header.fxml" /></top>
 
     <center>
-        <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
-                    style="-fx-background-color: #ffffff; -fx-background: #ffffff;">
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff; -fx-background: #ffffff;">
             <VBox spacing="28.0" style="-fx-background-color: #ffffff;">
-                <padding><Insets bottom="40" left="40" right="40" top="28"/></padding>
+                <padding><Insets bottom="40" left="40" right="40" top="28" /></padding>
 
                 <HBox alignment="CENTER_LEFT" spacing="16.0">
                     <VBox spacing="6.0" HBox.hgrow="ALWAYS">
-                        <Label text="Libros importados para ti"
-                               style="-fx-font-size: 32px; -fx-font-weight: 900;" textFill="#0f172a" />
-                        <Label text="Ediciones internacionales seleccionadas especialmente para nuestros lectores."
-                               style="-fx-font-size: 16px;" textFill="#64748b" />
+                        <Label style="-fx-font-size: 32px; -fx-font-weight: 900;" text="Libros importados para ti" textFill="#0f172a" />
+                        <Label style="-fx-font-size: 16px;" text="Ediciones internacionales seleccionadas especialmente para nuestros lectores." textFill="#64748b" />
                     </VBox>
-                    <Label text="📦 Envío internacional disponible"
-                           style="-fx-background-color: #ede9fe; -fx-background-radius: 10;
-                                  -fx-font-size: 13px; -fx-font-weight: 700; -fx-padding: 10 20;"
-                           textFill="#7c3aed"/>
                 </HBox>
 
-                <!-- Panel agregar -->
-                <VBox spacing="14.0"
-                      style="-fx-background-color: white; -fx-background-radius: 14;
-                             -fx-border-color: #e5e7eb; -fx-border-radius: 14;
-                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
-                    <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
-                    <Label text="Agregar libro importado"
-                           style="-fx-font-size: 17px; -fx-font-weight: 900;" textFill="#0f172a"/>
-                    <HBox spacing="10.0">
-                        <TextField fx:id="txtTitulo" promptText="Título del libro" HBox.hgrow="ALWAYS"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-                        <TextField fx:id="txtAutor" promptText="Autor" HBox.hgrow="ALWAYS"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-                        <ComboBox fx:id="cmbCategoria" promptText="Categoría"
-                                  HBox.hgrow="ALWAYS" maxWidth="Infinity"
-                                  style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                         -fx-border-radius: 8; -fx-font-size: 13px;" />
-                        <TextField fx:id="txtPrecio" promptText="Precio (COP)" prefWidth="130"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-                        <TextField fx:id="txtStock" promptText="Stock" prefWidth="80"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-                        <Button text="+ Agregar" onAction="#onAgregar" textFill="white"
-                                style="-fx-background-color: #7c3aed; -fx-background-radius: 8;
-                                       -fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 9 20;" />
-                    </HBox>
-                </VBox>
-
                 <!-- Banner -->
-                <StackPane prefHeight="160.0"
-                           style="-fx-background-color: linear-gradient(to right, #0f172a, #1e293b);
-                                  -fx-background-radius: 18;">
-                    <HBox alignment="CENTER_LEFT" spacing="40.0">
-                        <padding><Insets bottom="28" left="36" right="36" top="28"/></padding>
+                <StackPane prefHeight="160.0" style="-fx-background-color: linear-gradient(to right, #5b8cff, #1e293b); -fx-background-radius: 18;">
+                    <HBox alignment="CENTER_LEFT" prefHeight="135.0" prefWidth="1198.0" spacing="40.0">
+                        <padding><Insets bottom="28" left="36" right="36" top="28" /></padding>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
-                            <Label text="Colección Internacional 2026"
-                                   style="-fx-font-size: 26px; -fx-font-weight: 900;" textFill="white"/>
-                            <Label text="Más de 200 títulos importados directamente de Europa y Norteamérica"
-                                   style="-fx-font-size: 15px;" textFill="#94a3b8" wrapText="true"/>
+                            <Label style="-fx-font-size: 26px; -fx-font-weight: 900;" text="Colección Internacional 2026" textFill="white" />
+                            <Label style="-fx-font-size: 15px;" text="Más de 200 títulos importados directamente de Europa y Norteamérica" textFill="#f0fff6"
+                                   wrapText="true" />
                         </VBox>
-                        <Label text="Hasta 25% OFF"
-                               style="-fx-background-color: #f59e0b; -fx-background-radius: 12;
-                                      -fx-font-size: 20px; -fx-font-weight: 900; -fx-padding: 14 26;"
-                               textFill="white"/>
+                        <Label style="-fx-background-color: #f59e0b; -fx-background-radius: 12;  -fx-font-size: 20px; -fx-font-weight: 900; -fx-padding: 14 26;" text="Hasta 25% OFF" textFill="white" />
                     </HBox>
                 </StackPane>
 
-                <Label text="Selección destacada"
-                       style="-fx-font-size: 22px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                <Label style="-fx-font-size: 22px; -fx-font-weight: 900;" text="Selección destacada" textFill="#0f172a" />
 
-                <FlowPane fx:id="flowLibros" hgap="22.0" vgap="24.0"
-                          prefWrapLength="1200.0" style="-fx-background-color: transparent;"/>
+                <FlowPane fx:id="flowLibros" hgap="22.0" prefWrapLength="1200.0" style="-fx-background-color: transparent;" vgap="24.0" />
             </VBox>
         </ScrollPane>
     </center>

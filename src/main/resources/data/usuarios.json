@@ -89,5 +89,96 @@
     "correo": "kajshd",
     "contrasena": "123456",
     "rol": "USUARIO"
+  },
+  {
+    "id": "0061206a-b7c9-481f-b40a-c000c7116cfc",
+    "nombre": "asjdasdh",
+    "correo": "lajsdhashd",
+    "contrasena": "2374",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "ed8e7668-5b67-4559-9248-8d0be54bc309",
+    "nombre": "Jose Ortega",
+    "correo": "cf2393847@gmail.com",
+    "contrasena": "09876",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "473f43eb-8d60-4663-a2f3-322c005bc7ca",
+    "nombre": "kJS",
+    "correo": "jHGAS",
+    "contrasena": "13444",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "a81de96b-b6ee-45cd-a280-2f0fd0a99e7a",
+    "nombre": "ajshgdsd",
+    "correo": "kGSDKd",
+    "contrasena": "21365",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "cacc6a40-621a-486f-b4ec-7d904fbb7bee",
+    "nombre": "ALDFJASL",
+    "correo": "KAJHDK",
+    "contrasena": "ALDJKAS",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "37d3331d-8f5a-41c8-b3c3-e74a894efa1f",
+    "nombre": "ajklhdash",
+    "correo": "kjashda",
+    "contrasena": "981273",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "6eb041e2-5182-43ea-8160-e3052c4d15d7",
+    "nombre": "khsagdjasg",
+    "correo": "adjhbasd@.com",
+    "contrasena": "w876132",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "cb739495-ab30-4abc-9fe0-9ee6c2b4abbb",
+    "nombre": "KJASD",
+    "correo": "kjHKSHKD@.COM",
+    "contrasena": "KSJAD",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "4157f58e-203e-463f-8e07-274903d58b38",
+    "nombre": "ajsdh",
+    "correo": "kajsd",
+    "contrasena": "ajskd",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "a27c0f02-011b-4c49-8b8c-4fbfb804e747",
+    "nombre": "0128",
+    "correo": "kajhdskh",
+    "contrasena": "kjadshk",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "4349b224-707f-41b2-ada8-3a76f2486f11",
+    "nombre": "ljads",
+    "correo": "alkjsd",
+    "contrasena": "aslkjd",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "fcaf626f-7f7f-4711-b8af-7a6eaa219826",
+    "nombre": "akjd",
+    "correo": "askjda",
+    "contrasena": "jashd",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "c8f7d8cd-d2cb-409d-a908-3d7db61f897d",
+    "nombre": "qwjd",
+    "correo": "alkjsdh@.com",
+    "contrasena": "1234",
+    "rol": "USUARIO"
   }
 ]

@@ -6,7 +6,7 @@
 
 <BorderPane prefHeight="760.0" prefWidth="1280.0"
             style="-fx-background-color: #ffffff;"
-            xmlns="http://javafx.com/javafx/25"
+            xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.alethanabooks.controlador.librosReControlador">
 
@@ -23,7 +23,7 @@
                         <Label style="-fx-font-size: 32px; -fx-font-weight: 900;"
                                text="Libros recomendados para ti" textFill="#0f172a" />
                         <Label style="-fx-font-size: 16px;"
-                               text="Una selección especial de libros que podrían interesarte."
+                               text="Una selección especial generada aleatoriamente para ti."
                                textFill="#64748b" />
                     </VBox>
                     <Button style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D);
@@ -33,39 +33,7 @@
                             onAction="#onGenerarRecomendacion"/>
                 </HBox>
 
-                <!-- Panel agregar -->
-                <VBox spacing="14.0"
-                      style="-fx-background-color: white; -fx-background-radius: 14;
-                             -fx-border-color: #e5e7eb; -fx-border-radius: 14;
-                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);">
-                    <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
-                    <Label text="Agregar libro recomendado"
-                           style="-fx-font-size: 17px; -fx-font-weight: 900;" textFill="#0f172a"/>
-                    <HBox spacing="10.0">
-                        <TextField fx:id="txtTitulo" promptText="Título del libro" HBox.hgrow="ALWAYS"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-                        <TextField fx:id="txtAutor" promptText="Autor" HBox.hgrow="ALWAYS"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-                        <ComboBox fx:id="cmbCategoria" promptText="Categoría"
-                                  HBox.hgrow="ALWAYS" maxWidth="Infinity"
-                                  style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                         -fx-border-radius: 8; -fx-font-size: 13px;" />
-                        <TextField fx:id="txtPrecio" promptText="Precio (COP)" prefWidth="130"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-                        <TextField fx:id="txtStock" promptText="Stock" prefWidth="80"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
-                        <Button text="+ Agregar" onAction="#onAgregar" textFill="white"
-                                style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D);
-                                       -fx-background-radius: 8; -fx-font-weight: 800;
-                                       -fx-font-size: 13px; -fx-padding: 9 20;" />
-                    </HBox>
-                </VBox>
-
-                <Label text="Libros disponibles"
+                <Label text="Tu selección de hoy"
                        style="-fx-font-size: 22px; -fx-font-weight: 900;" textFill="#0f172a"/>
 
                 <FlowPane fx:id="flowLibros" hgap="22.0" prefWrapLength="1100.0"

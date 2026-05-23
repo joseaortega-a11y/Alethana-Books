@@ -1,20 +1,20 @@
-package com.alethanabooks.util;
+package com.alethanabooks.Util;
 
-import com.alethanabooks.persistence.RutasDatos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Label;
 
-import java.io.File;
+import java.io.InputStream;
 
 public class ImagenUtil {
 
     private ImagenUtil() {}
 
     /**
-     * Devuelve un StackPane con la imagen del libro si existe,
-     * o un emoji 📚 como fallback si no hay imagen.
+     * Busca la imagen SOLO en el classpath (resources/imagenes/).
+     * Así funciona tanto en dev como en el JAR empaquetado.
+     * Fallback: emoji 📚
      */
     public static StackPane crearPanelImagen(String nombreImagen, double ancho, double alto) {
         StackPane pane = new StackPane();
@@ -22,9 +22,9 @@ public class ImagenUtil {
         pane.setStyle("-fx-background-color: #f8fafc; -fx-background-radius: 10;");
 
         if (nombreImagen != null && !nombreImagen.isBlank()) {
-            File archivo = new File(RutasDatos.CARPETA_IMAGENES + nombreImagen);
-            if (archivo.exists()) {
-                ImageView iv = new ImageView(new Image(archivo.toURI().toString()));
+            InputStream stream = ImagenUtil.class.getResourceAsStream("/imagenes/" + nombreImagen);
+            if (stream != null) {
+                ImageView iv = new ImageView(new Image(stream));
                 iv.setFitWidth(ancho - 8);
                 iv.setFitHeight(alto - 8);
                 iv.setPreserveRatio(true);
@@ -33,10 +33,27 @@ public class ImagenUtil {
             }
         }
 
-        // Fallback: emoji
-        Label emoji = new Label("Sin imagen");
-        emoji.setStyle("-fx-font-size: " + (alto / 4) + "px;");
+        Label emoji = new Label("📚");
+        emoji.setStyle("-fx-font-size: " + (int)(alto / 4) + "px;");
         pane.getChildren().add(emoji);
         return pane;
+    }
+
+    /**
+     * Versión que devuelve solo el ImageView (para el banner).
+     */
+    public static ImageView crearImageView(String nombreImagen, double ancho, double alto) {
+        ImageView iv = new ImageView();
+        iv.setFitWidth(ancho);
+        iv.setFitHeight(alto);
+        iv.setPreserveRatio(true);
+
+        if (nombreImagen != null && !nombreImagen.isBlank()) {
+            InputStream stream = ImagenUtil.class.getResourceAsStream("/imagenes/" + nombreImagen);
+            if (stream != null) {
+                iv.setImage(new Image(stream));
+            }
+        }
+        return iv;
     }
 }

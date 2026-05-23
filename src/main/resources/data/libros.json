@@ -6,7 +6,7 @@
     "categoria": "Literatura juvenil",
     "precio": 50000.0,
     "stock": 6,
-    "imagen": ""
+    "imagen": "don quijote.jpg"
   },
   {
     "id": "4456371e-bfb3-471a-bcb0-00df13723940",
@@ -15,11 +15,9 @@
     "categoria": "Filosofia",
     "precio": 70000.0,
     "stock": 15,
-    "imagen": ""
+    "imagen": "metamorfosis.jpg"
   },
   {
-    "peso": 0.4,
-    "ubicacionBodega": "Bodega A",
     "id": "a7ca046e-c2cc-4b56-9d74-400a3b3325f0",
     "titulo": "El arte del Berserk",
     "autor": "Yamamoto",
@@ -27,5 +25,14 @@
     "precio": 60000.0,
     "stock": 20,
     "imagen": "berserk.jpg"
+  },
+  {
+    "id": "7987b8be-66fc-4f23-b7a5-7700fecf2efc",
+    "titulo": "El principito",
+    "autor": "Antoine de Saint-Exupéry",
+    "categoria": "Biografias y literatura",
+    "precio": 50000.0,
+    "stock": 50,
+    "imagen": "el-principito.jpg"
   }
 ]

@@ -1,8 +1,8 @@
 package com.alethanabooks.controlador;
 
 import com.alethanabooks.modelo.Libro;
-import com.alethanabooks.persistence.RutasDatos;
 import com.alethanabooks.service.CatalogoService;
+import com.alethanabooks.Util.ImagenUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -10,11 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import com.alethanabooks.util.ImagenUtil;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,15 +18,14 @@ import java.util.ResourceBundle;
 public class InicioController implements Initializable {
 
     @FXML private FlowPane gridLibros;
-    @FXML private VBox sidebarCategorias;
-    @FXML private HBox bannerPortadas;
-    @FXML private VBox sidebarNovedad;
+    @FXML private VBox     sidebarCategorias;
+    @FXML private HBox     bannerPortadas;
+    @FXML private VBox     sidebarNovedad;
 
     private final CatalogoService catalogoService = new CatalogoService();
-    private String categoriaActiva = null;
 
-    private static final String[] COLORES_BTN   = {"#7c3aed", "#ec4899", "#10b981", "#f59e0b", "#0ea574"};
-    private static final String[] COLORES_BANNER = {"#1e293b", "#33fdcb", "#be185d", "#7c3aed", "#0ea574"};
+    private static final String[] COLORES_BTN    = {"#7c3aed","#ec4899","#10b981","#f59e0b","#0ea574"};
+    private static final String[] COLORES_BANNER = {"#1e293b","#33fdcb","#be185d","#7c3aed","#0ea574"};
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -43,19 +38,11 @@ public class InicioController implements Initializable {
     private void actualizarBanner() {
         bannerPortadas.getChildren().clear();
         List<Libro> libros = catalogoService.obtenerTodos();
-
-        if (libros.isEmpty()) {
-            Label vacio = new Label("📚\nAún no hay libros");
-            vacio.setStyle("-fx-font-size: 18px; -fx-text-alignment: center;");
-            vacio.setTextFill(Color.WHITE);
-            bannerPortadas.getChildren().add(vacio);
-            return;
-        }
+        if (libros.isEmpty()) return;
 
         int cantidad = Math.min(3, libros.size());
         for (int i = 0; i < cantidad; i++) {
-            String color = COLORES_BANNER[i % COLORES_BANNER.length];
-            bannerPortadas.getChildren().add(crearPortadaBanner(libros.get(i), color));
+            bannerPortadas.getChildren().add(crearPortadaBanner(libros.get(i), COLORES_BANNER[i]));
         }
     }
 
@@ -74,12 +61,8 @@ public class InicioController implements Initializable {
 
         Libro novedad = libros.get(libros.size() - 1);
 
-        StackPane imgPane = new StackPane();
-        imgPane.setPrefHeight(230);
-        imgPane.setStyle("-fx-background-color: #f8fafc; -fx-background-radius: 10;");
-        Label emoji = new Label("📚");
-        emoji.setStyle("-fx-font-size: 64px;");
-        imgPane.getChildren().add(emoji);
+        // Imagen con ImagenUtil
+        StackPane imgPane = ImagenUtil.crearPanelImagen(novedad.getImagen(), 200, 230);
 
         Label lblTitulo = new Label(novedad.getTitulo());
         lblTitulo.setStyle("-fx-font-size: 20px; -fx-font-weight: 900;");
@@ -114,10 +97,7 @@ public class InicioController implements Initializable {
         btnTodas.setAlignment(Pos.CENTER_LEFT);
         btnTodas.setStyle(estiloCategoria(true));
         btnTodas.setOnAction(e -> {
-            categoriaActiva = null;
-            sidebarCategorias.getChildren().forEach(n -> {
-                if (n instanceof Button b) b.setStyle(estiloCategoria(false));
-            });
+            sidebarCategorias.getChildren().forEach(n -> { if (n instanceof Button b) b.setStyle(estiloCategoria(false)); });
             btnTodas.setStyle(estiloCategoria(true));
             cargarLibros(null);
         });
@@ -128,18 +108,13 @@ public class InicioController implements Initializable {
             btnCat.setMaxWidth(Double.MAX_VALUE);
             btnCat.setAlignment(Pos.CENTER_LEFT);
             btnCat.setStyle(estiloCategoria(false));
-            btnCat.setOnAction(e -> seleccionarCategoria(btnCat, cat));
+            btnCat.setOnAction(e -> {
+                sidebarCategorias.getChildren().forEach(n -> { if (n instanceof Button b) b.setStyle(estiloCategoria(false)); });
+                btnCat.setStyle(estiloCategoria(true));
+                cargarLibros(cat);
+            });
             sidebarCategorias.getChildren().add(btnCat);
         }
-    }
-
-    private void seleccionarCategoria(Button clickado, String categoria) {
-        categoriaActiva = categoria;
-        sidebarCategorias.getChildren().forEach(n -> {
-            if (n instanceof Button b) b.setStyle(estiloCategoria(false));
-        });
-        clickado.setStyle(estiloCategoria(true));
-        cargarLibros(categoria);
     }
 
     private void cargarLibros(String categoria) {
@@ -149,42 +124,26 @@ public class InicioController implements Initializable {
                 : catalogoService.filtrarPorCategoria(categoria);
 
         if (libros.isEmpty()) {
-            Label lbl = new Label(categoria == null
-                    ? "El catálogo está vacío."
-                    : "No hay libros en la categoría \"" + categoria + "\".");
+            Label lbl = new Label("No hay libros disponibles.");
             lbl.setStyle("-fx-font-size: 15px;");
             lbl.setTextFill(Color.web("#94a3b8"));
-            lbl.setWrapText(true);
             gridLibros.getChildren().add(lbl);
             return;
         }
 
         for (int i = 0; i < libros.size(); i++) {
-            String colorBtn = COLORES_BTN[i % COLORES_BTN.length];
-            gridLibros.getChildren().add(crearTarjeta(libros.get(i), colorBtn));
+            gridLibros.getChildren().add(crearTarjeta(libros.get(i), COLORES_BTN[i % COLORES_BTN.length]));
         }
     }
+
     private StackPane crearPortadaBanner(Libro libro, String colorFondo) {
         StackPane pane = new StackPane();
         pane.setPrefSize(130, 210);
         pane.setStyle("-fx-background-color: " + colorFondo + "; -fx-background-radius: 10;");
 
-        // Imagen si existe, sino emoji
-        String img = libro.getImagen();
-        if (img != null && !img.isBlank()) {
-            File archivo = new File(RutasDatos.CARPETA_IMAGENES + img);
-            if (archivo.exists()) {
-                ImageView iv = new ImageView(new Image(archivo.toURI().toString()));
-                iv.setFitWidth(122);
-                iv.setFitHeight(210);
-                iv.setPreserveRatio(true);
-                pane.getChildren().add(iv);
-            }
-        } else {
-            Label emoji = new Label("📚");
-            emoji.setStyle("-fx-font-size: 48px;");
-            pane.getChildren().add(emoji);
-        }
+        StackPane imgPane = ImagenUtil.crearPanelImagen(libro.getImagen(), 122, 210);
+        imgPane.setStyle(""); // quitar estilo propio para que el fondo del StackPane padre se vea
+        pane.getChildren().add(imgPane);
 
         Label titulo = new Label(libro.getTitulo());
         titulo.setStyle("-fx-font-size: 11px; -fx-font-weight: 800; -fx-text-alignment: center;");
@@ -194,7 +153,6 @@ public class InicioController implements Initializable {
         titulo.setPadding(new Insets(0, 4, 8, 4));
         StackPane.setAlignment(titulo, Pos.BOTTOM_CENTER);
         pane.getChildren().add(titulo);
-
         return pane;
     }
 
@@ -205,7 +163,6 @@ public class InicioController implements Initializable {
                 "-fx-border-color: #e5e7eb; -fx-border-radius: 14;");
         card.setPadding(new Insets(18));
 
-        // Usar ImagenUtil para manejar imagen o fallback
         StackPane imgPane = ImagenUtil.crearPanelImagen(libro.getImagen(), 154, 210);
 
         Label lblTitulo = new Label(libro.getTitulo());
@@ -236,15 +193,11 @@ public class InicioController implements Initializable {
         return card;
     }
 
-
     private String estiloCategoria(boolean activo) {
-        if (activo) {
-            return "-fx-background-color: #ede9fe; -fx-background-radius: 8; " +
-                    "-fx-font-size: 15px; -fx-font-weight: 800; " +
-                    "-fx-text-fill: #7c3aed; -fx-border-color: transparent; -fx-padding: 6 10;";
-        }
-        return "-fx-background-color: transparent; -fx-background-radius: 8; " +
-                "-fx-font-size: 15px; -fx-font-weight: 400; " +
-                "-fx-text-fill: #334155; -fx-border-color: transparent; -fx-padding: 6 10;";
+        return activo
+                ? "-fx-background-color: #ede9fe; -fx-background-radius: 8; -fx-font-size: 15px; " +
+                "-fx-font-weight: 800; -fx-text-fill: #7c3aed; -fx-border-color: transparent; -fx-padding: 6 10;"
+                : "-fx-background-color: transparent; -fx-background-radius: 8; -fx-font-size: 15px; " +
+                "-fx-font-weight: 400; -fx-text-fill: #334155; -fx-border-color: transparent; -fx-padding: 6 10;";
     }
 }
