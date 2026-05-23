@@ -2,10 +2,13 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="762.0" prefWidth="1280.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="762.0" prefWidth="1280.0"
+            style="-fx-background-color: #ffffff;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.alethanabooks.controlador.InicioController">
 
     <top>
         <fx:include source="header.fxml" />
@@ -15,191 +18,105 @@
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #ffffff;">
             <HBox style="-fx-background-color: #ffffff;">
 
-                <VBox maxWidth="210.0" minWidth="190.0" prefWidth="200.0" spacing="18.0" style="-fx-background-color: #ffffff; -fx-border-color: transparent #e5e7eb transparent transparent;">
+                <!-- ══════  SIDEBAR CATEGORÍAS  ══════ -->
+                <VBox fx:id="sidebarCategorias"
+                      maxWidth="210.0" minWidth="190.0" prefWidth="200.0" spacing="6.0"
+                      style="-fx-background-color: #ffffff; -fx-border-color: transparent #e5e7eb transparent transparent;">
                     <padding>
-                        <Insets bottom="30.0" left="18.0" right="14.0" top="26.0" />
+                        <Insets bottom="30.0" left="14.0" right="14.0" top="26.0" />
                     </padding>
-
-                    <Label style="-fx-font-size: 23px; -fx-font-weight: 900;" text="Categorias" textFill="#0f172a" />
-                    <Label style="-fx-font-size: 16px;" text="Artes" textFill="#334155" />
-                    <Label style="-fx-font-size: 16px;" text="Biografias y literatura" textFill="#334155" wrapText="true" />
-                    <Label style="-fx-font-size: 16px;" text="Ciencia" textFill="#334155" />
-                    <Label style="-fx-font-size: 16px;" text="Tecnologia" textFill="#334155" />
-                    <Label style="-fx-font-size: 16px;" text="Negocios y finanzas" textFill="#334155" wrapText="true" />
-                    <Label style="-fx-font-size: 16px;" text="Ficcion" textFill="#334155" />
-                    <Label style="-fx-font-size: 16px;" text="Filosofia" textFill="#334155" />
-                    <Label style="-fx-font-size: 16px;" text="Historia" textFill="#334155" />
-                    <Label style="-fx-font-size: 16px;" text="Literatura juvenil" textFill="#334155" />
+                    <Label style="-fx-font-size: 23px; -fx-font-weight: 900;"
+                           text="Categorias" textFill="#0f172a" />
                 </VBox>
 
+                <!-- ══════  CONTENIDO CENTRAL  ══════ -->
                 <VBox spacing="24.0" style="-fx-background-color: #ffffff;" HBox.hgrow="ALWAYS">
                     <padding>
                         <Insets bottom="40.0" left="24.0" right="24.0" top="28.0" />
                     </padding>
 
-                    <StackPane prefHeight="300.0" style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899); -fx-background-radius: 16;">
+                    <!-- Banner hero -->
+                    <StackPane prefHeight="300.0"
+                               style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899); -fx-background-radius: 16;">
                         <HBox alignment="CENTER" spacing="38.0">
                             <VBox alignment="CENTER_LEFT" spacing="14.0">
-                                <Label style="-fx-font-size: 44px; -fx-font-weight: 900;" text="Cyber Days" textFill="#10b981" />
+                                <Label style="-fx-font-size: 44px; -fx-font-weight: 900;"
+                                       text="Cyber Days" textFill="#10b981" />
                                 <VBox spacing="-6.0">
-                                    <Label style="-fx-font-size: 52px; -fx-font-weight: 900;" text="Hasta 70%" textFill="white" />
-                                    <Label style="-fx-font-size: 52px; -fx-font-weight: 900;" text="OFF" textFill="white" />
+                                    <Label style="-fx-font-size: 52px; -fx-font-weight: 900;"
+                                           text="Hasta 70%" textFill="white" />
+                                    <Label style="-fx-font-size: 52px; -fx-font-weight: 900;"
+                                           text="OFF" textFill="white" />
                                 </VBox>
-                                <Button prefHeight="50.0" prefWidth="152.0" style="-fx-background-color: white; -fx-background-radius: 11; -fx-font-size: 18px; -fx-font-weight: 800;" text="Ver mas" textFill="#7c3aed" />
+                                <Button prefHeight="50.0" prefWidth="152.0"
+                                        style="-fx-background-color: white; -fx-background-radius: 11; -fx-font-size: 18px; -fx-font-weight: 800;"
+                                        text="Ver mas" textFill="#7c3aed" />
                             </VBox>
-
-                            <HBox alignment="CENTER" spacing="14.0">
-                                <StackPane prefHeight="210.0" prefWidth="130.0" style="-fx-background-color: #1e293b; -fx-background-radius: 10;">
-                                    <ImageView fitHeight="210.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../imagenes/el-principito.jpg" />
-                                        </image>
-                                    </ImageView>
-                                </StackPane>
-
-                                <StackPane prefHeight="210.0" prefWidth="130.0" style="-fx-background-color: #33fdcb; -fx-background-radius: 10;">
-                                    <ImageView fitHeight="210.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../imagenes/berserk.jpg" />
-                                        </image>
-                                    </ImageView>
-                                </StackPane>
-
-                                <StackPane prefHeight="210.0" prefWidth="130.0" style="-fx-background-color: #be185d; -fx-background-radius: 10;">
-                                    <ImageView fitHeight="210.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../imagenes/la_sombra.jpg" />
-                                        </image>
-                                    </ImageView>
-                                </StackPane>
-                            </HBox>
+                            <!-- Portadas dinámicas -->
+                            <HBox fx:id="bannerPortadas" alignment="CENTER" spacing="14.0" />
                         </HBox>
                     </StackPane>
 
+                    <!-- Banners promocionales -->
                     <HBox spacing="20.0">
-                        <VBox prefHeight="125.0" spacing="10.0" style="-fx-background-color: #6d28d9; -fx-background-radius: 14;" HBox.hgrow="ALWAYS">
-                            <padding>
-                                <Insets bottom="20.0" left="24.0" right="24.0" top="24.0" />
-                            </padding>
-                            <Label style="-fx-font-size: 24px; -fx-font-weight: 900;" text="Mas vendidos 2026" textFill="white" />
-                            <Label style="-fx-font-size: 16px;" text="Descubre los títulos favoritos del año" textFill="white" wrapText="true" />
+                        <VBox prefHeight="125.0" spacing="10.0"
+                              style="-fx-background-color: #6d28d9; -fx-background-radius: 14;" HBox.hgrow="ALWAYS">
+                            <padding><Insets bottom="20.0" left="24.0" right="24.0" top="24.0" /></padding>
+                            <Label style="-fx-font-size: 24px; -fx-font-weight: 900;"
+                                   text="Mas vendidos 2026" textFill="white" />
+                            <Label style="-fx-font-size: 16px;"
+                                   text="Descubre los títulos favoritos del año" textFill="white" wrapText="true" />
                         </VBox>
-
-                        <VBox prefHeight="125.0" spacing="10.0" style="-fx-background-color: #0ea574; -fx-background-radius: 14;" HBox.hgrow="ALWAYS">
-                            <padding>
-                                <Insets bottom="20.0" left="24.0" right="24.0" top="24.0" />
-                            </padding>
-                            <Label style="-fx-font-size: 24px; -fx-font-weight: 900;" text="Envio gratis" textFill="white" />
-                            <Label style="-fx-font-size: 16px;" text="En libros seleccionados" textFill="white" />
+                        <VBox prefHeight="125.0" spacing="10.0"
+                              style="-fx-background-color: #0ea574; -fx-background-radius: 14;" HBox.hgrow="ALWAYS">
+                            <padding><Insets bottom="20.0" left="24.0" right="24.0" top="24.0" /></padding>
+                            <Label style="-fx-font-size: 24px; -fx-font-weight: 900;"
+                                   text="Envio gratis" textFill="white" />
+                            <Label style="-fx-font-size: 16px;"
+                                   text="En libros seleccionados" textFill="white" />
                         </VBox>
-
-                        <VBox prefHeight="125.0" spacing="10.0" style="-fx-background-color: #f59e0b; -fx-background-radius: 14;" HBox.hgrow="ALWAYS">
-                            <padding>
-                                <Insets bottom="20.0" left="24.0" right="24.0" top="24.0" />
-                            </padding>
-                            <Label style="-fx-font-size: 24px; -fx-font-weight: 900;" text="Mega promo" textFill="white" />
-                            <Label style="-fx-font-size: 16px;" text="Hasta 40% de descuento" textFill="white" />
+                        <VBox prefHeight="125.0" spacing="10.0"
+                              style="-fx-background-color: #f59e0b; -fx-background-radius: 14;" HBox.hgrow="ALWAYS">
+                            <padding><Insets bottom="20.0" left="24.0" right="24.0" top="24.0" /></padding>
+                            <Label style="-fx-font-size: 24px; -fx-font-weight: 900;"
+                                   text="Mega promo" textFill="white" />
+                            <Label style="-fx-font-size: 16px;"
+                                   text="Hasta 40% de descuento" textFill="white" />
                         </VBox>
                     </HBox>
 
+                    <!-- Catálogo dinámico -->
                     <VBox spacing="22.0">
                         <HBox alignment="CENTER_LEFT">
-                            <Label style="-fx-font-size: 26px; -fx-font-weight: 900;" text="Libros importados mas vendidos" textFill="#0f172a" />
+                            <Label style="-fx-font-size: 26px; -fx-font-weight: 900;"
+                                   text="Libros importados mas vendidos" textFill="#0f172a" />
                             <Region HBox.hgrow="ALWAYS" />
-                            <Label style="-fx-font-size: 16px;" text="Ver todos &gt;" textFill="#7c3aed" />
+                            <Label style="-fx-font-size: 16px;" text="Ver todos >" textFill="#7c3aed" />
                         </HBox>
-
-                        <GridPane hgap="18.0" vgap="20.0">
-                            <VBox prefWidth="190.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                                <padding>
-                                    <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                                </padding>
-                                <StackPane prefHeight="210.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                                    <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../imagenes/the-art-of-design.jpg" />
-                                        </image>
-                                    </ImageView>
-                                </StackPane>
-                                <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="The Art of Design" textFill="#0f172a" />
-                                <Label style="-fx-font-size: 13px;" text="James Anderson" textFill="#64748b" />
-                                <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 145.900" textFill="#7c3aed" />
-                                <Button maxWidth="Infinity" style="-fx-background-color: #7c3aed; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                            </VBox>
-
-                            <VBox prefWidth="190.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                                <padding>
-                                    <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                                </padding>
-                                <StackPane prefHeight="210.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                                    <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../imagenes/modern.jpg" />
-                                        </image>
-                                    </ImageView>
-                                </StackPane>
-                                <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Modern Philosophy" textFill="#0f172a" />
-                                <Label style="-fx-font-size: 13px;" text="Roger Ariew " textFill="#64748b" />
-                                <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 118.500" textFill="#7c3aed" />
-                                <Button maxWidth="Infinity" style="-fx-background-color: #ec4899; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                            </VBox>
-
-                            <VBox prefWidth="190.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14;" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                                <padding>
-                                    <Insets bottom="18.0" left="18.0" right="18.0" top="18.0" />
-                                </padding>
-                                <StackPane prefHeight="210.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                                    <ImageView fitHeight="210.0" fitWidth="154.0" preserveRatio="true">
-                                        <image>
-                                            <Image url="@../imagenes/don quijote.jpg" />
-                                        </image>
-                                    </ImageView>
-                                </StackPane>
-                                <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Don Quijote de la mancha" textFill="#0f172a" />
-                                <Label style="-fx-font-size: 13px;" text="Miguel de Cervantes" textFill="#64748b" />
-                                <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="COP 132.000" textFill="#7c3aed" />
-                                <Button maxWidth="Infinity" style="-fx-background-color: #10b981; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;" text="Agregar al carrito" textFill="white" />
-                            </VBox>
-
-                            <columnConstraints>
-                                <ColumnConstraints />
-                                <ColumnConstraints />
-                                <ColumnConstraints />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints />
-                            </rowConstraints>
-                        </GridPane>
+                        <FlowPane fx:id="gridLibros"
+                                  hgap="18.0" vgap="20.0"
+                                  prefWrapLength="800.0"
+                                  style="-fx-background-color: transparent;" />
                     </VBox>
                 </VBox>
 
-                <VBox maxWidth="300.0" minWidth="255.0" prefWidth="280.0" spacing="18.0" style="-fx-background-color: #ffffff; -fx-border-color: transparent transparent transparent #e5e7eb;">
+                <!-- ══════  SIDEBAR DERECHO — novedad dinámica  ══════ -->
+                <VBox maxWidth="300.0" minWidth="255.0" prefWidth="280.0" spacing="18.0"
+                      style="-fx-background-color: #ffffff; -fx-border-color: transparent transparent transparent #e5e7eb;">
                     <padding>
                         <Insets bottom="30.0" left="20.0" right="20.0" top="26.0" />
                     </padding>
-
-                    <Label style="-fx-font-size: 23px; -fx-font-weight: 900;" text="Novedades en libros" textFill="#0f172a" />
-
-                    <VBox spacing="16.0" style="-fx-background-color: #fff7fd; -fx-background-radius: 16; -fx-border-color: #eadcf8; -fx-border-radius: 16;">
+                    <Label style="-fx-font-size: 23px; -fx-font-weight: 900;"
+                           text="Novedades en libros" textFill="#0f172a" />
+                    <VBox fx:id="sidebarNovedad" spacing="16.0"
+                          style="-fx-background-color: #fff7fd; -fx-background-radius: 16;
+                                 -fx-border-color: #eadcf8; -fx-border-radius: 16;">
                         <padding>
                             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                         </padding>
-
-                        <StackPane prefHeight="230.0" style="-fx-background-color: #f8fafc; -fx-background-radius: 10;">
-                            <ImageView fitHeight="230.0" fitWidth="180.0" preserveRatio="true">
-                                <image>
-                                    <Image url="@../imagenes/metamorfosis.jpg" />
-                                </image>
-                            </ImageView>
-                        </StackPane>
-
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="Metamorphosis" textFill="#0f172a" wrapText="true" />
-                        <Label style="-fx-font-size: 16px;" text="Franz Kafka" textFill="#64748b" />
-                        <Label style="-fx-font-size: 23px; -fx-font-weight: 900;" text="COP 289.900" textFill="#7c3aed" />
-                        <Label style="-fx-background-color: #f59e0b; -fx-background-radius: 14; -fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 7 18;" text="Edicion de lujo" textFill="white" />
-                        <Button maxWidth="Infinity" style="-fx-background-color: linear-gradient(to right, #ec4899, #7c3aed); -fx-background-radius: 10; -fx-font-size: 16px; -fx-font-weight: 900; -fx-padding: 13;" text="Ver detalles" textFill="white" />
                     </VBox>
                 </VBox>
+
             </HBox>
         </ScrollPane>
     </center>

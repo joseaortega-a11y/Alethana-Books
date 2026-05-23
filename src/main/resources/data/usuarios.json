@@ -33,5 +33,61 @@
     "correo": "kjashfdkh",
     "contrasena": "1234",
     "rol": "USUARIO"
+  },
+  {
+    "id": "98dfa7f6-b74c-4322-878c-8156dcbf61e4",
+    "nombre": "Jose Andres",
+    "correo": "cf2393847@gmail.com",
+    "contrasena": "12345",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "6c1f8741-f906-4f23-a0b2-4dcbd235355b",
+    "nombre": "ksdjf",
+    "correo": "skjdsdd",
+    "contrasena": "1234",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "0f781b9f-d4a3-48cb-bd5c-5ab674246640",
+    "nombre": "1283",
+    "correo": "219873",
+    "contrasena": "12973",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "39e6b98f-2cea-4c00-8fec-307187d5c483",
+    "nombre": "kjhasd",
+    "correo": "987123",
+    "contrasena": "21344",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "dea41862-6287-482f-a9a2-f72530d94f1d",
+    "nombre": "josephhh",
+    "correo": "cf2393847@gmail.com",
+    "contrasena": "1234",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "9e068e5c-9b17-4fc0-8ef2-bf50da2494c4",
+    "nombre": "sldjnad",
+    "correo": "skjdhsd",
+    "contrasena": "12345",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "56f09293-5efc-4891-8acd-6cb66202430f",
+    "nombre": "lkjsdhd",
+    "correo": "sjkdhd",
+    "contrasena": "1234",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "a0faed2b-8fee-4b24-9b2e-90f3f44fe8f6",
+    "nombre": "Josephhhh",
+    "correo": "kajshd",
+    "contrasena": "123456",
+    "rol": "USUARIO"
   }
 ]

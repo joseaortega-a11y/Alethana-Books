@@ -7,7 +7,7 @@
 
 <BorderPane prefHeight="700.0" prefWidth="960.0"
             style="-fx-background-color: #f8fafc;"
-            xmlns="http://javafx.com/javafx/25"
+            xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.alethanabooks.controlador.AdminController">
 
@@ -37,6 +37,7 @@
                    style="-fx-font-size: 17px; -fx-font-weight: 900;"
                    textFill="#0f172a"/>
 
+            <!-- Fila 1: datos del libro -->
             <HBox spacing="10.0">
                <TextField fx:id="txtTitulo" promptText="Título del libro" HBox.hgrow="ALWAYS"
                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
@@ -54,6 +55,20 @@
                <TextField fx:id="txtStock" promptText="Stock" prefWidth="80"
                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
                                  -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+            </HBox>
+
+            <!-- Fila 2: imagen y botón agregar -->
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+               <Button text="📁 Seleccionar imagen"
+                       onAction="#onSeleccionarImagen"
+                       style="-fx-background-color: #f1f5f9; -fx-background-radius: 8;
+                              -fx-border-color: #e5e7eb; -fx-border-radius: 8;
+                              -fx-font-size: 13px; -fx-padding: 9 16;" />
+               <Label fx:id="lblRutaImagen"
+                      text="Sin imagen seleccionada"
+                      style="-fx-font-size: 12px;"
+                      textFill="#94a3b8"
+                      HBox.hgrow="ALWAYS" />
                <Button fx:id="btnAgregar" text="+ Agregar" onAction="#onAgregar"
                        textFill="white"
                        style="-fx-background-color: #7c3aed; -fx-background-radius: 8;
@@ -85,11 +100,12 @@
                        style="-fx-background-radius: 10; -fx-border-color: #f1f5f9; -fx-border-radius: 10;">
                <columns>
                   <TableColumn fx:id="colId"        text="ID"       prefWidth="90"  />
-                  <TableColumn fx:id="colTitulo"    text="Título"    prefWidth="220" />
-                  <TableColumn fx:id="colAutor"     text="Autor"     prefWidth="170" />
-                  <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="130" />
-                  <TableColumn fx:id="colPrecio"    text="Precio"    prefWidth="110" />
-                  <TableColumn fx:id="colStock"     text="Stock"     prefWidth="70"  />
+                  <TableColumn fx:id="colTitulo"    text="Título"    prefWidth="200" />
+                  <TableColumn fx:id="colAutor"     text="Autor"     prefWidth="160" />
+                  <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="120" />
+                  <TableColumn fx:id="colPrecio"    text="Precio"    prefWidth="100" />
+                  <TableColumn fx:id="colStock"     text="Stock"     prefWidth="60"  />
+                  <TableColumn fx:id="colImagen"    text="Imagen"    prefWidth="160" />
                </columns>
                <placeholder>
                   <Label text="No hay libros registrados."

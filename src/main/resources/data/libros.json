@@ -1,7 +1,5 @@
 [
   {
-    "peso": 0.4,
-    "ubicacionBodega": "Bodega A",
     "id": "e16599df-20a3-45ca-a820-cffe3a618bb6",
     "titulo": "Don quijote",
     "autor": "Miguel de cervantes",
@@ -9,5 +7,25 @@
     "precio": 50000.0,
     "stock": 6,
     "imagen": ""
+  },
+  {
+    "id": "4456371e-bfb3-471a-bcb0-00df13723940",
+    "titulo": "Methamorphosis",
+    "autor": "Franz Kafka",
+    "categoria": "Filosofia",
+    "precio": 70000.0,
+    "stock": 15,
+    "imagen": ""
+  },
+  {
+    "peso": 0.4,
+    "ubicacionBodega": "Bodega A",
+    "id": "a7ca046e-c2cc-4b56-9d74-400a3b3325f0",
+    "titulo": "El arte del Berserk",
+    "autor": "Yamamoto",
+    "categoria": "Literatura juvenil",
+    "precio": 60000.0,
+    "stock": 20,
+    "imagen": "berserk.jpg"
   }
 ]
