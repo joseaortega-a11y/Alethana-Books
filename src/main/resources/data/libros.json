@@ -34,5 +34,25 @@
     "precio": 50000.0,
     "stock": 50,
     "imagen": "el-principito.jpg"
+  },
+  {
+    "id": "87b7df19-0552-4436-9e7a-0d0feec0b8b4",
+    "titulo": "The art if Design",
+    "autor": "Tomas de Bruyne",
+    "categoria": "Artes",
+    "precio": 120000.0,
+    "stock": 23,
+    "imagen": "the-art-of-design.jpg"
+  },
+  {
+    "peso": 0.4,
+    "ubicacionBodega": "Bodega A",
+    "id": "9f258434-a3f6-4d4a-b630-6d5987b003f3",
+    "titulo": "La sombra",
+    "autor": "Carlos Ruiz Zafón",
+    "categoria": "Biografias y literatura",
+    "precio": 80000.0,
+    "stock": 36,
+    "imagen": "la_sombra.jpg"
   }
 ]

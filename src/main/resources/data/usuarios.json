@@ -180,5 +180,40 @@
     "correo": "alkjsdh@.com",
     "contrasena": "1234",
     "rol": "USUARIO"
+  },
+  {
+    "id": "088e9a7d-020a-44af-a1bb-6e5b82aa3465",
+    "nombre": "johi",
+    "correo": "jkhkgg",
+    "contrasena": "3456",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "04e90218-985f-4252-838a-0c4ab03a53d9",
+    "nombre": "qwerty",
+    "correo": "erty",
+    "contrasena": "3456",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "22dacbdf-1d1c-46ae-a33a-fcde45e1cb42",
+    "nombre": "Joselo",
+    "correo": "jose@jaja.com",
+    "contrasena": "2345",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "c4579c7e-c26d-483f-8c87-5ca31e68c521",
+    "nombre": "jsskdk",
+    "correo": "sjhdk",
+    "contrasena": "12344",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "ec95fec2-ee2d-4710-bd00-955fafabaa96",
+    "nombre": "kashdas",
+    "correo": "kasjdh",
+    "contrasena": "1234",
+    "rol": "USUARIO"
   }
 ]

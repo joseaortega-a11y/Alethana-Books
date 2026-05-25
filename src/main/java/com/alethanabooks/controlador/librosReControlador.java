@@ -34,7 +34,7 @@ public class librosReControlador implements Initializable {
 
     private void generarRecomendacion() {
         flowLibros.getChildren().clear();
-        List<Libro> recomendados = catalogoService.obtenerRecomendadosAleatorios(6);
+        List<Libro> recomendados = catalogoService.obtenerRecomendadosAleatorios(12);
 
         if (recomendados.isEmpty()) {
             Label lbl = new Label("No hay libros disponibles aún. El administrador debe agregar libros primero.");
