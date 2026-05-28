@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="680.0" prefWidth="860.0"
+            style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.alethanabooks.controlador.CarritoController">
+
+    <!-- HEADER -->
+    <top>
+        <VBox style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);">
+            <padding><Insets bottom="18" left="28" right="28" top="18"/></padding>
+            <Label text="Tu carrito de compras"
+                   style="-fx-font-size: 22px; -fx-font-weight: 900;" textFill="white"/>
+        </VBox>
+    </top>
+
+    <center>
+        <HBox spacing="24" style="-fx-background-color: #f8fafc;">
+            <padding><Insets bottom="28" left="28" right="28" top="24"/></padding>
+
+            <!-- LISTA DE ITEMS -->
+            <VBox spacing="14" HBox.hgrow="ALWAYS">
+                <Label text="Productos" style="-fx-font-size: 18px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                <ScrollPane fitToWidth="true" prefHeight="340" hbarPolicy="NEVER"
+                            style="-fx-background-color: transparent; -fx-background: transparent;">
+                    <VBox fx:id="listaItems" spacing="12"/>
+                </ScrollPane>
+
+                <!-- CÓDIGO DE DESCUENTO -->
+                <VBox spacing="8" style="-fx-background-color: white; -fx-background-radius: 12;
+                                         -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
+                    <padding><Insets bottom="16" left="16" right="16" top="16"/></padding>
+                    <Label text="Código de descuento" style="-fx-font-size: 14px; -fx-font-weight: 800;" textFill="#0f172a"/>
+                    <HBox spacing="10">
+                        <TextField fx:id="txtCodigo" promptText="Ej: CYBER20" HBox.hgrow="ALWAYS"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+                        <Button text="Aplicar" onAction="#onAplicarCodigo" textFill="white"
+                                style="-fx-background-color: #7c3aed; -fx-background-radius: 8;
+                                       -fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 9 18;"/>
+                    </HBox>
+                    <Label fx:id="lblDescuento" text="" style="-fx-font-size: 13px;" textFill="#10b981"/>
+                </VBox>
+            </VBox>
+
+            <!-- PANEL DERECHO: RESUMEN + PAGO -->
+            <VBox spacing="16" prefWidth="280">
+
+                <!-- RESUMEN -->
+                <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 14;
+                                          -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+                    <padding><Insets bottom="20" left="20" right="20" top="20"/></padding>
+                    <Label text="Resumen del pedido" style="-fx-font-size: 16px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                    <HBox>
+                        <Label text="Subtotal" style="-fx-font-size: 14px;" textFill="#64748b" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblSubtotal" text="COP 0" style="-fx-font-size: 14px;" textFill="#0f172a"/>
+                    </HBox>
+                    <HBox>
+                        <Label text="Descuento" style="-fx-font-size: 14px;" textFill="#64748b" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblMontoDescuento" text="- COP 0" style="-fx-font-size: 14px;" textFill="#10b981"/>
+                    </HBox>
+                    <Separator/>
+                    <HBox>
+                        <Label text="TOTAL" style="-fx-font-size: 18px; -fx-font-weight: 900;" textFill="#0f172a" HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblTotal" text="COP 0" style="-fx-font-size: 18px; -fx-font-weight: 900;" textFill="#7c3aed"/>
+                    </HBox>
+                </VBox>
+
+                <!-- MÉTODO DE PAGO -->
+                <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 14;
+                                          -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+                    <padding><Insets bottom="20" left="20" right="20" top="20"/></padding>
+                    <Label text="Método de pago" style="-fx-font-size: 16px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                    <RadioButton fx:id="rbTarjeta" text="Tarjeta de crédito/débito"
+                                 style="-fx-font-size: 13px;" textFill="#0f172a"/>
+                    <RadioButton fx:id="rbPSE"     text="PSE — Pago en línea"
+                                 style="-fx-font-size: 13px;" textFill="#0f172a"/>
+                    <RadioButton fx:id="rbEfecty"  text="Efecty / Baloto"
+                                 style="-fx-font-size: 13px;" textFill="#0f172a"/>
+                </VBox>
+
+                <!-- BOTÓN CONFIRMAR -->
+                <Button text="Confirmar compra" onAction="#onConfirmarCompra"
+                        maxWidth="Infinity" textFill="white"
+                        style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);
+                               -fx-background-radius: 12; -fx-font-size: 16px;
+                               -fx-font-weight: 900; -fx-padding: 15;"/>
+
+                <Button text="Seguir comprando" onAction="#onCerrar"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: #f1f5f9; -fx-background-radius: 12;
+                               -fx-font-size: 14px; -fx-font-weight: 700; -fx-padding: 12;"/>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

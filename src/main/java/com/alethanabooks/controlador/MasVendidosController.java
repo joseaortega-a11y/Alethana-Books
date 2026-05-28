@@ -1,5 +1,6 @@
 package com.alethanabooks.controlador;
 
+import com.alethanabooks.modelo.SesionActual;
 import com.alethanabooks.modelo.Libro;
 import com.alethanabooks.service.CatalogoService;
 import com.alethanabooks.Util.ImagenUtil;
@@ -28,9 +29,9 @@ public class MasVendidosController implements Initializable {
 
     private void cargarLibros() {
         listaLibros.getChildren().clear();
-        List<Libro> libros = catalogoService.obtenerTodos();
-        String[] colores = {"#f59e0b", "#94a3b8", "#b45309", "#10b981", "#7c3aed",
-                "#ec4899", "#3b82f6", "#0ea574", "#ef4444", "#6366f1"};
+        List<Libro> libros = catalogoService.obtenerUltimos(10);
+        String[] colores = {"#7c3aed","#ec4899","#10b981","#f59e0b","#3b82f6",
+                "#0ea574","#ef4444","#6366f1","#f59e0b","#94a3b8"};
 
         if (libros.isEmpty()) {
             Label lbl = new Label("No hay libros en el catálogo aún.");
@@ -42,7 +43,7 @@ public class MasVendidosController implements Initializable {
 
         for (int i = 0; i < libros.size(); i++) {
             listaLibros.getChildren().add(
-                    crearFilaLibro(libros.get(i), i + 1, colores[Math.min(i, colores.length - 1)]));
+                    crearFilaLibro(libros.get(i), i + 1, colores[i % colores.length]));
         }
     }
 
@@ -77,7 +78,12 @@ public class MasVendidosController implements Initializable {
                 "-fx-font-size: 12px; -fx-font-weight: 700; -fx-padding: 4 12;");
         lblCategoria.setTextFill(Color.web("#7c3aed"));
 
-        info.getChildren().addAll(lblTitulo, lblAutor, lblCategoria);
+        boolean hayStock = libro.getStock() > 0;
+        Label lblStock = new Label(hayStock ? "Stock: " + libro.getStock() : "Sin stock");
+        lblStock.setStyle("-fx-font-size: 12px; -fx-font-weight: 700;");
+        lblStock.setTextFill(hayStock ? Color.web("#10b981") : Color.web("#ef4444"));
+
+        info.getChildren().addAll(lblTitulo, lblAutor, lblCategoria, lblStock);
 
         VBox acciones = new VBox(8);
         acciones.setAlignment(Pos.CENTER_RIGHT);
@@ -86,13 +92,32 @@ public class MasVendidosController implements Initializable {
         lblPrecio.setStyle("-fx-font-size: 22px; -fx-font-weight: 900;");
         lblPrecio.setTextFill(Color.web("#7c3aed"));
 
-        Button btnCarrito = new Button("Agregar al carrito");
+        Button btnCarrito = new Button(hayStock ? "Agregar al carrito" : "Sin stock");
         btnCarrito.setTextFill(Color.WHITE);
-        btnCarrito.setStyle("-fx-background-color: #7c3aed; -fx-background-radius: 10; " +
-                "-fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 9 22;");
+        btnCarrito.setDisable(!hayStock);
+        btnCarrito.setStyle("-fx-background-color: " + (hayStock ? "#7c3aed" : "#94a3b8") +
+                "; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 9 22;");
+        btnCarrito.setOnAction(e -> agregarAlCarrito(libro));
 
         acciones.getChildren().addAll(lblPrecio, btnCarrito);
         fila.getChildren().addAll(lblNum, imgPane, info, acciones);
         return fila;
+    }
+
+    private void agregarAlCarrito(Libro libro) {
+        if (!SesionActual.haySesion()) {
+            new Alert(Alert.AlertType.INFORMATION, "Inicia sesión para agregar al carrito.").showAndWait();
+            return;
+        }
+        try {
+            SesionActual.getCarritoService().agregarLibro(libro, 1);
+            Alert ok = new Alert(Alert.AlertType.INFORMATION);
+            ok.setTitle("Carrito");
+            ok.setHeaderText(null);
+            ok.setContentText("\"" + libro.getTitulo() + "\" agregado al carrito.");
+            ok.showAndWait();
+        } catch (IllegalArgumentException ex) {
+            new Alert(Alert.AlertType.WARNING, ex.getMessage()).showAndWait();
+        }
     }
 }

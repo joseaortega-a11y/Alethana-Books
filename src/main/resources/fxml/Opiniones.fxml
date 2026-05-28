@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="700.0" prefWidth="900.0"
+            style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.alethanabooks.controlador.OpinionController">
+    <top>
+        <fx:include source="header.fxml"/>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+                    style="-fx-background-color: #f8fafc; -fx-background: #f8fafc;">
+            <VBox spacing="24">
+                <padding><Insets bottom="40" left="40" right="40" top="28"/></padding>
+
+                <Label text="Opiniones de clientes"
+                       style="-fx-font-size: 32px; -fx-font-weight: 900;" textFill="#0f172a"/>
+
+                <!-- FORMULARIO -->
+                <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 14;
+                                          -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+                    <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
+                    <Label text="Deja tu opinión" style="-fx-font-size: 17px; -fx-font-weight: 900;" textFill="#0f172a"/>
+
+                    <TextArea fx:id="txtOpinion" promptText="Escribe tu opinión aquí..."
+                              prefRowCount="3" wrapText="true"
+                              style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                     -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+
+                    <HBox spacing="14" alignment="CENTER_LEFT">
+                        <Label text="Calificación:" style="-fx-font-size: 14px; -fx-font-weight: 700;" textFill="#0f172a"/>
+                        <ToggleGroup fx:id="grupoEstrellas"/>
+                        <RadioButton fx:id="rb1" text="⭐ 1" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
+                        <RadioButton fx:id="rb2" text="⭐ 2" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
+                        <RadioButton fx:id="rb3" text="⭐ 3" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;" selected="true"/>
+                        <RadioButton fx:id="rb4" text="⭐ 4" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
+                        <RadioButton fx:id="rb5" text="⭐ 5" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
+                    </HBox>
+
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <Button text="Publicar opinión" onAction="#onPublicar" textFill="white"
+                                style="-fx-background-color: #7c3aed; -fx-background-radius: 8;
+                                       -fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 10 20;"/>
+                        <Label fx:id="lblMensaje" text="" style="-fx-font-size: 13px;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- LISTA DE OPINIONES -->
+                <Label text="Lo que dicen nuestros lectores"
+                       style="-fx-font-size: 20px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                <VBox fx:id="listaOpiniones" spacing="14"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

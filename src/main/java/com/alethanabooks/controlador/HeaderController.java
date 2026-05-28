@@ -1,12 +1,14 @@
 package com.alethanabooks.controlador;
 
+import com.alethanabooks.modelo.SesionActual;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -20,42 +22,125 @@ public class HeaderController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
 
+    // ── Navegación principal ──────────────────────────────────────────────
     @FXML private void irInicio()            { navegar("/fxml/alethana-books.fxml",   "Alethana Books",               1280, 762); }
     @FXML private void irLibrosRecomendados(){ navegar("/fxml/librosRe.fxml",          "Alethana Books - Recomendados", 1280, 760); }
-    @FXML private void irMasVendidos()       { navegar("/fxml/masVendidos.fxml",       "Alethana Books - Más Vendidos", 1280, 760); }
+    @FXML private void irUltimosAniadidos()  { navegar("/fxml/masVendidos.fxml",       "Alethana Books - Últimos añadidos", 1280, 760); }
     @FXML private void irLibrosImportados()  { navegar("/fxml/LibrosImportados.fxml",  "Alethana Books - Importados",   1280, 760); }
-    @FXML private void onBuscar()            { irInicio(); }
+    @FXML private void irOpiniones()         { navegar("/fxml/opiniones.fxml",         "Alethana Books - Opiniones",    1000, 700); }
+
+    // ── Buscador ──────────────────────────────────────────────────────────
+    @FXML
+    private void onBuscar() {
+        String texto = txtBusqueda.getText().trim();
+        try {
+            Stage stage = (Stage) txtBusqueda.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/alethana-books.fxml"));
+            Parent root = loader.load();
+
+            // Pasar el texto de búsqueda al InicioController
+            InicioController ctrl = loader.getController();
+            ctrl.buscarDesdeHeader(texto);
+
+            root.setOpacity(0);
+            FadeTransition fi = new FadeTransition(Duration.millis(220), root);
+            fi.setFromValue(0); fi.setToValue(1); fi.play();
+            stage.getScene().setRoot(root);
+            stage.setTitle("Alethana Books");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ── Carrito ───────────────────────────────────────────────────────────
+    @FXML
+    private void onAbrirCarrito() {
+        if (!SesionActual.haySesion()) {
+            mostrarInfo("Inicia sesión", "Debes iniciar sesión para ver tu carrito.");
+            return;
+        }
+        abrirVentanaModal("/fxml/carrito.fxml", "Mi Carrito", 860, 680);
+    }
+
+    // ── Mi Cuenta ─────────────────────────────────────────────────────────
+    @FXML
+    private void onAbrirCuenta() {
+        if (!SesionActual.haySesion()) {
+            mostrarInfo("Inicia sesión", "Debes iniciar sesión para ver tu cuenta.");
+            return;
+        }
+        abrirVentanaModal("/fxml/cuenta.fxml", "Mi Cuenta", 780, 640);
+    }
+
+    // ── Ayuda ─────────────────────────────────────────────────────────────
+    @FXML
+    private void onAbrirAyuda() {
+        Alert ayuda = new Alert(Alert.AlertType.INFORMATION);
+        ayuda.setTitle("Centro de ayuda — Alethana Books");
+        ayuda.setHeaderText("Preguntas frecuentes");
+        ayuda.setContentText(
+                "¿Cómo compro un libro?\n" +
+                        "  → Agrégalo al carrito y confirma la compra en el carrito.\n\n" +
+                        "¿Qué métodos de pago hay?\n" +
+                        "  → Tarjeta crédito/débito, PSE y Efecty/Baloto.\n\n" +
+                        "¿Cuánto tarda el envío?\n" +
+                        "  → Libros físicos: 3-5 días hábiles en Colombia.\n\n" +
+                        "¿Los libros digitales cómo los descargo?\n" +
+                        "  → Después de comprar aparece la ruta de descarga en tu cuenta.\n\n" +
+                        "¿Cómo uso un código de descuento?\n" +
+                        "  → Escríbelo en el campo 'Código de descuento' dentro del carrito.\n\n" +
+                        "¿Problemas con tu pedido?\n" +
+                        "  → Contáctanos: soporte@alethanabooks.com"
+        );
+        ayuda.showAndWait();
+    }
+
+    // ── Helpers ───────────────────────────────────────────────────────────
+    private void abrirVentanaModal(String fxml, String titulo, double ancho, double alto) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent root = loader.load();
+            Stage modal = new Stage();
+            modal.initModality(Modality.APPLICATION_MODAL);
+            modal.setTitle(titulo);
+            modal.setScene(new Scene(root, ancho, alto));
+            modal.setResizable(false);
+            modal.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void navegar(String fxml, String titulo, double ancho, double alto) {
         try {
             Stage stage = (Stage) txtBusqueda.getScene().getWindow();
             Parent rootActual = stage.getScene().getRoot();
-
-            // Cargar el nuevo contenido antes de animar
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent rootNuevo = loader.load();
             rootNuevo.setOpacity(0);
 
-            // Fade OUT del contenido actual
             FadeTransition fadeOut = new FadeTransition(Duration.millis(180), rootActual);
             fadeOut.setFromValue(1);
             fadeOut.setToValue(0);
             fadeOut.setOnFinished(e -> {
-                // Swap de escena en el mismo Stage — sin parpadeo
                 stage.getScene().setRoot(rootNuevo);
                 stage.setTitle(titulo);
-
-                // Fade IN del nuevo contenido
                 FadeTransition fadeIn = new FadeTransition(Duration.millis(220), rootNuevo);
                 fadeIn.setFromValue(0);
                 fadeIn.setToValue(1);
                 fadeIn.play();
             });
-
             fadeOut.play();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void mostrarInfo(String titulo, String msg) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(titulo);
+        a.setHeaderText(null);
+        a.setContentText(msg);
+        a.showAndWait();
     }
 }

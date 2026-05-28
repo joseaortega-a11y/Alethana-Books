@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -19,17 +18,13 @@
                 <padding><Insets bottom="40" left="40" right="40" top="28"/></padding>
 
                 <VBox spacing="6.0">
-                    <Label text="Más vendidos 2026"
+                    <Label text="Últimos añadidos"
                            style="-fx-font-size: 32px; -fx-font-weight: 900;" textFill="#0f172a" />
-                    <Label text="Los títulos favoritos de nuestros lectores este año."
+                    <Label text="Los 10 libros más recientes en nuestro catálogo."
                            style="-fx-font-size: 16px;" textFill="#64748b" />
                 </VBox>
 
-                <Label text="Ranking de libros"
-                       style="-fx-font-size: 22px; -fx-font-weight: 900;" textFill="#0f172a"/>
-
                 <VBox fx:id="listaLibros" spacing="16.0" />
-
             </VBox>
         </ScrollPane>
     </center>

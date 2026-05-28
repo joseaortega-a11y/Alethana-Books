@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import com.alethanabooks.modelo.SesionActual;
 
 import java.net.URL;
 import java.util.List;
@@ -16,10 +17,11 @@ import java.util.ResourceBundle;
 
 public class librosReControlador implements Initializable {
 
-    @FXML private FlowPane flowLibros;
+    @FXML
+    private FlowPane flowLibros;
 
     private final CatalogoService catalogoService = new CatalogoService();
-    private static final String[] COLORES = {"#7c3aed","#ec4899","#10b981","#f59e0b","#0ea574","#3b82f6"};
+    private static final String[] COLORES = {"#7c3aed", "#ec4899", "#10b981", "#f59e0b", "#0ea574", "#3b82f6"};
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,13 +79,39 @@ public class librosReControlador implements Initializable {
         lblPrecio.setStyle("-fx-font-size: 20px; -fx-font-weight: 900;");
         lblPrecio.setTextFill(Color.web("#7c3aed"));
 
-        Button btnCarrito = new Button("Agregar al carrito");
+        boolean hayStock = libro.getStock() > 0;
+        Label lblStock = new Label(hayStock ? "Stock: " + libro.getStock() : "Sin stock");
+        lblStock.setStyle("-fx-font-size: 12px; -fx-font-weight: 700;");
+        lblStock.setTextFill(hayStock ? Color.web("#10b981") : Color.web("#ef4444"));
+
+
+        Button btnCarrito = new Button(hayStock ? "Agregar al carrito" : "Sin stock");
         btnCarrito.setMaxWidth(Double.MAX_VALUE);
         btnCarrito.setTextFill(Color.WHITE);
-        btnCarrito.setStyle("-fx-background-color: " + colorBtn + "; -fx-background-radius: 10; " +
-                "-fx-font-size: 13px; -fx-font-weight: 800;");
+        btnCarrito.setDisable(!hayStock);
+        btnCarrito.setStyle("-fx-background-color: " + (hayStock ? colorBtn : "#94a3b8") +
+                "; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;");
+        btnCarrito.setOnAction(e -> agregarAlCarrito(libro));
 
-        card.getChildren().addAll(imgPane, lblTitulo, lblAutor, lblCategoria, lblPrecio, btnCarrito);
+        card.getChildren().addAll(imgPane, lblTitulo, lblAutor, lblCategoria, lblPrecio, lblStock, btnCarrito);
         return card;
+    }
+
+    private void agregarAlCarrito(Libro libro) {
+        if (!SesionActual.haySesion()) {
+            new Alert(Alert.AlertType.INFORMATION, "Inicia sesión para agregar al carrito.").showAndWait();
+            return;
+        }
+        try {
+            SesionActual.getCarritoService().agregarLibro(libro, 1);
+            Alert ok = new Alert(Alert.AlertType.INFORMATION);
+            ok.setTitle("Carrito");
+            ok.setHeaderText(null);
+            ok.setContentText("\"" + libro.getTitulo() + "\" agregado al carrito.");
+            ok.showAndWait();
+        } catch (IllegalArgumentException ex) {
+            new Alert(Alert.AlertType.WARNING, ex.getMessage()).showAndWait();
+        }
+
     }
 }

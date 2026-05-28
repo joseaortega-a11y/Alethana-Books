@@ -215,5 +215,40 @@
     "correo": "kasjdh",
     "contrasena": "1234",
     "rol": "USUARIO"
+  },
+  {
+    "id": "68ac37e1-f16a-4f69-8de6-ac9efde8f678",
+    "nombre": "kjkhk",
+    "correo": "hjgjgh",
+    "contrasena": "747",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "e09da17d-5ad2-4e45-b01d-9a0981179d0c",
+    "nombre": "dfhdjg",
+    "correo": "rftjyjf",
+    "contrasena": "214242",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "5a852a41-55a4-4f86-b554-e24b2a29c668",
+    "nombre": "kjhkhkh",
+    "correo": "fjbhbbj",
+    "contrasena": "23456",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "493a5b4a-8e75-40c6-ac7c-e658934531b6",
+    "nombre": "ghjk",
+    "correo": "56789",
+    "contrasena": "ghj",
+    "rol": "USUARIO"
+  },
+  {
+    "id": "32388307-fa9c-4bc3-b42a-85e9ca1b51ba",
+    "nombre": "Jose",
+    "correo": "AKJSKDH",
+    "contrasena": "1234",
+    "rol": "USUARIO"
   }
 ]

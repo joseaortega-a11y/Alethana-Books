@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="640.0" prefWidth="780.0"
+            style="-fx-background-color: #f8fafc;"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.alethanabooks.controlador.CuentaController">
+    <top>
+        <VBox style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);">
+            <padding><Insets bottom="18" left="28" right="28" top="18"/></padding>
+            <Label text="Mi cuenta" style="-fx-font-size: 22px; -fx-font-weight: 900;" textFill="white"/>
+            <Label fx:id="lblBienvenida" text="" style="-fx-font-size: 14px; -fx-opacity: 0.85;" textFill="white"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: #f8fafc;">
+            <VBox spacing="20">
+                <padding><Insets bottom="28" left="28" right="28" top="24"/></padding>
+
+                <!-- DATOS DE ENVÍO -->
+                <VBox spacing="14" style="-fx-background-color: white; -fx-background-radius: 14;
+                                          -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+                    <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
+                    <Label text="Datos de envío" style="-fx-font-size: 17px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                    <TextField fx:id="txtNombreCompleto" promptText="Nombre completo"
+                               style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                      -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+                    <TextField fx:id="txtDireccion" promptText="Dirección de entrega"
+                               style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                      -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+                    <HBox spacing="12">
+                        <TextField fx:id="txtCiudad" promptText="Ciudad" HBox.hgrow="ALWAYS"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+                        <TextField fx:id="txtTelefono" promptText="Teléfono" prefWidth="160"
+                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
+                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+                    </HBox>
+                    <Button text="Guardar datos de envío" onAction="#onGuardarEnvio"
+                            textFill="white"
+                            style="-fx-background-color: #7c3aed; -fx-background-radius: 8;
+                                   -fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 10 20;"/>
+                    <Label fx:id="lblGuardado" text="" style="-fx-font-size: 13px;" textFill="#10b981"/>
+                </VBox>
+
+                <!-- HISTORIAL DE COMPRAS -->
+                <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 14;
+                                          -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+                    <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
+                    <Label text="Mis compras" style="-fx-font-size: 17px; -fx-font-weight: 900;" textFill="#0f172a"/>
+                    <VBox fx:id="listaCompras" spacing="10"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

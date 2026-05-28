@@ -5,6 +5,7 @@ import com.alethanabooks.modelo.Libro;
 import com.alethanabooks.modelo.Usuario;
 
 public class CarritoService {
+
     private Carrito carrito;
 
     public void iniciarCarrito(Usuario usuario) {
@@ -17,14 +18,16 @@ public class CarritoService {
     }
 
     public void eliminarLibro(String idLibro) {
-        carrito.eliminarLibro(idLibro);
+        if (carrito != null) carrito.eliminarLibro(idLibro);
+    }
+
+    public void vaciarCarrito() {
+        if (carrito != null) carrito.vaciar();
     }
 
     public double obtenerTotal() {
-        return carrito.calcularTotal();
+        return carrito != null ? carrito.calcularTotal() : 0;
     }
 
-    public Carrito getCarrito() {
-        return carrito;
-    }
+    public Carrito getCarrito() { return carrito; }
 }

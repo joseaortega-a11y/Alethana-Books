@@ -10,27 +10,24 @@ public class Venta {
     private LocalDateTime fecha;
     private List<DetalleVenta> detalles = new ArrayList<>();
     private double total;
+    private String metodoPago;
 
-    public Venta() {
-    }
+    public Venta() {}
 
-    public Venta(String id, Usuario usuario, List<DetalleVenta> detalles) {
+    public Venta(String id, Usuario usuario, List<DetalleVenta> detalles,
+                 String metodoPago, double total) {
         this.id = id;
         this.usuario = usuario;
         this.fecha = LocalDateTime.now();
         this.detalles = detalles;
-        this.total = calcularTotal();
+        this.metodoPago = metodoPago;
+        this.total = total;
     }
 
-    public double calcularTotal() {
-        return detalles.stream()
-                .mapToDouble(DetalleVenta::getSubtotal)
-                .sum();
-    }
-
-    public String getId() { return id; }
-    public Usuario getUsuario() { return usuario; }
-    public LocalDateTime getFecha() { return fecha; }
+    public String getId()               { return id; }
+    public Usuario getUsuario()         { return usuario; }
+    public LocalDateTime getFecha()     { return fecha; }
     public List<DetalleVenta> getDetalles() { return detalles; }
-    public double getTotal() { return total; }
+    public double getTotal()            { return total; }
+    public String getMetodoPago()       { return metodoPago; }
 }

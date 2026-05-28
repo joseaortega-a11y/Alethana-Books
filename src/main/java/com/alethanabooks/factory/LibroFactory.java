@@ -11,7 +11,7 @@ public class LibroFactory {
     // Factory Method: decide qué subclase crear
     public static Libro crearLibro(TipoLibro tipo, String id, String titulo,
                                    String autor, String categoria,
-                                   double precio, int stock, String imagen) {
+                                   double precio, int stock, String imagenSeleccionada, String formato, String imagen) {
         return switch (tipo) {
             case FISICO -> new LibroFisico(id, titulo, autor, categoria,
                     precio, stock, imagen, 0.4, "Bodega A");
@@ -24,6 +24,6 @@ public class LibroFactory {
     // Mantener compatibilidad con código anterior
     public Libro crearLibro(String isbn, String titulo, String autor,
                             String categoria, double precio, int stock) {
-        return crearLibro(TipoLibro.FISICO, isbn, titulo, autor, categoria, precio, stock, "");
+        return crearLibro(TipoLibro.FISICO, isbn, titulo, autor, categoria, precio, stock, imagenSeleccionada, formato, "");
     }
 }
