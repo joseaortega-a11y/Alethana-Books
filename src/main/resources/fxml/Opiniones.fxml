@@ -8,6 +8,10 @@
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.alethanabooks.controlador.OpinionController">
+
+    <fx:define>
+        <ToggleGroup fx:id="grupoEstrellas"/>
+    </fx:define>
     <top>
         <fx:include source="header.fxml"/>
     </top>
@@ -34,7 +38,6 @@
 
                     <HBox spacing="14" alignment="CENTER_LEFT">
                         <Label text="Calificación:" style="-fx-font-size: 14px; -fx-font-weight: 700;" textFill="#0f172a"/>
-                        <ToggleGroup fx:id="grupoEstrellas"/>
                         <RadioButton fx:id="rb1" text="⭐ 1" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
                         <RadioButton fx:id="rb2" text="⭐ 2" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
                         <RadioButton fx:id="rb3" text="⭐ 3" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;" selected="true"/>

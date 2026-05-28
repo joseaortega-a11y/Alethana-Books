@@ -131,8 +131,8 @@
             </VBox>
 
             <!-- ── Pedidos recibidos ── -->
-            <VBox spacing="14.0" style="-fx-background-color: white; -fx-background-radius: 14;
-                      -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
+            <VBox spacing="14.0" style="-fx-background-color: #ffffff; -fx-background-radius: 14;
+                      -fx-border-color: #040509; -fx-border-radius: 14;">
                <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
                <Label style="-fx-font-size: 17px; -fx-font-weight: 900;"
                       text="Pedidos recibidos" textFill="#0f172a"/>

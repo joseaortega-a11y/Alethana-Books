@@ -46,7 +46,7 @@ public class OpinionController implements Initializable {
         }
 
         int estrellas = rb1.isSelected() ? 1 : rb2.isSelected() ? 2 :
-                rb4.isSelected() ? 4 : rb5.isSelected() ? 5 : 3;
+                rb3.isSelected() ? 3 : rb4.isSelected() ? 4 : 5;
 
         String nombre = SesionActual.haySesion()
                 ? SesionActual.getUsuario().getNombre()

@@ -1,6 +1,7 @@
 package com.alethanabooks.controlador;
 
 import com.alethanabooks.modelo.Rol;
+import com.alethanabooks.modelo.SesionActual;
 import com.alethanabooks.modelo.Usuario;
 import com.alethanabooks.service.UsuarioService;
 import javafx.event.ActionEvent;
@@ -53,11 +54,20 @@ public class LoginController implements Initializable {
             return;
         }
 
-        // Registrar si no existe, luego autenticar
+        // Buscar usuario existente; si no existe, registrar y luego autenticar
         Optional<Usuario> usuario = usuarioService.autenticar(correo, contra);
         if (usuario.isEmpty()) {
             usuarioService.registrar(nombre, correo, contra);
+            usuario = usuarioService.autenticar(correo, contra);
         }
+
+        if (usuario.isEmpty()) {
+            mostrarError("Error de acceso", "No se pudo autenticar. Verifica tu contraseña.");
+            return;
+        }
+
+        // Iniciar sesión con el usuario autenticado
+        SesionActual.iniciar(usuario.get());
 
         cambiarVentana("/fxml/alethana-books.fxml", "Alethana Books - Catálogo");
     }

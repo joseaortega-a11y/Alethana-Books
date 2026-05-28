@@ -69,7 +69,7 @@ public class HeaderController implements Initializable {
             mostrarInfo("Inicia sesión", "Debes iniciar sesión para ver tu cuenta.");
             return;
         }
-        abrirVentanaModal("/fxml/cuenta.fxml", "Mi Cuenta", 780, 640);
+        abrirVentanaModal("/fxml/Cuenta.fxml", "Mi Cuenta", 780, 640);
     }
 
     // ── Ayuda ─────────────────────────────────────────────────────────────
