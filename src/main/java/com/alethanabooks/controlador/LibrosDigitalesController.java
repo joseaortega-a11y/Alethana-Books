@@ -17,11 +17,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * Muestra solo los libros de tipo LibroDigital.
- * Permite filtrar por formato (PDF / EPUB / MOBI).
- * Usa la interfaz Descargable para verificar disponibilidad.
- */
+
 public class LibrosDigitalesController implements Initializable {
 
     @FXML private FlowPane gridDigitales;
@@ -39,7 +35,7 @@ public class LibrosDigitalesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        poblarGrid(null); // null = todos los formatos
+        poblarGrid(null);
     }
 
     @FXML private void filtrarTodos() { activar(btnTodos); poblarGrid(null); }
@@ -58,8 +54,6 @@ public class LibrosDigitalesController implements Initializable {
 
     private void poblarGrid(String formatoFiltro) {
         gridDigitales.getChildren().clear();
-
-        // Filtrar catálogo: solo LibroDigital, disponibles para descarga
         List<Libro> digitales = catalogoService.obtenerTodos().stream()
                 .filter(l -> l instanceof LibroDigital ld && ld.estaDisponibleParaDescarga())
                 .filter(l -> {
@@ -95,7 +89,6 @@ public class LibrosDigitalesController implements Initializable {
                 "-fx-effect: dropshadow(gaussian, rgba(124,58,237,0.07), 8, 0, 0, 2);");
         card.setPadding(new Insets(16));
 
-        // Imagen con badge de formato
         StackPane imgPane = ImagenUtil.crearPanelImagen(libro.getImagen(), 163, 210);
         Label badgeFormato = new Label("📄 " + libro.getFormato());
         badgeFormato.setStyle("-fx-background-color: #7c3aed; -fx-background-radius: 6; " +
@@ -125,7 +118,6 @@ public class LibrosDigitalesController implements Initializable {
                 "-fx-font-size: 11px; -fx-font-weight: 700; -fx-padding: 3 8;");
         lblCategoria.setTextFill(Color.web("#7c3aed"));
 
-        // Precio con descuento digital visible
         double precioOriginal = libro.getPrecio();
         double precioDigital  = precioOriginal * 0.90;
 

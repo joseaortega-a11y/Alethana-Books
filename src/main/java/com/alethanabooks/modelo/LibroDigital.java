@@ -7,7 +7,7 @@ public class LibroDigital extends Libro implements Descargable, Validable {
 
     private String rutaArchivo;
     private boolean disponibleDescarga;
-    private String formato; // PDF, EPUB, MOBI
+    private String formato;
 
     public LibroDigital() {}
 
@@ -19,8 +19,6 @@ public class LibroDigital extends Libro implements Descargable, Validable {
         this.disponibleDescarga = disponibleDescarga;
         this.formato = formato;
     }
-
-    // --- Descargable ---
     @Override
     public String obtenerRutaDescarga() {
         return rutaArchivo;
@@ -31,7 +29,6 @@ public class LibroDigital extends Libro implements Descargable, Validable {
         return disponibleDescarga && rutaArchivo != null && !rutaArchivo.isBlank();
     }
 
-    // --- Validable ---
     @Override
     public boolean esValido() {
         return getTitulo() != null && !getTitulo().isBlank()
@@ -52,9 +49,6 @@ public class LibroDigital extends Libro implements Descargable, Validable {
     }
 
     public String getRutaArchivo() { return rutaArchivo; }
-    public boolean isDisponibleDescarga() { return disponibleDescarga; }
     public String getFormato() { return formato; }
-    public void setRutaArchivo(String rutaArchivo) { this.rutaArchivo = rutaArchivo; }
-    public void setDisponibleDescarga(boolean disponibleDescarga) { this.disponibleDescarga = disponibleDescarga; }
-    public void setFormato(String formato) { this.formato = formato; }
+
 }

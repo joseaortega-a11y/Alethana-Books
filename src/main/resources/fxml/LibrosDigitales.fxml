@@ -18,7 +18,6 @@
             <VBox spacing="28">
                 <padding><Insets bottom="40" left="36" right="36" top="30"/></padding>
 
-                <!-- Hero banner digital -->
                 <StackPane prefHeight="180"
                            style="-fx-background-color: linear-gradient(to right, #4c1d95, #7c3aed, #ec4899);
                                   -fx-background-radius: 18;">
@@ -31,7 +30,6 @@
                     </VBox>
                 </StackPane>
 
-                <!-- Barra de filtros -->
                 <HBox alignment="CENTER_LEFT" spacing="14">
                     <Label text="Filtrar por formato:"
                            style="-fx-font-size: 14px; -fx-font-weight: 700;" textFill="#334155"/>
@@ -56,7 +54,6 @@
                            style="-fx-font-size: 13px;" textFill="#64748b"/>
                 </HBox>
 
-                <!-- Grid de libros digitales -->
                 <FlowPane fx:id="gridDigitales"
                           hgap="20" vgap="22"
                           prefWrapLength="900"

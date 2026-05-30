@@ -75,7 +75,6 @@ public class OpinionController implements Initializable {
         }
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        // Mostrar de más reciente a más antigua
         for (int i = opiniones.size() - 1; i >= 0; i--) {
             listaOpiniones.getChildren().add(crearTarjetaOpinion(opiniones.get(i), fmt));
         }
@@ -87,7 +86,7 @@ public class OpinionController implements Initializable {
                 "-fx-border-color: #e5e7eb; -fx-border-radius: 12;");
         card.setPadding(new Insets(16, 20, 16, 20));
 
-        String estrellas = "⭐".repeat(op.getEstrellas()) +
+        String estrellas = "".repeat(op.getEstrellas()) +
                 "☆".repeat(5 - op.getEstrellas());
 
         HBox encabezado = new HBox(12);

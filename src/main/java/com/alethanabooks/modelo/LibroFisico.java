@@ -15,20 +15,4 @@ public class LibroFisico extends Libro {
         this.peso = peso;
         this.ubicacionBodega = ubicacionBodega;
     }
-
-    public double getPeso() {
-        return peso;
-    }
-
-    public String getUbicacionBodega() {
-        return ubicacionBodega;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public void setUbicacionBodega(String ubicacionBodega) {
-        this.ubicacionBodega = ubicacionBodega;
-    }
 }

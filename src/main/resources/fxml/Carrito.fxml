@@ -6,7 +6,6 @@
 
 <BorderPane prefHeight="680.0" prefWidth="860.0" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alethanabooks.controlador.CarritoController">
 
-    <!-- HEADER -->
     <top>
         <VBox style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);">
             <padding><Insets bottom="18" left="28" right="28" top="18" /></padding>
@@ -18,14 +17,12 @@
         <HBox spacing="24" style="-fx-background-color: #f8fafc;">
             <padding><Insets bottom="28" left="28" right="28" top="24" /></padding>
 
-            <!-- LISTA DE ITEMS -->
             <VBox spacing="14" HBox.hgrow="ALWAYS">
                 <Label style="-fx-font-size: 18px; -fx-font-weight: 900;" text="Productos" textFill="#0f172a" />
                 <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="340" style="-fx-background-color: transparent; -fx-background: transparent;">
                     <VBox fx:id="listaItems" spacing="12" />
                 </ScrollPane>
 
-                <!-- CÓDIGO DE DESCUENTO -->
                 <VBox spacing="8" style="-fx-background-color: white; -fx-background-radius: 12;                                          -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
                     <padding><Insets bottom="16" left="16" right="16" top="16" /></padding>
                     <Label style="-fx-font-size: 14px; -fx-font-weight: 800;" text="Código de descuento" textFill="#0f172a" />
@@ -37,10 +34,8 @@
                 </VBox>
             </VBox>
 
-            <!-- PANEL DERECHO: RESUMEN + PAGO -->
             <VBox prefWidth="280" spacing="16">
 
-                <!-- RESUMEN -->
                 <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 14;                                           -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
                     <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
                     <Label style="-fx-font-size: 16px; -fx-font-weight: 900;" text="Resumen del pedido" textFill="#0f172a" />
@@ -59,7 +54,6 @@
                     </HBox>
                 </VBox>
 
-                <!-- MÉTODO DE PAGO -->
                 <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 14;                                           -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
                     <padding><Insets bottom="20" left="20" right="20" top="20" /></padding>
                     <Label style="-fx-font-size: 16px; -fx-font-weight: 900;" text="Método de pago" textFill="#0f172a" />
@@ -68,7 +62,6 @@
                     <RadioButton fx:id="rbEfecty" style="-fx-font-size: 13px;" text="Efecty / Baloto" textFill="#0f172a" />
                 </VBox>
 
-                <!-- BOTÓN CONFIRMAR -->
                 <Button maxWidth="Infinity" onAction="#onConfirmarCompra" style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);                                -fx-background-radius: 12; -fx-font-size: 16px;                                -fx-font-weight: 900; -fx-padding: 15;" text="Confirmar compra" textFill="white" />
 
                 <Button maxWidth="Infinity" onAction="#onCerrar" style="-fx-background-color: #f1f5f9; -fx-background-radius: 12;                                -fx-font-size: 14px; -fx-font-weight: 700; -fx-padding: 12;" text="Seguir comprando" />

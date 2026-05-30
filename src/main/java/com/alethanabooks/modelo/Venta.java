@@ -11,7 +11,7 @@ public class Venta {
     private List<DetalleVenta> detalles = new ArrayList<>();
     private double total;
     private String metodoPago;
-    private String estadoPago; // "PAGADO" | "PENDIENTE"
+    private String estadoPago;
 
     public Venta() {}
 
@@ -33,5 +33,4 @@ public class Venta {
     public double getTotal()                { return total; }
     public String getMetodoPago()           { return metodoPago; }
     public String getEstadoPago()           { return estadoPago != null ? estadoPago : "PENDIENTE"; }
-    public void setEstadoPago(String e)     { this.estadoPago = e; }
 }

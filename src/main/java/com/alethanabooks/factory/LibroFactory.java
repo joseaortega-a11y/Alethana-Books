@@ -8,20 +8,6 @@ public class LibroFactory {
 
     public enum TipoLibro { FISICO, DIGITAL }
 
-    /**
-     * Factory Method principal: decide qué subclase crear según el tipo.
-     *
-     * @param tipo              FISICO o DIGITAL
-     * @param id                Identificador único del libro
-     * @param titulo            Título del libro
-     * @param autor             Autor del libro
-     * @param categoria         Categoría del libro
-     * @param precio            Precio del libro
-     * @param stock             Stock disponible
-     * @param imagen            Nombre del archivo de imagen de portada
-     * @param formato           Formato del libro digital (PDF, EPUB, MOBI). Ignorado para libros físicos.
-     * @param rutaArchivo       Ruta del archivo descargable. Ignorado para libros físicos.
-     */
     public static Libro crearLibro(TipoLibro tipo, String id, String titulo,
                                    String autor, String categoria,
                                    double precio, int stock,
@@ -34,10 +20,6 @@ public class LibroFactory {
                     rutaArchivo, true, formato);
         };
     }
-
-    /**
-     * Sobrecarga de compatibilidad: crea un LibroFisico con valores por defecto.
-     */
     public static Libro crearLibro(String isbn, String titulo, String autor,
                                    String categoria, double precio, int stock) {
         return crearLibro(TipoLibro.FISICO, isbn, titulo, autor, categoria, precio, stock, "", "", "");

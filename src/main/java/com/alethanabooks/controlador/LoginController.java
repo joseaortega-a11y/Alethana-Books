@@ -30,11 +30,9 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Lambda: inicializar admin por defecto al arrancar
         Runnable inicializar = () -> usuarioService.inicializarAdminPorDefecto();
         inicializar.run();
 
-        // Lambda: validar campos en tiempo real
         txtCorreo.textProperty().addListener((obs, old, nuevo) -> {
             boolean valido = nuevo.contains("@") && nuevo.contains(".");
             txtCorreo.setStyle(valido || nuevo.isEmpty()
@@ -54,7 +52,6 @@ public class LoginController implements Initializable {
             return;
         }
 
-        // Buscar usuario existente; si no existe, registrar y luego autenticar
         Optional<Usuario> usuario = usuarioService.autenticar(correo, contra);
         if (usuario.isEmpty()) {
             usuarioService.registrar(nombre, correo, contra);
@@ -66,7 +63,6 @@ public class LoginController implements Initializable {
             return;
         }
 
-        // Iniciar sesión con el usuario autenticado
         SesionActual.iniciar(usuario.get());
 
         cambiarVentana("/fxml/alethana-books.fxml", "Alethana Books - Catálogo");

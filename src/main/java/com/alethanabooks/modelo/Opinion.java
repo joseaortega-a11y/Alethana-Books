@@ -6,7 +6,7 @@ public class Opinion {
     private String id;
     private String nombreUsuario;
     private String texto;
-    private int estrellas;          // 1 a 5
+    private int estrellas;
     private LocalDateTime fecha;
 
     public Opinion() {}

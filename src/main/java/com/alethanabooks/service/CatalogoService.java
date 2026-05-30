@@ -44,8 +44,6 @@ public class CatalogoService {
         Collections.shuffle(libros);
         return libros.stream().limit(limite).collect(Collectors.toList());
     }
-
-    // Últimos N añadidos (los últimos de la lista JSON)
     public List<Libro> obtenerUltimos(int limite) {
         List<Libro> todos = obtenerTodos();
         int desde = Math.max(0, todos.size() - limite);

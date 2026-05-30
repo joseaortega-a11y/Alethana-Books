@@ -36,20 +36,17 @@ import java.util.UUID;
 
 public class AdminController implements Initializable {
 
-    // ── Tabla ──────────────────────────────────────────────────────────────
     @FXML private TableView<Libro>           tablaLibros;
     @FXML private TableColumn<Libro,String>  colId, colTitulo, colAutor, colCategoria, colImagen;
     @FXML private TableColumn<Libro,String>  colTipo, colFormato;
     @FXML private TableColumn<Libro,Double>  colPrecio;
     @FXML private TableColumn<Libro,Integer> colStock;
 
-    // ── Formulario ────────────────────────────────────────────────────────
     @FXML private TextField      txtTitulo, txtAutor, txtPrecio, txtStock, txtBuscar;
     @FXML private ComboBox<String> cmbCategoria, cmbTipo, cmbFormato;
     @FXML private Label          lblRutaImagen, lblRutaArchivo;
     @FXML private Button         btnAgregar, btnEliminar, btnModificar, btnArchivo;
 
-    // ── Pedidos ───────────────────────────────────────────────────────────
     @FXML private VBox           listaPedidos;
 
     private final CatalogoService  catalogoService  = new CatalogoService();
@@ -66,7 +63,7 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Columnas
+
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         colAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
@@ -75,7 +72,7 @@ public class AdminController implements Initializable {
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
         colImagen.setCellValueFactory(new PropertyValueFactory<>("imagen"));
 
-        // Columnas derivadas: tipo y formato (no son propiedades de Libro base)
+
         colTipo.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleStringProperty(
                         data.getValue() instanceof com.alethanabooks.modelo.LibroDigital ? "Digital" : "Físico"));
@@ -87,7 +84,7 @@ public class AdminController implements Initializable {
             return new javafx.beans.property.SimpleStringProperty("—");
         });
 
-        // ComboBox
+
         cmbCategoria.setItems(FXCollections.observableArrayList(CATEGORIAS));
         cmbCategoria.setPromptText("Seleccionar categoría");
         cmbTipo.setItems(FXCollections.observableArrayList("Físico", "Digital"));
@@ -95,7 +92,7 @@ public class AdminController implements Initializable {
         cmbFormato.setItems(FXCollections.observableArrayList("PDF", "EPUB", "MOBI"));
         cmbFormato.setValue("PDF");
 
-        // Mostrar/ocultar campos de digital según tipo
+
         cmbTipo.valueProperty().addListener((obs, old, tipo) -> {
             boolean esDigital = "Digital".equals(tipo);
             cmbFormato.setVisible(esDigital);
@@ -105,7 +102,7 @@ public class AdminController implements Initializable {
             lblRutaArchivo.setVisible(esDigital);
             lblRutaArchivo.setManaged(esDigital);
         });
-        // Estado inicial: Nacional, campos digitales ocultos
+
         cmbFormato.setVisible(false); cmbFormato.setManaged(false);
         btnArchivo.setVisible(false);  btnArchivo.setManaged(false);
         lblRutaArchivo.setVisible(false); lblRutaArchivo.setManaged(false);
@@ -113,14 +110,14 @@ public class AdminController implements Initializable {
         cargarLibros();
         cargarPedidos();
 
-        // Búsqueda en tiempo real
+
         txtBuscar.textProperty().addListener((obs, old, texto) -> {
             FiltroLibro filtro = libro -> libro.coincideCon(texto);
             tablaLibros.setItems(FXCollections.observableArrayList(
                     catalogoService.obtenerTodos().stream().filter(filtro::filtrar).toList()));
         });
 
-        // Selección fila → carga formulario
+
         tablaLibros.getSelectionModel().selectedItemProperty().addListener((obs, old, sel) -> {
             if (sel != null) cargarEnFormulario(sel);
         });
@@ -139,7 +136,7 @@ public class AdminController implements Initializable {
         imagenSeleccionada = libro.getImagen() != null ? libro.getImagen() : "";
         lblRutaImagen.setText(imagenSeleccionada.isBlank() ? "Sin imagen" : imagenSeleccionada);
 
-        // Restaurar campos específicos de LibroDigital
+
         if (libro instanceof com.alethanabooks.modelo.LibroDigital ld) {
             cmbTipo.setValue("Digital");
             cmbFormato.setValue(ld.getFormato() != null ? ld.getFormato() : "PDF");
@@ -229,7 +226,7 @@ public class AdminController implements Initializable {
                     titulo, autor, categoria, precio, stock, imagenSeleccionada,
                     formato, archivoDescargable);
 
-            // Validar si implementa Validable
+
             if (nuevo instanceof Validable v && !v.esValido()) {
                 mostrarAlerta("Libro inválido", v.obtenerMensajeError());
                 return;
@@ -310,7 +307,7 @@ public class AdminController implements Initializable {
             return;
         }
 
-        // Resumen total del día
+
         double totalDia = ventas.stream()
                 .filter(v -> v.getFecha() != null &&
                         v.getFecha().toLocalDate().equals(java.time.LocalDate.now()))
@@ -319,7 +316,7 @@ public class AdminController implements Initializable {
                 "Pedidos totales: %d   |   Ventas hoy: COP %,.0f", ventas.size(), totalDia));
         lblResumen.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #7c3aed;" +
                 " -fx-background-color: #ede9fe; -fx-background-radius: 8; -fx-padding: 8 14;");
-        // color set in style above
+
         listaPedidos.getChildren().add(lblResumen);
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -334,15 +331,15 @@ public class AdminController implements Initializable {
                     "-fx-border-width: 1.5; -fx-border-radius: 12;");
             card.setPadding(new Insets(14, 18, 14, 18));
 
-            // Cabecera: usuario + fecha + estado
+
             HBox cabecera = new HBox(12);
             cabecera.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
             String iconMetodo = switch (v.getMetodoPago() != null ? v.getMetodoPago() : "") {
-                case "Tarjeta" -> "💳";
-                case "PSE"     -> "🏦";
-                case "Efecty"  -> "🏪";
-                default        -> "💰";
+                case "Tarjeta" -> "";
+                case "PSE"     -> "";
+                case "Efecty"  -> "";
+                default        -> "";
             };
 
             VBox infoUsuario = new VBox(2);
@@ -350,42 +347,40 @@ public class AdminController implements Initializable {
 
             String nombreUsuario = v.getUsuario() != null ? v.getUsuario().getNombre() : "Desconocido";
             String correoUsuario = v.getUsuario() != null ? v.getUsuario().getCorreo() : "";
-            Label lblUsuario = new Label("👤  " + nombreUsuario + "  ·  " + correoUsuario);
+            Label lblUsuario = new Label("" + nombreUsuario + "  ·  " + correoUsuario);
             lblUsuario.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #0f172a;");
-            // color set in style above
+
 
             String fechaStr = v.getFecha() != null ? v.getFecha().format(fmt) : "—";
-            Label lblFecha = new Label("📅  " + fechaStr + "   " + iconMetodo + "  " + v.getMetodoPago());
+            Label lblFecha = new Label("" + fechaStr + "   " + iconMetodo + "  " + v.getMetodoPago());
             lblFecha.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
-            // color set in style above
+
 
             infoUsuario.getChildren().addAll(lblUsuario, lblFecha);
 
-            // Badge de estado
+
             Label lblEstado = new Label(pagado ? "PAGADO" : "PENDIENTE");
             lblEstado.setStyle("-fx-background-color: " + (pagado ? "#39ff7e" : "#ffde53") + "; " +
                     "-fx-background-radius: 8; -fx-font-size: 11px; -fx-font-weight: 900; -fx-padding: 5 10;");
-            // color set in style above
+
 
             cabecera.getChildren().addAll(infoUsuario, lblEstado);
             card.getChildren().add(cabecera);
 
-            // Separador
             card.getChildren().add(new Separator());
 
-            // Ítems del pedido
             for (com.alethanabooks.modelo.DetalleVenta d : v.getDetalles()) {
                 HBox fila = new HBox();
                 fila.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-                Label lblLibro = new Label("  📖  " + d.getLibro().getTitulo() +
+                Label lblLibro = new Label("" + d.getLibro().getTitulo() +
                         "  ×" + d.getCantidad());
                 lblLibro.setStyle("-fx-font-size: 13px; -fx-text-fill: #334155;");
-                // color set in style above
+
                 javafx.scene.layout.HBox.setHgrow(lblLibro, javafx.scene.layout.Priority.ALWAYS);
 
                 Label lblSub = new Label("COP " + String.format("%,.0f", d.getSubtotal()));
                 lblSub.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #7c3aed;");
-                // color set in style above
+
 
                 fila.getChildren().addAll(lblLibro, lblSub);
                 card.getChildren().add(fila);
@@ -393,17 +388,15 @@ public class AdminController implements Initializable {
 
             card.getChildren().add(new Separator());
 
-            // Total
             HBox filaTotal = new HBox();
             filaTotal.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-            Label lblTotalLbl = new Label("TOTAL");
+            Label lblTotalLbl = new Label("TOTAL ");
             lblTotalLbl.setStyle("-fx-font-size: 14px; -fx-font-weight: 900; -fx-text-fill: #0f172a;");
-            // color set in style above
+
             javafx.scene.layout.HBox.setHgrow(lblTotalLbl, javafx.scene.layout.Priority.ALWAYS);
 
             Label lblTotalVal = new Label("COP " + String.format("%,.0f", v.getTotal()));
             lblTotalVal.setStyle("-fx-font-size: 16px; -fx-font-weight: 900; -fx-text-fill: #7c3aed;");
-            // color set in style above
 
             filaTotal.getChildren().addAll(lblTotalLbl, lblTotalVal);
             card.getChildren().add(filaTotal);

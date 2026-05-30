@@ -1,90 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.SVGPath?>
 
-<VBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.alethanabooks.controlador.HeaderController">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-    <!-- Barra promo -->
-    <StackPane prefHeight="48.0"
-               style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);">
+<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alethanabooks.controlador.HeaderController">
+
+    <StackPane prefHeight="48.0" style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);">
         <HBox alignment="CENTER" spacing="22.0">
-            <Label text="Cyber Days: hasta 70% de descuento en libros seleccionados"
-                   textFill="white" style="-fx-font-size: 16px; -fx-font-weight: 800;" />
-            <Label text="Ver ofertas" textFill="white"
-                   style="-fx-font-size: 16px; -fx-font-weight: 800; -fx-underline: true;" />
+            <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Bienvenido, disfruta de nuestra app de libros Alethana Books" textFill="white" />
+         <Button fx:id="btnCerrarSesion" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onCerrar" style="-fx-background-color: linear-gradient(to right, #ffffff, #7c3aed);" text="Cerrar Sesión" />
         </HBox>
     </StackPane>
 
-    <!-- Barra principal -->
-    <HBox alignment="CENTER_LEFT" prefHeight="82.0" spacing="22.0"
-          style="-fx-background-color: #ffffff; -fx-border-color: transparent transparent #e5e7eb transparent;">
+    <HBox alignment="CENTER_LEFT" prefHeight="82.0" spacing="22.0" style="-fx-background-color: #ffffff; -fx-border-color: transparent transparent #e5e7eb transparent;">
         <padding><Insets left="28.0" right="28.0" /></padding>
 
         <VBox alignment="CENTER" prefHeight="69.0" prefWidth="193.0" spacing="3.0">
-            <Label text="Alethana Books" textFill="#7c3aed"
-                   style="-fx-font-size: 25px; -fx-font-weight: 900;" />
-            <Label text="Enviar a Colombia" textFill="#64748b"
-                   style="-fx-font-size: 14px;" />
+            <Label style="-fx-font-size: 25px; -fx-font-weight: 900;" text="Alethana Books" textFill="#7c3aed" />
+            <Label style="-fx-font-size: 14px;" text="Enviar a Colombia" textFill="#64748b" />
         </VBox>
 
-        <!-- Buscador -->
-        <HBox alignment="CENTER_LEFT" maxHeight="52.0" HBox.hgrow="ALWAYS"
-              style="-fx-background-color: white; -fx-border-color: #dfe3ea;
-                     -fx-border-radius: 11; -fx-background-radius: 11;">
-            <TextField fx:id="txtBusqueda" promptText="Buscar por título o autor"
-                       maxHeight="50.0" minHeight="50.0" prefHeight="50.0"
-                       HBox.hgrow="ALWAYS"
-                       style="-fx-background-color: transparent; -fx-background-radius: 11 0 0 11;
-                              -fx-font-size: 17px; -fx-padding: 0 18;" />
-            <Button text="Buscar" onAction="#onBuscar"
-                    maxHeight="50.0" minHeight="50.0" prefWidth="110.0"
-                    textFill="white"
-                    style="-fx-background-color: #7c3aed; -fx-background-radius: 0 10 10 0;
-                           -fx-font-size: 16px; -fx-font-weight: 800;" />
+        <HBox alignment="CENTER_LEFT" maxHeight="52.0" style="-fx-background-color: white; -fx-border-color: #dfe3ea;                      -fx-border-radius: 11; -fx-background-radius: 11;" HBox.hgrow="ALWAYS">
+            <TextField fx:id="txtBusqueda" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" promptText="Buscar por título o autor" style="-fx-background-color: transparent; -fx-background-radius: 11 0 0 11;                               -fx-font-size: 17px; -fx-padding: 0 18;" HBox.hgrow="ALWAYS" />
+            <Button maxHeight="50.0" minHeight="50.0" onAction="#onBuscar" prefWidth="110.0" style="-fx-background-color: #7c3aed; -fx-background-radius: 0 10 10 0;                            -fx-font-size: 16px; -fx-font-weight: 800;" text="Buscar" textFill="white" />
         </HBox>
 
-        <!-- Íconos: carrito, ayuda, cuenta -->
         <HBox alignment="CENTER" maxHeight="50.0" minHeight="50.0" spacing="12.0">
 
-            <!-- Carrito -->
-            <Button onAction="#onAbrirCarrito"
-                    contentDisplay="GRAPHIC_ONLY" maxHeight="40.0" maxWidth="40.0"
-                    minHeight="40.0" minWidth="40.0"
-                    style="-fx-background-color: transparent; -fx-padding: 0;">
+            <Button contentDisplay="GRAPHIC_ONLY" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onAbrirCarrito" style="-fx-background-color: transparent; -fx-padding: 0;">
                 <graphic>
-                    <SVGPath fill="#39393A" scaleX="1.18" scaleY="1.18"
-                             content="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L21 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2z" />
+                    <SVGPath content="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L21 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2z" fill="#39393A" scaleX="1.18" scaleY="1.18" />
                 </graphic>
             </Button>
 
-            <!-- Ayuda -->
-            <Button onAction="#onAbrirAyuda"
-                    contentDisplay="GRAPHIC_ONLY" maxHeight="40.0" maxWidth="40.0"
-                    minHeight="40.0" minWidth="40.0"
-                    style="-fx-background-color: transparent; -fx-padding: 0;">
+            <Button contentDisplay="GRAPHIC_ONLY" maxHeight="40.0" maxWidth="40.0" minHeight="40.0" minWidth="40.0" onAction="#onAbrirAyuda" style="-fx-background-color: transparent; -fx-padding: 0;">
                 <graphic>
-                    <SVGPath fill="#10b981" scaleX="1.15" scaleY="1.15"
-                             content="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" />
+                    <SVGPath content="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" fill="#10b981" scaleX="1.15" scaleY="1.15" />
                 </graphic>
             </Button>
 
-            <!-- Mi cuenta -->
-            <Button onAction="#onAbrirCuenta"
-                    maxHeight="40.0" minHeight="40.0"
-                    style="-fx-background-color: transparent; -fx-padding: 0 6;">
+            <Button maxHeight="40.0" minHeight="40.0" onAction="#onAbrirCuenta" style="-fx-background-color: transparent; -fx-padding: 0 6;">
                 <graphic>
                     <HBox alignment="CENTER" spacing="8.0">
-                        <Label text="Mi Cuenta" textFill="#0f172a"
-                               style="-fx-font-size: 14px; -fx-font-weight: 700;" />
+                        <Label style="-fx-font-size: 14px; -fx-font-weight: 700;" text="Mi Cuenta" textFill="#0f172a" />
                         <VBox alignment="CENTER" spacing="0.0">
                             <Region prefHeight="8.0" prefWidth="28.0" style="-fx-background-color: #facc15;" />
                             <Region prefHeight="6.0" prefWidth="28.0" style="-fx-background-color: #1d4ed8;" />
@@ -96,37 +56,21 @@
         </HBox>
     </HBox>
 
-    <!-- Navbar -->
-    <HBox alignment="CENTER_LEFT" prefHeight="48.0" spacing="4.0"
-          style="-fx-background-color: #f8fafc; -fx-border-color: transparent transparent #e5e7eb transparent;">
+    <HBox alignment="CENTER_LEFT" prefHeight="48.0" spacing="4.0" style="-fx-background-color: #f8fafc; -fx-border-color: transparent transparent #e5e7eb transparent;">
         <padding><Insets left="28.0" right="28.0" /></padding>
 
-        <Label text="Menú →" textFill="#0f172a" style="-fx-font-size: 16px; -fx-font-weight: 800;" />
+        <Label style="-fx-font-size: 16px; -fx-font-weight: 800;" text="Menú →" textFill="#0f172a" />
 
-        <Button text="Libros Digitales" onAction="#irLibrosDigitales"
-                style="-fx-background-color: #ede9fe; -fx-background-radius: 8;
-                       -fx-border-color: transparent;
-                       -fx-font-size: 15px; -fx-font-weight: 800; -fx-padding: 6 14; -fx-cursor: hand;"
-                textFill="#7c3aed"/>
+        <Button onAction="#irLibrosDigitales" style="-fx-background-color: #ede9fe; -fx-background-radius: 8;                        -fx-border-color: transparent;                        -fx-font-size: 15px; -fx-font-weight: 800; -fx-padding: 6 14; -fx-cursor: hand;" text="Libros Digitales" textFill="#7c3aed" />
 
-        <Button text="Inicio" onAction="#irInicio"
-                style="-fx-background-color: transparent; -fx-border-color: transparent;
-                       -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" textFill="#7c3aed"/>
+        <Button onAction="#irInicio" style="-fx-background-color: transparent; -fx-border-color: transparent;                        -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" text="Inicio" textFill="#7c3aed" />
 
-        <Button text="Recomendados" onAction="#irLibrosRecomendados"
-                style="-fx-background-color: transparent; -fx-border-color: transparent;
-                       -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" textFill="#0f172a"/>
+        <Button onAction="#irLibrosRecomendados" style="-fx-background-color: transparent; -fx-border-color: transparent;                        -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" text="Recomendados" textFill="#0f172a" />
 
-        <Button text="Últimos añadidos" onAction="#irUltimosAniadidos"
-                style="-fx-background-color: transparent; -fx-border-color: transparent;
-                       -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" textFill="#0f172a"/>
+        <Button onAction="#irUltimosAniadidos" style="-fx-background-color: transparent; -fx-border-color: transparent;                        -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" text="Últimos añadidos" textFill="#0f172a" />
 
-        <Button text="Libros importados" onAction="#irLibrosImportados"
-                style="-fx-background-color: transparent; -fx-border-color: transparent;
-                       -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" textFill="#0f172a"/>
+        <Button onAction="#irLibrosImportados" style="-fx-background-color: transparent; -fx-border-color: transparent;                        -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" text="Libros importados" textFill="#0f172a" />
 
-        <Button text="Opiniones de clientes" onAction="#irOpiniones"
-                style="-fx-background-color: transparent; -fx-border-color: transparent;
-                       -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" textFill="#0f172a"/>
+        <Button onAction="#irOpiniones" style="-fx-background-color: transparent; -fx-border-color: transparent;                        -fx-font-size: 15px; -fx-padding: 6 14; -fx-cursor: hand;" text="Opiniones de clientes" textFill="#0f172a" />
     </HBox>
 </VBox>

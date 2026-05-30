@@ -1,125 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
+
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefWidth="440"
-            style="-fx-background-color: #f8fafc;"
-            xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.alethanabooks.controlador.PagoController">
+<BorderPane prefWidth="440" style="-fx-background-color: #f8fafc;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alethanabooks.controlador.PagoController">
 
-    <!-- HEADER -->
     <top>
         <VBox style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);">
-            <padding><Insets bottom="18" left="24" right="24" top="18"/></padding>
-            <Label text="Simulación de Pago" style="-fx-font-size: 20px; -fx-font-weight: 900;" textFill="white"/>
+            <padding><Insets bottom="18" left="24" right="24" top="18" /></padding>
+            <Label style="-fx-font-size: 20px; -fx-font-weight: 900;" text="Pagar artículos" textFill="white" />
             <HBox spacing="20">
-                <Label text="Método:" style="-fx-font-size: 13px; -fx-opacity: 0.85;" textFill="white"/>
-                <Label fx:id="lblMetodo" style="-fx-font-size: 13px; -fx-font-weight: 800;" textFill="white"/>
-                <Label text="Total:" style="-fx-font-size: 13px; -fx-opacity: 0.85;" textFill="white"/>
-                <Label fx:id="lblTotal" style="-fx-font-size: 13px; -fx-font-weight: 800;" textFill="white"/>
+                <Label style="-fx-font-size: 13px; -fx-opacity: 0.85;" text="Método:" textFill="white" />
+                <Label fx:id="lblMetodo" style="-fx-font-size: 13px; -fx-font-weight: 800;" textFill="white" />
+                <Label style="-fx-font-size: 13px; -fx-opacity: 0.85;" text="Total:" textFill="white" />
+                <Label fx:id="lblTotal" style="-fx-font-size: 13px; -fx-font-weight: 800;" textFill="white" />
             </HBox>
         </VBox>
     </top>
 
     <center>
         <VBox spacing="16">
-            <padding><Insets bottom="24" left="24" right="24" top="20"/></padding>
+            <padding><Insets bottom="24" left="24" right="24" top="20" /></padding>
 
-            <!-- PANEL TARJETA -->
-            <VBox fx:id="panelTarjeta" spacing="12"
-                  style="-fx-background-color: white; -fx-background-radius: 12;
-                         -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
-                <padding><Insets bottom="20" left="20" right="20" top="16"/></padding>
-                <Label text="Datos de la tarjeta"
-                       style="-fx-font-size: 15px; -fx-font-weight: 900;" textFill="#0f172a"/>
+            <VBox fx:id="panelTarjeta" spacing="12" style="-fx-background-color: white; -fx-background-radius: 12;                          -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
+                <padding><Insets bottom="20" left="20" right="20" top="16" /></padding>
+                <Label style="-fx-font-size: 15px; -fx-font-weight: 900;" text="Datos de la tarjeta" textFill="#0f172a" />
 
-                <Label text="Número de tarjeta" style="-fx-font-size: 12px;" textFill="#64748b"/>
-                <TextField fx:id="txtNumero" promptText="1234 5678 9012 3456"
-                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                  -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 14px;"/>
+                <Label style="-fx-font-size: 12px;" text="Número de tarjeta" textFill="#64748b" />
+                <TextField fx:id="txtNumero" promptText="1234 5678 9012 3456" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;                                   -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 14px;" />
 
-                <Label text="Nombre del titular" style="-fx-font-size: 12px;" textFill="#64748b"/>
-                <TextField fx:id="txtNombre" promptText="Como aparece en la tarjeta"
-                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                  -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+                <Label style="-fx-font-size: 12px;" text="Nombre del titular" textFill="#64748b" />
+                <TextField fx:id="txtNombre" promptText="Como aparece en la tarjeta" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;                                   -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
 
                 <HBox spacing="12">
                     <VBox spacing="4" HBox.hgrow="ALWAYS">
-                        <Label text="Vencimiento" style="-fx-font-size: 12px;" textFill="#64748b"/>
-                        <TextField fx:id="txtExpiry" promptText="MM/AA"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+                        <Label style="-fx-font-size: 12px;" text="Vencimiento" textFill="#64748b" />
+                        <TextField fx:id="txtExpiry" promptText="MM/AA" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;                                           -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
                     </VBox>
-                    <VBox spacing="4" prefWidth="110">
-                        <Label text="CVV" style="-fx-font-size: 12px;" textFill="#64748b"/>
-                        <TextField fx:id="txtCVV" promptText="123"
-                                   style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                          -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
+                    <VBox prefWidth="110" spacing="4">
+                        <Label style="-fx-font-size: 12px;" text="CVV" textFill="#64748b" />
+                        <TextField fx:id="txtCVV" promptText="123" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;                                           -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
                     </VBox>
                 </HBox>
-                <Label text="Tus datos están protegidos (simulación)" textFill="#94a3b8"
-                       style="-fx-font-size: 11px;"/>
+                <Label style="-fx-font-size: 11px;" text="Tus datos están protegidos (simulación)" textFill="#94a3b8" />
             </VBox>
 
-            <!-- PANEL PSE -->
-            <VBox fx:id="panelPSE" spacing="12"
-                  style="-fx-background-color: white; -fx-background-radius: 12;
-                         -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
-                <padding><Insets bottom="20" left="20" right="20" top="16"/></padding>
-                <Label text="Pago por PSE"
-                       style="-fx-font-size: 15px; -fx-font-weight: 900;" textFill="#0f172a"/>
+            <VBox fx:id="panelPSE" spacing="12" style="-fx-background-color: white; -fx-background-radius: 12;                          -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
+                <padding><Insets bottom="20" left="20" right="20" top="16" /></padding>
+                <Label style="-fx-font-size: 15px; -fx-font-weight: 900;" text="Pago por PSE" textFill="#0f172a" />
 
-                <Label text="Selecciona tu banco" style="-fx-font-size: 12px;" textFill="#64748b"/>
-                <ComboBox fx:id="cmbBanco" maxWidth="Infinity"
-                          style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                 -fx-border-radius: 8; -fx-font-size: 13px;"/>
+                <Label style="-fx-font-size: 12px;" text="Selecciona tu banco" textFill="#64748b" />
+                <ComboBox fx:id="cmbBanco" maxWidth="Infinity" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;                                  -fx-border-radius: 8; -fx-font-size: 13px;" />
 
-                <Label text="Número de documento" style="-fx-font-size: 12px;" textFill="#64748b"/>
-                <TextField fx:id="txtCedulaPSE" promptText="Cédula o NIT"
-                           style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;
-                                  -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
-                <Label text="Serás redirigido a tu banco para completar el pago (simulación)."
-                       textFill="#94a3b8" style="-fx-font-size: 11px;" wrapText="true"/>
+                <Label style="-fx-font-size: 12px;" text="Número de documento" textFill="#64748b" />
+                <TextField fx:id="txtCedulaPSE" promptText="Cédula o NIT" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb;                                   -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;" />
+                <Label style="-fx-font-size: 11px;" text="Serás redirigido a tu banco para completar el pago (simulación)." textFill="#94a3b8" wrapText="true" />
             </VBox>
 
-            <!-- PANEL EFECTY -->
-            <VBox fx:id="panelEfecty" spacing="12"
-                  style="-fx-background-color: white; -fx-background-radius: 12;
-                         -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
-                <padding><Insets bottom="20" left="20" right="20" top="16"/></padding>
-                <Label text="Pago en Efecty / Baloto"
-                       style="-fx-font-size: 15px; -fx-font-weight: 900;" textFill="#0f172a"/>
-                <Label text="Presenta este código en cualquier punto Efecty o Baloto:"
-                       textFill="#64748b" style="-fx-font-size: 13px;" wrapText="true"/>
-                <Label fx:id="lblCodigoEfecty" text="# --------"
-                       style="-fx-font-size: 28px; -fx-font-weight: 900;
-                              -fx-background-color: #f1f5f9; -fx-background-radius: 10;
-                              -fx-padding: 12 20;" textFill="#7c3aed"/>
-                <Label text="Tienes 24 horas para realizar el pago. Al confirmar se registrará tu pedido."
-                       textFill="#94a3b8" style="-fx-font-size: 11px;" wrapText="true"/>
+            <VBox fx:id="panelEfecty" spacing="12" style="-fx-background-color: white; -fx-background-radius: 12;                          -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
+                <padding><Insets bottom="20" left="20" right="20" top="16" /></padding>
+                <Label style="-fx-font-size: 15px; -fx-font-weight: 900;" text="Pago en Efecty / Baloto" textFill="#0f172a" />
+                <Label style="-fx-font-size: 13px;" text="Presenta este código en cualquier punto Efecty o Baloto:" textFill="#64748b" wrapText="true" />
+                <Label fx:id="lblCodigoEfecty" style="-fx-font-size: 28px; -fx-font-weight: 900;                               -fx-background-color: #f1f5f9; -fx-background-radius: 10;                               -fx-padding: 12 20;" text="# --------" textFill="#7c3aed" />
+                <Label style="-fx-font-size: 11px;" text="Tienes 24 horas para realizar el pago. Al confirmar se registrará tu pedido." textFill="#94a3b8" wrapText="true" />
             </VBox>
 
-            <!-- BARRA DE PROGRESO -->
-            <ProgressBar fx:id="barProgreso" maxWidth="Infinity" prefHeight="6"
-                         visible="false"
-                         style="-fx-accent: #7c3aed; -fx-background-radius: 4;"/>
+            <ProgressBar fx:id="barProgreso" maxWidth="Infinity" prefHeight="6" style="-fx-accent: #7c3aed; -fx-background-radius: 4;" visible="false" />
 
-            <!-- ESTADO -->
-            <Label fx:id="lblEstado" text="" wrapText="true"
-                   style="-fx-font-size: 13px; -fx-font-weight: 700;"/>
 
-            <!-- BOTONES -->
+            <Label fx:id="lblEstado" style="-fx-font-size: 13px; -fx-font-weight: 700;" text="" wrapText="true" />
+
             <HBox spacing="12">
-                <Button text="Cancelar" onAction="#onCancelar" HBox.hgrow="ALWAYS" maxWidth="Infinity"
-                        style="-fx-background-color: #f1f5f9; -fx-background-radius: 10;
-                               -fx-font-size: 14px; -fx-font-weight: 700; -fx-padding: 12;"/>
-                <Button fx:id="btnPagar" text="Pagar ahora" onAction="#onPagar"
-                        HBox.hgrow="ALWAYS" maxWidth="Infinity" textFill="white"
-                        style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);
-                               -fx-background-radius: 10; -fx-font-size: 14px;
-                               -fx-font-weight: 900; -fx-padding: 12;"/>
+                <Button maxWidth="Infinity" onAction="#onCancelar" style="-fx-background-color: #f1f5f9; -fx-background-radius: 10;                                -fx-font-size: 14px; -fx-font-weight: 700; -fx-padding: 12;" text="Cancelar" HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnPagar" maxWidth="Infinity" onAction="#onPagar" style="-fx-background-color: linear-gradient(to right, #7c3aed, #ec4899);                                -fx-background-radius: 10; -fx-font-size: 14px;                                -fx-font-weight: 900; -fx-padding: 12;" text="Pagar ahora" textFill="white" HBox.hgrow="ALWAYS" />
             </HBox>
         </VBox>
     </center>

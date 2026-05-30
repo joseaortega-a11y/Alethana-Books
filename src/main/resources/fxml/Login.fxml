@@ -8,48 +8,38 @@
 <AnchorPane prefHeight="575.0" prefWidth="492.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.alethanabooks.controlador.LoginController">
    <children>
 
-      <!-- Título -->
       <Text fill="#7c3aed" layoutX="165.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alethana Books" wrappingWidth="177.0">
          <font><Font name="System Bold" size="20.0" /></font>
       </Text>
 
-      <!-- Subtítulo -->
       <Text layoutX="108.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido(a) a Alethana Books, nuestra tienda de libros online. Por favor ingresa tus datos." textAlignment="CENTER" wrappingWidth="270.0">
          <font><Font name="Arial" size="12.0" /></font>
       </Text>
 
-      <!-- Identificación -->
       <Text layoutX="210.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificación" />
       <TextField fx:id="txtId" layoutX="170.0" layoutY="120.0" prefWidth="152.0" promptText="Ej: 1234567890" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8; -fx-padding: 6 10;" />
 
-      <!-- Correo -->
       <Text layoutX="192.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección de correo:" />
       <TextField fx:id="txtCorreo" layoutX="167.0" layoutY="180.0" prefWidth="152.0" promptText="correo@ejemplo.com" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8; -fx-padding: 6 10;" />
 
-      <!-- Nombre -->
       <Text layoutX="194.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre y apellidos:" />
       <TextField fx:id="txtApodo" layoutX="169.0" layoutY="237.0" prefWidth="152.0" promptText="Tu nombre completo" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8; -fx-padding: 6 10;" />
 
-      <!-- Contraseña -->
       <Text layoutX="212.0" layoutY="293.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:" />
       <PasswordField fx:id="txtContra" layoutX="171.0" layoutY="299.0" prefWidth="152.0" promptText="••••••••" style="-fx-background-radius: 8; -fx-border-color: #e5e7eb; -fx-border-radius: 8; -fx-padding: 6 10;" />
 
-      <!-- Separador "o" -->
       <Text layoutX="239.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="o" />
 
-      <!-- Botones -->
       <Button fx:id="btnUsuario" layoutX="108.0" layoutY="341.0" mnemonicParsing="false" onAction="#onUsuario" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #8E2DE2, #FF4E8D); -fx-padding: 5 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-font-weight: 700;" text="Ingresar" textFill="WHITE" />
 
       <Button fx:id="btnAdmin" layoutX="281.0" layoutY="341.0" mnemonicParsing="false" onAction="#onAdmin" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: linear-gradient(to right, #FF4E8D, #8E2DE2); -fx-background-radius: 10; -fx-border-radius: 10; -fx-padding: 5 20; -fx-font-weight: 700;" text="Admin" textFill="WHITE" />
 
-      <!-- Imagen -->
       <ImageView fitHeight="172.0" fitWidth="187.0" layoutX="149.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imagenes/undraw_fingerprint-login_19qv.png" />
          </image>
       </ImageView>
 
-      <!-- Términos -->
       <Text layoutX="121.0" layoutY="555.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Al continuar aceptas nuestros Términos de Servicio y Política de Privacidad" textAlignment="CENTER" wrappingWidth="250.0">
          <font><Font size="8.0" /></font>
       </Text>

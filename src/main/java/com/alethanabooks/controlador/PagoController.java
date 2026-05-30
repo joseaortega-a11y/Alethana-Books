@@ -36,7 +36,6 @@ public class PagoController {
     private double total;
     private boolean aprobado = false;
 
-    // Callback que llama CarritoController al cerrarse esta ventana
     private Runnable onPagoAprobado;
 
     public void inicializar(String metodoPago, double total, Runnable onPagoAprobado) {
@@ -47,7 +46,6 @@ public class PagoController {
         lblMetodo.setText(metodoPago);
         lblTotal.setText(String.format("COP %,.0f", total));
 
-        // Mostrar solo el panel correspondiente
         panelTarjeta.setVisible(false); panelTarjeta.setManaged(false);
         panelPSE.setVisible(false);     panelPSE.setManaged(false);
         panelEfecty.setVisible(false);  panelEfecty.setManaged(false);
@@ -66,7 +64,6 @@ public class PagoController {
             }
             case "Efecty" -> {
                 panelEfecty.setVisible(true); panelEfecty.setManaged(true);
-                // Generar código único de 8 dígitos
                 String codigo = String.format("%08d", (int)(Math.random() * 99_999_999));
                 lblCodigoEfecty.setText("# " + codigo);
             }
@@ -82,9 +79,8 @@ public class PagoController {
         lblEstado.setTextFill(Color.web("#f59e0b"));
         barProgreso.setVisible(true);
 
-        // Simular delay de procesamiento (2 segundos)
+
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> {
-            // Simular: 90% de éxito, 10% rechazo (para que sea realista)
             boolean exito = Math.random() > 0.1;
 
             if (exito) {
@@ -93,7 +89,6 @@ public class PagoController {
                 lblEstado.setTextFill(Color.web("#10b981"));
                 barProgreso.setVisible(false);
 
-                // Cerrar y notificar tras 1.2 segundos
                 Timeline cierre = new Timeline(new KeyFrame(Duration.seconds(1.2), ev -> {
                     if (onPagoAprobado != null) onPagoAprobado.run();
                     cerrar();
@@ -115,7 +110,7 @@ public class PagoController {
         return switch (metodoPago) {
             case "Tarjeta" -> validarTarjeta();
             case "PSE"     -> validarPSE();
-            case "Efecty"  -> true; // Efecty solo muestra código, no requiere entrada
+            case "Efecty"  -> true;
             default        -> true;
         };
     }
@@ -166,5 +161,4 @@ public class PagoController {
         ((Stage) btnPagar.getScene().getWindow()).close();
     }
 
-    public boolean isPagoAprobado() { return aprobado; }
 }

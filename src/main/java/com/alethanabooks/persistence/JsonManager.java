@@ -24,12 +24,10 @@ public class JsonManager {
     private JsonManager() {
         gson = new GsonBuilder()
                 .setPrettyPrinting()
-                // TypeAdapter para LocalDateTime
                 .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>)
                         (src, type, ctx) -> new JsonPrimitive(src.format(FORMATO)))
                 .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
                         (json, type, ctx) -> LocalDateTime.parse(json.getAsString(), FORMATO))
-                // TypeAdapter para LocalDate (por si acaso)
                 .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>)
                         (src, type, ctx) -> new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE)))
                 .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>)
@@ -44,10 +42,6 @@ public class JsonManager {
         return instancia;
     }
 
-    /**
-     * Al arrancar, crea las carpetas necesarias y copia los JSON semilla
-     * del classpath al directorio del usuario si todavía no existen.
-     */
     private void inicializarArchivos() {
         try {
             Files.createDirectories(Path.of(RutasDatos.CARPETA_DATA));

@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MasVendidosController implements Initializable {
+public class UltimosAnadidosController implements Initializable {
 
     @FXML private VBox listaLibros;
 

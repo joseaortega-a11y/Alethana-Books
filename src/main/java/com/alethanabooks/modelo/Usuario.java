@@ -7,19 +7,12 @@ public class Usuario {
     private String contrasena;
     private Rol rol;
 
-    public Usuario() {
-    }
-
     public Usuario(String id, String nombre, String correo, String contrasena, Rol rol) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
         this.contrasena = contrasena;
         this.rol = rol;
-    }
-
-    public boolean esAdmin() {
-        return rol == Rol.ADMIN;
     }
 
     public boolean credencialesCoinciden(String correo, String contrasena) {
@@ -29,6 +22,5 @@ public class Usuario {
     public String getId() { return id; }
     public String getNombre() { return nombre; }
     public String getCorreo() { return correo; }
-    public String getContrasena() { return contrasena; }
     public Rol getRol() { return rol; }
 }

@@ -4,7 +4,6 @@ public class RutasDatos {
 
     private RutasDatos() {}
 
-    // Carpeta base en el directorio del usuario: funciona en dev y en JAR
     public static final String CARPETA_BASE         = System.getProperty("user.home") + "/AlethanaBooks/";
     public static final String CARPETA_DATA         = CARPETA_BASE + "data/";
     public static final String CARPETA_IMAGENES     = CARPETA_BASE + "imagenes/";

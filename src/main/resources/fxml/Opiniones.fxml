@@ -25,7 +25,6 @@
                 <Label text="Opiniones de clientes"
                        style="-fx-font-size: 32px; -fx-font-weight: 900;" textFill="#0f172a"/>
 
-                <!-- FORMULARIO -->
                 <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 14;
                                           -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
                     <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
@@ -53,8 +52,7 @@
                     </HBox>
                 </VBox>
 
-                <!-- LISTA DE OPINIONES -->
-                <Label text="Lo que dicen nuestros lectores"
+                <Label text="Lo que dicen nuestros lectores sobre nuestra App"
                        style="-fx-font-size: 20px; -fx-font-weight: 900;" textFill="#0f172a"/>
                 <VBox fx:id="listaOpiniones" spacing="14"/>
             </VBox>

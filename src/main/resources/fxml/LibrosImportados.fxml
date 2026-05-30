@@ -20,16 +20,14 @@
                     </VBox>
                 </HBox>
 
-                <!-- Banner -->
                 <StackPane prefHeight="160.0" style="-fx-background-color: linear-gradient(to right, #5b8cff, #1e293b); -fx-background-radius: 18;">
                     <HBox alignment="CENTER_LEFT" prefHeight="135.0" prefWidth="1198.0" spacing="40.0">
                         <padding><Insets bottom="28" left="36" right="36" top="28" /></padding>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                             <Label style="-fx-font-size: 26px; -fx-font-weight: 900;" text="Colección Internacional 2026" textFill="white" />
-                            <Label style="-fx-font-size: 15px;" text="Más de 200 títulos importados directamente de Europa y Norteamérica" textFill="#f0fff6"
-                                   wrapText="true" />
+                            <Label style="-fx-font-size: 15px;" text="Más de 200 títulos importados directamente de Europa y Norteamérica" textFill="#f0fff6" wrapText="true" />
                         </VBox>
-                        <Label style="-fx-background-color: #f59e0b; -fx-background-radius: 12;  -fx-font-size: 20px; -fx-font-weight: 900; -fx-padding: 14 26;" text="Hasta 25% OFF" textFill="white" />
+                        <Label style="-fx-background-color: #f59e0b; -fx-background-radius: 12;  -fx-font-size: 20px; -fx-font-weight: 900; -fx-padding: 14 26;" text="Hasta 20% OFF" textFill="white" />
                     </HBox>
                 </StackPane>
 

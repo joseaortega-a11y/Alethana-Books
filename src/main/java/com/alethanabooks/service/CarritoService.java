@@ -25,9 +25,5 @@ public class CarritoService {
         if (carrito != null) carrito.vaciar();
     }
 
-    public double obtenerTotal() {
-        return carrito != null ? carrito.calcularTotal() : 0;
-    }
-
     public Carrito getCarrito() { return carrito; }
 }

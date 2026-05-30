@@ -7,7 +7,6 @@ public class SesionActual {
     private static Usuario usuario;
     private static final CarritoService carritoService = new CarritoService();
 
-    // Referencia al controlador principal del catálogo para refrescar stock tras una compra
     private static Object catalogoController;
 
     private SesionActual() {}

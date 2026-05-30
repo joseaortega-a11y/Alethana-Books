@@ -16,21 +16,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HeaderController implements Initializable {
+    @FXML private Button btnCerrarSesion;
 
     @FXML private TextField txtBusqueda;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {}
 
-    // ── Navegación principal ──────────────────────────────────────────────
     @FXML private void irInicio()            { navegar("/fxml/alethana-books.fxml",   "Alethana Books",               1280, 762); }
     @FXML private void irLibrosRecomendados(){ navegar("/fxml/librosRe.fxml",          "Alethana Books - Recomendados", 1280, 760); }
-    @FXML private void irUltimosAniadidos()  { navegar("/fxml/masVendidos.fxml",       "Alethana Books - Últimos añadidos", 1280, 760); }
+    @FXML private void irUltimosAniadidos()  { navegar("/fxml/UltimosAnadidos.fxml",       "Alethana Books - Últimos añadidos", 1280, 760); }
     @FXML private void irLibrosImportados()  { navegar("/fxml/LibrosImportados.fxml",  "Alethana Books - Importados",   1280, 760); }
     @FXML private void irOpiniones()         { navegar("/fxml/opiniones.fxml",         "Alethana Books - Opiniones",    1000, 700); }
     @FXML private void irLibrosDigitales()   { navegar("/fxml/LibrosDigitales.fxml",   "Alethana Books - Biblioteca Digital", 1280, 760); }
 
-    // ── Buscador ──────────────────────────────────────────────────────────
+
     @FXML
     private void onBuscar() {
         String texto = txtBusqueda.getText().trim();
@@ -39,7 +39,6 @@ public class HeaderController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/alethana-books.fxml"));
             Parent root = loader.load();
 
-            // Pasar el texto de búsqueda al InicioController
             InicioController ctrl = loader.getController();
             ctrl.buscarDesdeHeader(texto);
 
@@ -53,7 +52,6 @@ public class HeaderController implements Initializable {
         }
     }
 
-    // ── Carrito ───────────────────────────────────────────────────────────
     @FXML
     private void onAbrirCarrito() {
         if (!SesionActual.haySesion()) {
@@ -65,7 +63,6 @@ public class HeaderController implements Initializable {
             Parent root = loader.load();
             CarritoController carritoCtrl = loader.getController();
 
-            // Pasar referencia al InicioController registrado en la sesión
             Object ctrl = com.alethanabooks.modelo.SesionActual.getCatalogoController();
             if (ctrl instanceof InicioController ic) {
                 carritoCtrl.setInicioController(ic);
@@ -82,7 +79,7 @@ public class HeaderController implements Initializable {
         }
     }
 
-    // ── Mi Cuenta ─────────────────────────────────────────────────────────
+
     @FXML
     private void onAbrirCuenta() {
         if (!SesionActual.haySesion()) {
@@ -92,7 +89,6 @@ public class HeaderController implements Initializable {
         abrirVentanaModal("/fxml/Cuenta.fxml", "Mi Cuenta", 780, 640);
     }
 
-    // ── Ayuda ─────────────────────────────────────────────────────────────
     @FXML
     private void onAbrirAyuda() {
         Alert ayuda = new Alert(Alert.AlertType.INFORMATION);
@@ -103,19 +99,15 @@ public class HeaderController implements Initializable {
                         "  → Agrégalo al carrito y confirma la compra en el carrito.\n\n" +
                         "¿Qué métodos de pago hay?\n" +
                         "  → Tarjeta crédito/débito, PSE y Efecty/Baloto.\n\n" +
-                        "¿Cuánto tarda el envío?\n" +
-                        "  → Libros físicos: 3-5 días hábiles en Colombia.\n\n" +
                         "¿Los libros digitales cómo los descargo?\n" +
                         "  → Después de comprar aparece la ruta de descarga en tu cuenta.\n\n" +
                         "¿Cómo uso un código de descuento?\n" +
-                        "  → Escríbelo en el campo 'Código de descuento' dentro del carrito.\n\n" +
-                        "¿Problemas con tu pedido?\n" +
-                        "  → Contáctanos: soporte@alethanabooks.com"
+                        "  → Escríbelo en el campo 'Código de descuento' dentro del carrito.\n\n"
         );
         ayuda.showAndWait();
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────
+
     private void abrirVentanaModal(String fxml, String titulo, double ancho, double alto) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
@@ -129,8 +121,8 @@ public class HeaderController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
+    }
     private void navegar(String fxml, String titulo, double ancho, double alto) {
         try {
             Stage stage = (Stage) txtBusqueda.getScene().getWindow();
@@ -162,5 +154,18 @@ public class HeaderController implements Initializable {
         a.setHeaderText(null);
         a.setContentText(msg);
         a.showAndWait();
+    }
+    @FXML
+    private void onCerrar() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Alethana Books - Login");
+            stage.setScene(new Scene(root, 492, 572));
+            stage.setResizable(false);
+            stage.show();
+            ((Stage) btnCerrarSesion.getScene().getWindow()).close();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }

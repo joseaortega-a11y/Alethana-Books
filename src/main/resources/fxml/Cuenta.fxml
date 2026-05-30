@@ -21,7 +21,7 @@
             <VBox spacing="20">
                 <padding><Insets bottom="28" left="28" right="28" top="24"/></padding>
 
-                <!-- DATOS DE ENVÍO -->
+
                 <VBox spacing="14" style="-fx-background-color: white; -fx-background-radius: 14;
                                           -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
                     <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>
@@ -47,7 +47,6 @@
                     <Label fx:id="lblGuardado" text="" style="-fx-font-size: 13px;" textFill="#10b981"/>
                 </VBox>
 
-                <!-- HISTORIAL DE COMPRAS -->
                 <VBox spacing="12" style="-fx-background-color: white; -fx-background-radius: 14;
                                           -fx-border-color: #e5e7eb; -fx-border-radius: 14;">
                     <padding><Insets bottom="20" left="22" right="22" top="20"/></padding>

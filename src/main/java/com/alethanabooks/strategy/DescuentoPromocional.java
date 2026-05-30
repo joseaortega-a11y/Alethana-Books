@@ -10,7 +10,6 @@ public class DescuentoPromocional implements EstrategiaDescuento {
         this.codigo     = codigo;
     }
 
-    /** Compatibilidad con código existente que no pasa el código. */
     public DescuentoPromocional(double porcentaje) {
         this(porcentaje, "PROMO");
     }

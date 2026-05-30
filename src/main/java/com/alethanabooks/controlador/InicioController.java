@@ -38,14 +38,12 @@ public class InicioController implements Initializable {
         actualizarNovedad();
     }
 
-    /** Recarga las tarjetas del catálogo — llamado tras una compra para mostrar el stock actualizado. */
     public void refrescarCatalogo() {
         cargarLibros(null);
         actualizarBanner();
         actualizarNovedad();
     }
 
-    // Llamado desde HeaderController al buscar
     public void buscarDesdeHeader(String texto) {
         gridLibros.getChildren().clear();
         List<Libro> libros = texto.isEmpty()
@@ -97,7 +95,6 @@ public class InicioController implements Initializable {
                 "-fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 7 18;");
         lblCategoria.setTextFill(Color.WHITE);
 
-        // Stock novedad
         Label lblStock = new Label("Stock: " + novedad.getStock());
         lblStock.setStyle("-fx-font-size: 13px; -fx-font-weight: 700;");
         lblStock.setTextFill(novedad.getStock() > 0
@@ -193,7 +190,6 @@ public class InicioController implements Initializable {
 
         StackPane imgPane = ImagenUtil.crearPanelImagen(libro.getImagen(), 154, 210);
 
-        // Badge descargable si implementa la interfaz
         if (libro instanceof Descargable d && d.estaDisponibleParaDescarga()) {
             Label badge = new Label("⬇ Digital");
             badge.setStyle("-fx-background-color: #0ea574; -fx-background-radius: 6; " +
@@ -221,7 +217,6 @@ public class InicioController implements Initializable {
         lblPrecio.setStyle("-fx-font-size: 20px; -fx-font-weight: 900;");
         lblPrecio.setTextFill(Color.web("#7c3aed"));
 
-        // Stock
         boolean hayStock = libro.getStock() > 0;
         Label lblStock = new Label(hayStock ? "Stock: " + libro.getStock() : "Sin stock");
         lblStock.setStyle("-fx-font-size: 12px; -fx-font-weight: 700;");

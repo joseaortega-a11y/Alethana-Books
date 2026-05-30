@@ -25,7 +25,6 @@ public class librosReControlador implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Al abrir: mostrar 6 libros aleatorios
         generarRecomendacion();
     }
 

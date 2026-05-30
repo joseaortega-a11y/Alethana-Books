@@ -19,12 +19,6 @@ public class UsuarioRepository {
         jsonManager.guardarLista(ruta, usuarios);
     }
 
-    public Optional<Usuario> buscarPorCorreo(String correo) {
-        return obtenerTodos().stream()
-                .filter(u -> u.getCorreo().equalsIgnoreCase(correo))
-                .findFirst();
-    }
-
     public void agregar(Usuario usuario) {
         List<Usuario> lista = obtenerTodos();
         lista.add(usuario);

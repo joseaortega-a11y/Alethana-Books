@@ -53,7 +53,7 @@ public class LibrosImportadosController implements Initializable {
                 "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);");
         card.setPadding(new Insets(18));
 
-        // Imagen con overlay "IMPORTADO"
+
         StackPane imgPane = ImagenUtil.crearPanelImagen(libro.getImagen(), 174, 220);
         Label lblImportado = new Label("IMPORTADO");
         lblImportado.setStyle("-fx-background-color: " + colorBtn + "; -fx-background-radius: 6; " +
@@ -80,15 +80,12 @@ public class LibrosImportadosController implements Initializable {
         lblPrecio.setStyle("-fx-font-size: 18px; -fx-font-weight: 900;");
         lblPrecio.setTextFill(Color.web("#7c3aed"));
 
-        // Pega esto en crearTarjetaLibro() de ambos controladores,
-// justo antes de crear btnCarrito:
 
         boolean hayStock = libro.getStock() > 0;
         Label lblStock = new Label(hayStock ? "Stock: " + libro.getStock() : "Sin stock");
         lblStock.setStyle("-fx-font-size: 12px; -fx-font-weight: 700;");
         lblStock.setTextFill(hayStock ? Color.web("#10b981") : Color.web("#ef4444"));
 
-// Y modifica el btnCarrito así:
         Button btnCarrito = new Button(hayStock ? "Agregar al carrito" : "Sin stock");
         btnCarrito.setMaxWidth(Double.MAX_VALUE);
         btnCarrito.setTextFill(Color.WHITE);

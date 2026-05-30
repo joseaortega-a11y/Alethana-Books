@@ -12,7 +12,6 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository = new UsuarioRepository();
 
-    // Lambda: busca usuario cuyas credenciales coincidan
     public Optional<Usuario> autenticar(String correo, String contrasena) {
         List<Usuario> todos = usuarioRepository.obtenerTodos();
         return todos.stream()
@@ -37,7 +36,6 @@ public class UsuarioService {
         usuarioRepository.agregar(nuevo);
     }
 
-    // Crea admin por defecto si no existe ninguno
     public void inicializarAdminPorDefecto() {
         List<Usuario> todos = usuarioRepository.obtenerTodos();
         boolean hayAdmin = todos.stream().anyMatch(u -> u.getRol() == Rol.ADMIN);
