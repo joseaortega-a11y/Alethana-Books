@@ -59,7 +59,26 @@ public class HeaderController implements Initializable {
             mostrarInfo("Inicia sesión", "Debes iniciar sesión para ver tu carrito.");
             return;
         }
-        abrirVentanaModal("/fxml/carrito.fxml", "Mi Carrito", 860, 680);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Carrito.fxml"));
+            Parent root = loader.load();
+            CarritoController carritoCtrl = loader.getController();
+
+            // Pasar referencia al InicioController registrado en la sesión
+            Object ctrl = com.alethanabooks.modelo.SesionActual.getCatalogoController();
+            if (ctrl instanceof InicioController ic) {
+                carritoCtrl.setInicioController(ic);
+            }
+
+            Stage modal = new Stage();
+            modal.initModality(Modality.APPLICATION_MODAL);
+            modal.setTitle("Mi Carrito");
+            modal.setScene(new Scene(root, 860, 680));
+            modal.setResizable(false);
+            modal.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // ── Mi Cuenta ─────────────────────────────────────────────────────────

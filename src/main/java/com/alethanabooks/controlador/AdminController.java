@@ -77,14 +77,14 @@ public class AdminController implements Initializable {
         // ComboBox
         cmbCategoria.setItems(FXCollections.observableArrayList(CATEGORIAS));
         cmbCategoria.setPromptText("Seleccionar categoría");
-        cmbTipo.setItems(FXCollections.observableArrayList("Nacional", "Importado"));
-        cmbTipo.setValue("Nacional");
+        cmbTipo.setItems(FXCollections.observableArrayList("Físico", "Digital"));
+        cmbTipo.setValue("Físico");
         cmbFormato.setItems(FXCollections.observableArrayList("PDF", "EPUB", "MOBI"));
         cmbFormato.setValue("PDF");
 
         // Mostrar/ocultar campos de digital según tipo
         cmbTipo.valueProperty().addListener((obs, old, tipo) -> {
-            boolean esDigital = "Importado".equals(tipo);
+            boolean esDigital = "Digital".equals(tipo);
             cmbFormato.setVisible(esDigital);
             cmbFormato.setManaged(esDigital);
             btnArchivo.setVisible(esDigital);
@@ -192,7 +192,7 @@ public class AdminController implements Initializable {
             if (precio <= 0) { mostrarAlerta("Error", "El precio debe ser mayor a cero."); return; }
             if (stock < 0)   { mostrarAlerta("Error", "El stock no puede ser negativo."); return; }
 
-            LibroFactory.TipoLibro tipoLibro = "Importado".equals(tipo)
+            LibroFactory.TipoLibro tipoLibro = "Digital".equals(tipo)
                     ? LibroFactory.TipoLibro.DIGITAL : LibroFactory.TipoLibro.FISICO;
 
             Libro nuevo = LibroFactory.crearLibro(tipoLibro, UUID.randomUUID().toString(),
@@ -279,36 +279,105 @@ public class AdminController implements Initializable {
             listaPedidos.getChildren().add(lbl);
             return;
         }
+
+        // Resumen total del día
+        double totalDia = ventas.stream()
+                .filter(v -> v.getFecha() != null &&
+                        v.getFecha().toLocalDate().equals(java.time.LocalDate.now()))
+                .mapToDouble(Venta::getTotal).sum();
+        Label lblResumen = new Label(String.format(
+                "📊  Pedidos totales: %d   |   Ventas hoy: COP %,.0f", ventas.size(), totalDia));
+        lblResumen.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #7c3aed;" +
+                " -fx-background-color: #ede9fe; -fx-background-radius: 8; -fx-padding: 8 14;");
+        // color set in style above
+        listaPedidos.getChildren().add(lblResumen);
+
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
         for (int i = ventas.size() - 1; i >= 0; i--) {
             Venta v = ventas.get(i);
-            VBox card = new VBox(6);
-            card.setStyle("-fx-background-color: #f8fafc; -fx-background-radius: 10; " +
-                    "-fx-border-color: #e5e7eb; -fx-border-radius: 10;");
-            card.setPadding(new Insets(12, 16, 12, 16));
+            boolean pagado = "PAGADO".equalsIgnoreCase(v.getEstadoPago());
 
-            String usuario = v.getUsuario() != null ? v.getUsuario().getNombre() +
-                    " (" + v.getUsuario().getCorreo() + ")" : "Desconocido";
-            String fecha = v.getFecha() != null ? v.getFecha().format(fmt) : "—";
+            VBox card = new VBox(8);
+            card.setStyle("-fx-background-color: white; -fx-background-radius: 12; " +
+                    "-fx-border-color: " + (pagado ? "#10b981" : "#f59e0b") + "; " +
+                    "-fx-border-width: 1.5; -fx-border-radius: 12;");
+            card.setPadding(new Insets(14, 18, 14, 18));
 
-            Label lblInfo = new Label("👤 " + usuario + "   📅 " + fecha +
-                    "   💳 " + v.getMetodoPago());
-            lblInfo.setStyle("-fx-font-size: 12px;");
-            lblInfo.setTextFill(Color.web("#64748b"));
+            // Cabecera: usuario + fecha + estado
+            HBox cabecera = new HBox(12);
+            cabecera.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
-            v.getDetalles().forEach(d -> {
-                Label l = new Label("  • " + d.getLibro().getTitulo() +
-                        " x" + d.getCantidad() +
-                        " → COP " + String.format("%,.0f", d.getSubtotal()));
-                l.setStyle("-fx-font-size: 13px;");
-                l.setTextFill(Color.web("#0f172a"));
-                card.getChildren().add(l);
-            });
+            String iconMetodo = switch (v.getMetodoPago() != null ? v.getMetodoPago() : "") {
+                case "Tarjeta" -> "💳";
+                case "PSE"     -> "🏦";
+                case "Efecty"  -> "🏪";
+                default        -> "💰";
+            };
 
-            Label lblTotal = new Label("Total: COP " + String.format("%,.0f", v.getTotal()));
-            lblTotal.setStyle("-fx-font-size: 14px; -fx-font-weight: 900;");
-            lblTotal.setTextFill(Color.web("#7c3aed"));
-            card.getChildren().addAll(lblInfo, lblTotal);
+            VBox infoUsuario = new VBox(2);
+            javafx.scene.layout.HBox.setHgrow(infoUsuario, javafx.scene.layout.Priority.ALWAYS);
+
+            String nombreUsuario = v.getUsuario() != null ? v.getUsuario().getNombre() : "Desconocido";
+            String correoUsuario = v.getUsuario() != null ? v.getUsuario().getCorreo() : "";
+            Label lblUsuario = new Label("👤  " + nombreUsuario + "  ·  " + correoUsuario);
+            lblUsuario.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #0f172a;");
+            // color set in style above
+
+            String fechaStr = v.getFecha() != null ? v.getFecha().format(fmt) : "—";
+            Label lblFecha = new Label("📅  " + fechaStr + "   " + iconMetodo + "  " + v.getMetodoPago());
+            lblFecha.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
+            // color set in style above
+
+            infoUsuario.getChildren().addAll(lblUsuario, lblFecha);
+
+            // Badge de estado
+            Label lblEstado = new Label(pagado ? "✅  PAGADO" : "⏳  PENDIENTE");
+            lblEstado.setStyle("-fx-background-color: " + (pagado ? "#dcfce7" : "#fef3c7") + "; " +
+                    "-fx-background-radius: 8; -fx-font-size: 11px; -fx-font-weight: 900; -fx-padding: 5 10;");
+            // color set in style above
+
+            cabecera.getChildren().addAll(infoUsuario, lblEstado);
+            card.getChildren().add(cabecera);
+
+            // Separador
+            card.getChildren().add(new Separator());
+
+            // Ítems del pedido
+            for (com.alethanabooks.modelo.DetalleVenta d : v.getDetalles()) {
+                HBox fila = new HBox();
+                fila.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                Label lblLibro = new Label("  📖  " + d.getLibro().getTitulo() +
+                        "  ×" + d.getCantidad());
+                lblLibro.setStyle("-fx-font-size: 13px; -fx-text-fill: #334155;");
+                // color set in style above
+                javafx.scene.layout.HBox.setHgrow(lblLibro, javafx.scene.layout.Priority.ALWAYS);
+
+                Label lblSub = new Label("COP " + String.format("%,.0f", d.getSubtotal()));
+                lblSub.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #7c3aed;");
+                // color set in style above
+
+                fila.getChildren().addAll(lblLibro, lblSub);
+                card.getChildren().add(fila);
+            }
+
+            card.getChildren().add(new Separator());
+
+            // Total
+            HBox filaTotal = new HBox();
+            filaTotal.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+            Label lblTotalLbl = new Label("TOTAL");
+            lblTotalLbl.setStyle("-fx-font-size: 14px; -fx-font-weight: 900; -fx-text-fill: #0f172a;");
+            // color set in style above
+            javafx.scene.layout.HBox.setHgrow(lblTotalLbl, javafx.scene.layout.Priority.ALWAYS);
+
+            Label lblTotalVal = new Label("COP " + String.format("%,.0f", v.getTotal()));
+            lblTotalVal.setStyle("-fx-font-size: 16px; -fx-font-weight: 900; -fx-text-fill: #7c3aed;");
+            // color set in style above
+
+            filaTotal.getChildren().addAll(lblTotalLbl, lblTotalVal);
+            card.getChildren().add(filaTotal);
+
             listaPedidos.getChildren().add(card);
         }
     }
@@ -321,7 +390,7 @@ public class AdminController implements Initializable {
     private void limpiarCampos() {
         txtTitulo.clear(); txtAutor.clear(); txtPrecio.clear(); txtStock.clear();
         cmbCategoria.setValue(null); cmbCategoria.setPromptText("Seleccionar categoría");
-        cmbTipo.setValue("Nacional"); cmbFormato.setValue("PDF");
+        cmbTipo.setValue("Físico"); cmbFormato.setValue("PDF");
         imagenSeleccionada = ""; archivoDescargable = "";
         lblRutaImagen.setText("Sin imagen seleccionada");
         lblRutaImagen.setStyle("-fx-font-size: 12px; -fx-text-fill: #94a3b8;");

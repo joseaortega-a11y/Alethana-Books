@@ -11,23 +11,27 @@ public class Venta {
     private List<DetalleVenta> detalles = new ArrayList<>();
     private double total;
     private String metodoPago;
+    private String estadoPago; // "PAGADO" | "PENDIENTE"
 
     public Venta() {}
 
     public Venta(String id, Usuario usuario, List<DetalleVenta> detalles,
-                 String metodoPago, double total) {
-        this.id = id;
-        this.usuario = usuario;
-        this.fecha = LocalDateTime.now();
-        this.detalles = detalles;
-        this.metodoPago = metodoPago;
-        this.total = total;
+                 String metodoPago, double total, String estadoPago) {
+        this.id          = id;
+        this.usuario     = usuario;
+        this.fecha       = LocalDateTime.now();
+        this.detalles    = detalles;
+        this.metodoPago  = metodoPago;
+        this.total       = total;
+        this.estadoPago  = estadoPago;
     }
 
-    public String getId()               { return id; }
-    public Usuario getUsuario()         { return usuario; }
-    public LocalDateTime getFecha()     { return fecha; }
+    public String getId()                   { return id; }
+    public Usuario getUsuario()             { return usuario; }
+    public LocalDateTime getFecha()         { return fecha; }
     public List<DetalleVenta> getDetalles() { return detalles; }
-    public double getTotal()            { return total; }
-    public String getMetodoPago()       { return metodoPago; }
+    public double getTotal()                { return total; }
+    public String getMetodoPago()           { return metodoPago; }
+    public String getEstadoPago()           { return estadoPago != null ? estadoPago : "PENDIENTE"; }
+    public void setEstadoPago(String e)     { this.estadoPago = e; }
 }

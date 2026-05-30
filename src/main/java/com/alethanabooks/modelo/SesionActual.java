@@ -1,12 +1,14 @@
 package com.alethanabooks.modelo;
 
-import com.alethanabooks.modelo.Usuario;
 import com.alethanabooks.service.CarritoService;
 
 public class SesionActual {
 
     private static Usuario usuario;
     private static final CarritoService carritoService = new CarritoService();
+
+    // Referencia al controlador principal del catálogo para refrescar stock tras una compra
+    private static Object catalogoController;
 
     private SesionActual() {}
 
@@ -15,8 +17,10 @@ public class SesionActual {
         carritoService.iniciarCarrito(u);
     }
 
-    public static Usuario getUsuario() { return usuario; }
-    public static CarritoService getCarritoService() { return carritoService; }
+    public static Usuario getUsuario()              { return usuario; }
+    public static CarritoService getCarritoService(){ return carritoService; }
+    public static boolean haySesion()               { return usuario != null; }
 
-    public static boolean haySesion() { return usuario != null; }
+    public static void setCatalogoController(Object ctrl) { catalogoController = ctrl; }
+    public static Object getCatalogoController()          { return catalogoController; }
 }

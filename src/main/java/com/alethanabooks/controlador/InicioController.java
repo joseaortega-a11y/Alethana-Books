@@ -31,7 +31,15 @@ public class InicioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        SesionActual.setCatalogoController(this);
         construirSidebar();
+        cargarLibros(null);
+        actualizarBanner();
+        actualizarNovedad();
+    }
+
+    /** Recarga las tarjetas del catálogo — llamado tras una compra para mostrar el stock actualizado. */
+    public void refrescarCatalogo() {
         cargarLibros(null);
         actualizarBanner();
         actualizarNovedad();

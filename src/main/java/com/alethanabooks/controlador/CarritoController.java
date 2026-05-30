@@ -9,12 +9,16 @@ import com.alethanabooks.strategy.DescuentoNormal;
 import com.alethanabooks.strategy.DescuentoPromocional;
 import com.alethanabooks.strategy.EstrategiaDescuento;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -42,12 +46,18 @@ public class CarritoController implements Initializable {
     private EstrategiaDescuento estrategia = new DescuentoNormal();
     private double porcentajeDescuento = 0;
 
-    // Códigos válidos: código → porcentaje
+    // Referencia al controlador del catálogo para refrescar el stock visualmente
+    private InicioController inicioController;
+
     private static final java.util.Map<String, Double> CODIGOS = java.util.Map.of(
             "CYBER20",  0.20,
             "PROMO10",  0.10,
             "LECTOR15", 0.15
     );
+
+    public void setInicioController(InicioController c) {
+        this.inicioController = c;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,7 +81,6 @@ public class CarritoController implements Initializable {
             listaItems.getChildren().add(lbl);
             return;
         }
-
         for (ItemCarrito item : carrito.getItems()) {
             listaItems.getChildren().add(crearFilaItem(item));
         }
@@ -84,31 +93,28 @@ public class CarritoController implements Initializable {
                 "-fx-border-color: #e5e7eb; -fx-border-radius: 10;");
         fila.setPadding(new Insets(12, 16, 12, 16));
 
-        VBox info = new VBox(3);
+        VBox info = new VBox(4);
+        info.setMinWidth(200);
         HBox.setHgrow(info, Priority.ALWAYS);
 
         Label lblTitulo = new Label(item.getLibro().getTitulo());
-        lblTitulo.setStyle("-fx-font-size: 14px; -fx-font-weight: 800;");
-        lblTitulo.setTextFill(Color.web("#0f172a"));
+        lblTitulo.setStyle("-fx-font-size: 14px; -fx-font-weight: 800; -fx-text-fill: #0f172a;");
+        lblTitulo.setWrapText(true);
 
         Label lblAutor = new Label(item.getLibro().getAutor());
-        lblAutor.setStyle("-fx-font-size: 12px;");
-        lblAutor.setTextFill(Color.web("#64748b"));
+        lblAutor.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
 
         Label lblCantidad = new Label("Cantidad: " + item.getCantidad());
-        lblCantidad.setStyle("-fx-font-size: 12px;");
-        lblCantidad.setTextFill(Color.web("#64748b"));
+        lblCantidad.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
 
         info.getChildren().addAll(lblTitulo, lblAutor, lblCantidad);
 
         Label lblSubtotalItem = new Label(String.format("COP %,.0f", item.calcularSubtotal()));
-        lblSubtotalItem.setStyle("-fx-font-size: 15px; -fx-font-weight: 900;");
-        lblSubtotalItem.setTextFill(Color.web("#7c3aed"));
+        lblSubtotalItem.setStyle("-fx-font-size: 15px; -fx-font-weight: 900; -fx-text-fill: #7c3aed;");
 
         Button btnQuitar = new Button("✕");
         btnQuitar.setStyle("-fx-background-color: #fee2e2; -fx-background-radius: 6; " +
-                "-fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 4 8;");
-        btnQuitar.setTextFill(Color.web("#ef4444"));
+                "-fx-font-weight: 800; -fx-font-size: 13px; -fx-padding: 4 8; -fx-text-fill: #ef4444;");
         btnQuitar.setOnAction(e -> {
             carritoService.eliminarLibro(item.getLibro().getId());
             renderizarItems();
@@ -139,7 +145,7 @@ public class CarritoController implements Initializable {
     private void actualizarTotales() {
         Carrito carrito = carritoService.getCarrito();
         double subtotal = (carrito != null) ? carrito.calcularTotal() : 0;
-        double total = estrategia.aplicar(subtotal);
+        double total    = estrategia.aplicar(subtotal);
         double descuento = subtotal - total;
 
         lblSubtotal.setText(String.format("COP %,.0f", subtotal));
@@ -155,40 +161,79 @@ public class CarritoController implements Initializable {
             return;
         }
 
+        // Verificar stock antes de abrir pago
+        for (ItemCarrito item : carrito.getItems()) {
+            Libro libro = catalogoService.buscarPorId(item.getLibro().getId());
+            if (libro != null && libro.getStock() < item.getCantidad()) {
+                mostrarAlerta("Stock insuficiente",
+                        "No hay suficiente stock de: " + libro.getTitulo() +
+                                "\nDisponible: " + libro.getStock());
+                return;
+            }
+        }
+
         String metodoPago = rbTarjeta.isSelected() ? "Tarjeta" :
                 rbPSE.isSelected()     ? "PSE"     : "Efecty";
+        double total = estrategia.aplicar(carrito.calcularTotal());
 
-        // Crear detalles y reducir stock
+        // Abrir ventana de pago
+        abrirVentanaPago(metodoPago, total, carrito);
+    }
+
+    private void abrirVentanaPago(String metodoPago, double total, Carrito carrito) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Pago.fxml"));
+            Parent root = loader.load();
+            PagoController pagoCtrl = loader.getController();
+
+            Stage stage = new Stage();
+            stage.setTitle("Pasarela de Pago — Alethana Books");
+            stage.setScene(new Scene(root));
+            stage.setResizable(false);
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            // Callback: se ejecuta si el pago fue aprobado
+            pagoCtrl.inicializar(metodoPago, total, () -> {
+                procesarCompraAprobada(carrito, metodoPago, total);
+            });
+
+            stage.showAndWait();
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudo abrir la ventana de pago: " + e.getMessage());
+        }
+    }
+
+    private void procesarCompraAprobada(Carrito carrito, String metodoPago, double total) {
+        // Reducir stock y guardar venta
         List<DetalleVenta> detalles = new ArrayList<>();
         for (ItemCarrito item : carrito.getItems()) {
             Libro libro = catalogoService.buscarPorId(item.getLibro().getId());
             if (libro != null) {
-                int cantidad = item.getCantidad();
-                if (libro.getStock() < cantidad) {
-                    mostrarAlerta("Stock insuficiente",
-                            "No hay suficiente stock de: " + libro.getTitulo());
-                    return;
-                }
-                libro.reducirStock(cantidad);
+                libro.reducirStock(item.getCantidad());
                 catalogoService.actualizar(libro);
-                detalles.add(new DetalleVenta(libro, cantidad));
+                detalles.add(new DetalleVenta(libro, item.getCantidad()));
             }
         }
 
-        double total = estrategia.aplicar(carrito.calcularTotal());
         Venta venta = new Venta(UUID.randomUUID().toString(),
-                SesionActual.getUsuario(), detalles, metodoPago, total);
+                SesionActual.getUsuario(), detalles, metodoPago, total, "PAGADO");
         ventaRepository.guardar(venta);
 
         carritoService.vaciarCarrito();
         renderizarItems();
         actualizarTotales();
 
+        // Refrescar tarjetas del catálogo para mostrar stock actualizado
+        if (inicioController != null) {
+            inicioController.refrescarCatalogo();
+        }
+
         Alert ok = new Alert(Alert.AlertType.INFORMATION);
-        ok.setTitle("¡Compra confirmada!");
+        ok.setTitle("¡Compra completada!");
         ok.setHeaderText(null);
-        ok.setContentText("Tu pedido fue registrado.\nMétodo de pago: " + metodoPago +
-                "\nTotal: COP " + String.format("%,.0f", total));
+        ok.setContentText("✅ Tu pedido fue registrado y pagado.\n" +
+                "Método: " + metodoPago + "\nTotal: COP " + String.format("%,.0f", total));
         ok.showAndWait();
         ((Stage) lblTotal.getScene().getWindow()).close();
     }
@@ -200,9 +245,7 @@ public class CarritoController implements Initializable {
 
     private void mostrarAlerta(String titulo, String msg) {
         Alert a = new Alert(Alert.AlertType.WARNING);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(msg);
+        a.setTitle(titulo); a.setHeaderText(null); a.setContentText(msg);
         a.showAndWait();
     }
 }
