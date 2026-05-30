@@ -38,11 +38,11 @@
 
                     <HBox spacing="14" alignment="CENTER_LEFT">
                         <Label text="Calificación:" style="-fx-font-size: 14px; -fx-font-weight: 700;" textFill="#0f172a"/>
-                        <RadioButton fx:id="rb1" text="⭐ 1" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
-                        <RadioButton fx:id="rb2" text="⭐ 2" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
-                        <RadioButton fx:id="rb3" text="⭐ 3" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;" selected="true"/>
-                        <RadioButton fx:id="rb4" text="⭐ 4" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
-                        <RadioButton fx:id="rb5" text="⭐ 5" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
+                        <RadioButton fx:id="rb1" text="1" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
+                        <RadioButton fx:id="rb2" text="2" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
+                        <RadioButton fx:id="rb3" text="3" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;" selected="true"/>
+                        <RadioButton fx:id="rb4" text="4" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
+                        <RadioButton fx:id="rb5" text="5" toggleGroup="$grupoEstrellas" style="-fx-font-size: 13px;"/>
                     </HBox>
 
                     <HBox spacing="12" alignment="CENTER_LEFT">

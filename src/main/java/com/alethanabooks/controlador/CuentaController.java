@@ -87,7 +87,7 @@ public class CuentaController implements Initializable {
             card.setPadding(new Insets(12, 16, 12, 16));
 
             String fecha = (v.getFecha() != null) ? v.getFecha().format(fmt) : "—";
-            Label lblFecha = new Label("📅 " + fecha + "   💳 " + v.getMetodoPago());
+            Label lblFecha = new Label("" + fecha + "" + v.getMetodoPago());
             lblFecha.setStyle("-fx-font-size: 12px;");
             lblFecha.setTextFill(Color.web("#64748b"));
 

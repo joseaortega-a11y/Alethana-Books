@@ -32,7 +32,7 @@
                   style="-fx-background-color: white; -fx-background-radius: 12;
                          -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
                 <padding><Insets bottom="20" left="20" right="20" top="16"/></padding>
-                <Label text="💳  Datos de la tarjeta"
+                <Label text="Datos de la tarjeta"
                        style="-fx-font-size: 15px; -fx-font-weight: 900;" textFill="#0f172a"/>
 
                 <Label text="Número de tarjeta" style="-fx-font-size: 12px;" textFill="#64748b"/>
@@ -59,7 +59,7 @@
                                           -fx-border-radius: 8; -fx-padding: 9 12; -fx-font-size: 13px;"/>
                     </VBox>
                 </HBox>
-                <Label text="🔒  Tus datos están protegidos (simulación)" textFill="#94a3b8"
+                <Label text="Tus datos están protegidos (simulación)" textFill="#94a3b8"
                        style="-fx-font-size: 11px;"/>
             </VBox>
 
@@ -68,7 +68,7 @@
                   style="-fx-background-color: white; -fx-background-radius: 12;
                          -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
                 <padding><Insets bottom="20" left="20" right="20" top="16"/></padding>
-                <Label text="🏦  Pago por PSE"
+                <Label text="Pago por PSE"
                        style="-fx-font-size: 15px; -fx-font-weight: 900;" textFill="#0f172a"/>
 
                 <Label text="Selecciona tu banco" style="-fx-font-size: 12px;" textFill="#64748b"/>
@@ -89,7 +89,7 @@
                   style="-fx-background-color: white; -fx-background-radius: 12;
                          -fx-border-color: #e5e7eb; -fx-border-radius: 12;">
                 <padding><Insets bottom="20" left="20" right="20" top="16"/></padding>
-                <Label text="🏪  Pago en Efecty / Baloto"
+                <Label text="Pago en Efecty / Baloto"
                        style="-fx-font-size: 15px; -fx-font-weight: 900;" textFill="#0f172a"/>
                 <Label text="Presenta este código en cualquier punto Efecty o Baloto:"
                        textFill="#64748b" style="-fx-font-size: 13px;" wrapText="true"/>

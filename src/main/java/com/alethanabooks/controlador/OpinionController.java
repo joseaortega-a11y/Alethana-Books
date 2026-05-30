@@ -57,7 +57,7 @@ public class OpinionController implements Initializable {
 
         txtOpinion.clear();
         rb3.setSelected(true);
-        lblMensaje.setText("✓ Opinión publicada. ¡Gracias!");
+        lblMensaje.setText("Opinión publicada. ¡Gracias!");
         lblMensaje.setTextFill(Color.web("#10b981"));
         cargarOpiniones();
     }

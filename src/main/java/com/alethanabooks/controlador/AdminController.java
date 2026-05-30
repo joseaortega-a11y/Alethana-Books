@@ -316,7 +316,7 @@ public class AdminController implements Initializable {
                         v.getFecha().toLocalDate().equals(java.time.LocalDate.now()))
                 .mapToDouble(Venta::getTotal).sum();
         Label lblResumen = new Label(String.format(
-                "📊  Pedidos totales: %d   |   Ventas hoy: COP %,.0f", ventas.size(), totalDia));
+                "Pedidos totales: %d   |   Ventas hoy: COP %,.0f", ventas.size(), totalDia));
         lblResumen.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #7c3aed;" +
                 " -fx-background-color: #ede9fe; -fx-background-radius: 8; -fx-padding: 8 14;");
         // color set in style above
@@ -330,7 +330,7 @@ public class AdminController implements Initializable {
 
             VBox card = new VBox(8);
             card.setStyle("-fx-background-color: white; -fx-background-radius: 12; " +
-                    "-fx-border-color: " + (pagado ? "#10b981" : "#f59e0b") + "; " +
+                    "-fx-border-color: " + (pagado ? "#36b68d" : "#f59e0b") + "; " +
                     "-fx-border-width: 1.5; -fx-border-radius: 12;");
             card.setPadding(new Insets(14, 18, 14, 18));
 
@@ -362,8 +362,8 @@ public class AdminController implements Initializable {
             infoUsuario.getChildren().addAll(lblUsuario, lblFecha);
 
             // Badge de estado
-            Label lblEstado = new Label(pagado ? "✅  PAGADO" : "⏳  PENDIENTE");
-            lblEstado.setStyle("-fx-background-color: " + (pagado ? "#dcfce7" : "#fef3c7") + "; " +
+            Label lblEstado = new Label(pagado ? "PAGADO" : "PENDIENTE");
+            lblEstado.setStyle("-fx-background-color: " + (pagado ? "#39ff7e" : "#ffde53") + "; " +
                     "-fx-background-radius: 8; -fx-font-size: 11px; -fx-font-weight: 900; -fx-padding: 5 10;");
             // color set in style above
 

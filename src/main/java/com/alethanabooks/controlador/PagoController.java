@@ -78,7 +78,7 @@ public class PagoController {
         if (!validarCampos()) return;
 
         btnPagar.setDisable(true);
-        lblEstado.setText("⏳ Procesando pago...");
+        lblEstado.setText("Procesando pago...");
         lblEstado.setTextFill(Color.web("#f59e0b"));
         barProgreso.setVisible(true);
 
@@ -89,7 +89,7 @@ public class PagoController {
 
             if (exito) {
                 aprobado = true;
-                lblEstado.setText("✅ ¡Pago aprobado!");
+                lblEstado.setText("¡Pago aprobado!");
                 lblEstado.setTextFill(Color.web("#10b981"));
                 barProgreso.setVisible(false);
 
@@ -101,7 +101,7 @@ public class PagoController {
                 cierre.play();
             } else {
                 aprobado = false;
-                lblEstado.setText("❌ Pago rechazado. Verifica tus datos e intenta de nuevo.");
+                lblEstado.setText("Pago rechazado. Verifica tus datos e intenta de nuevo.");
                 lblEstado.setTextFill(Color.web("#ef4444"));
                 barProgreso.setVisible(false);
                 btnPagar.setDisable(false);
@@ -153,7 +153,7 @@ public class PagoController {
     }
 
     private void error(String msg) {
-        lblEstado.setText("⚠ " + msg);
+        lblEstado.setText("" + msg);
         lblEstado.setTextFill(Color.web("#ef4444"));
     }
 
