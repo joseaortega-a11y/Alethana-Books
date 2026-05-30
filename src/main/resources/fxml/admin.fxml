@@ -116,12 +116,14 @@
                           style="-fx-background-radius: 10; -fx-border-color: #f1f5f9; -fx-border-radius: 10;">
                   <columns>
                      <TableColumn fx:id="colId"       prefWidth="80"  text="ID"/>
-                     <TableColumn fx:id="colTitulo"   prefWidth="200" text="Título"/>
-                     <TableColumn fx:id="colAutor"    prefWidth="150" text="Autor"/>
-                     <TableColumn fx:id="colCategoria" prefWidth="130" text="Categoría"/>
-                     <TableColumn fx:id="colPrecio"   prefWidth="100" text="Precio"/>
-                     <TableColumn fx:id="colStock"    prefWidth="60"  text="Stock"/>
-                     <TableColumn fx:id="colImagen"   prefWidth="140" text="Imagen"/>
+                     <TableColumn fx:id="colTitulo"   prefWidth="180" text="Título"/>
+                     <TableColumn fx:id="colAutor"    prefWidth="130" text="Autor"/>
+                     <TableColumn fx:id="colCategoria" prefWidth="110" text="Categoría"/>
+                     <TableColumn fx:id="colPrecio"   prefWidth="90"  text="Precio"/>
+                     <TableColumn fx:id="colStock"    prefWidth="55"  text="Stock"/>
+                     <TableColumn fx:id="colTipo"     prefWidth="70"  text="Tipo"/>
+                     <TableColumn fx:id="colFormato"  prefWidth="70"  text="Formato"/>
+                     <TableColumn fx:id="colImagen"   prefWidth="120" text="Imagen"/>
                   </columns>
                   <placeholder>
                      <Label text="No hay libros registrados." textFill="#94a3b8"

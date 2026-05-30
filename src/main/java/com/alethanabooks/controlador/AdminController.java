@@ -39,6 +39,7 @@ public class AdminController implements Initializable {
     // ── Tabla ──────────────────────────────────────────────────────────────
     @FXML private TableView<Libro>           tablaLibros;
     @FXML private TableColumn<Libro,String>  colId, colTitulo, colAutor, colCategoria, colImagen;
+    @FXML private TableColumn<Libro,String>  colTipo, colFormato;
     @FXML private TableColumn<Libro,Double>  colPrecio;
     @FXML private TableColumn<Libro,Integer> colStock;
 
@@ -73,6 +74,18 @@ public class AdminController implements Initializable {
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
         colImagen.setCellValueFactory(new PropertyValueFactory<>("imagen"));
+
+        // Columnas derivadas: tipo y formato (no son propiedades de Libro base)
+        colTipo.setCellValueFactory(data ->
+                new javafx.beans.property.SimpleStringProperty(
+                        data.getValue() instanceof com.alethanabooks.modelo.LibroDigital ? "Digital" : "Físico"));
+        colFormato.setCellValueFactory(data -> {
+            if (data.getValue() instanceof com.alethanabooks.modelo.LibroDigital ld) {
+                return new javafx.beans.property.SimpleStringProperty(
+                        ld.getFormato() != null ? ld.getFormato() : "—");
+            }
+            return new javafx.beans.property.SimpleStringProperty("—");
+        });
 
         // ComboBox
         cmbCategoria.setItems(FXCollections.observableArrayList(CATEGORIAS));
@@ -125,6 +138,23 @@ public class AdminController implements Initializable {
         txtStock.setText(String.valueOf(libro.getStock()));
         imagenSeleccionada = libro.getImagen() != null ? libro.getImagen() : "";
         lblRutaImagen.setText(imagenSeleccionada.isBlank() ? "Sin imagen" : imagenSeleccionada);
+
+        // Restaurar campos específicos de LibroDigital
+        if (libro instanceof com.alethanabooks.modelo.LibroDigital ld) {
+            cmbTipo.setValue("Digital");
+            cmbFormato.setValue(ld.getFormato() != null ? ld.getFormato() : "PDF");
+            archivoDescargable = ld.getRutaArchivo() != null ? ld.getRutaArchivo() : "";
+            String nombreArchivo = archivoDescargable.isBlank() ? "Sin archivo"
+                    : java.nio.file.Path.of(archivoDescargable).getFileName().toString();
+            lblRutaArchivo.setText(nombreArchivo);
+            lblRutaArchivo.setStyle("-fx-font-size: 12px; -fx-text-fill: #10b981;");
+        } else {
+            cmbTipo.setValue("Físico");
+            archivoDescargable = "";
+            lblRutaArchivo.setText("Sin archivo seleccionado");
+            lblRutaArchivo.setStyle("-fx-font-size: 12px; -fx-text-fill: #94a3b8;");
+        }
+
         btnAgregar.setText("Cancelar edición");
     }
 

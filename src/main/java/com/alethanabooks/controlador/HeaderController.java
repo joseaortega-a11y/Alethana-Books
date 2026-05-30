@@ -28,6 +28,7 @@ public class HeaderController implements Initializable {
     @FXML private void irUltimosAniadidos()  { navegar("/fxml/masVendidos.fxml",       "Alethana Books - Últimos añadidos", 1280, 760); }
     @FXML private void irLibrosImportados()  { navegar("/fxml/LibrosImportados.fxml",  "Alethana Books - Importados",   1280, 760); }
     @FXML private void irOpiniones()         { navegar("/fxml/opiniones.fxml",         "Alethana Books - Opiniones",    1000, 700); }
+    @FXML private void irLibrosDigitales()   { navegar("/fxml/LibrosDigitales.fxml",   "Alethana Books - Biblioteca Digital", 1280, 760); }
 
     // ── Buscador ──────────────────────────────────────────────────────────
     @FXML

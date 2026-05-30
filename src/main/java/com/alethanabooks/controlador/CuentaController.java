@@ -57,7 +57,7 @@ public class CuentaController implements Initializable {
             lblGuardado.setTextFill(Color.web("#ef4444"));
             return;
         }
-        lblGuardado.setText("✓ Datos de envío guardados correctamente.");
+        lblGuardado.setText("Datos de envío guardados correctamente.");
         lblGuardado.setTextFill(Color.web("#10b981"));
     }
 

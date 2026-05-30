@@ -131,7 +131,7 @@ public class CarritoController implements Initializable {
         if (CODIGOS.containsKey(codigo)) {
             porcentajeDescuento = CODIGOS.get(codigo);
             estrategia = new DescuentoPromocional(porcentajeDescuento);
-            lblDescuento.setText("✓ Descuento del " + (int)(porcentajeDescuento * 100) + "% aplicado");
+            lblDescuento.setText("Descuento del " + (int)(porcentajeDescuento * 100) + "% aplicado");
             lblDescuento.setTextFill(Color.web("#10b981"));
         } else {
             estrategia = new DescuentoNormal();
@@ -232,7 +232,7 @@ public class CarritoController implements Initializable {
         Alert ok = new Alert(Alert.AlertType.INFORMATION);
         ok.setTitle("¡Compra completada!");
         ok.setHeaderText(null);
-        ok.setContentText("✅ Tu pedido fue registrado y pagado.\n" +
+        ok.setContentText("Tu pedido fue registrado y pagado.\n" +
                 "Método: " + metodoPago + "\nTotal: COP " + String.format("%,.0f", total));
         ok.showAndWait();
         ((Stage) lblTotal.getScene().getWindow()).close();
