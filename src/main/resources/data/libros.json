@@ -1,58 +1,119 @@
 [
   {
+    "tipoClase": "FISICO",
+    "peso": 0.4,
+    "ubicacionBodega": "Bodega A",
     "id": "e16599df-20a3-45ca-a820-cffe3a618bb6",
-    "titulo": "Don quijote",
-    "autor": "Miguel de cervantes",
+    "titulo": "Don Quijote",
+    "autor": "Miguel de Cervantes",
     "categoria": "Literatura juvenil",
     "precio": 50000.0,
     "stock": 6,
-    "imagen": "don quijote.jpg"
+    "imagen": "don quijote.jpg",
+    "origen": "Nacional"
   },
   {
+    "tipoClase": "FISICO",
+    "peso": 0.3,
+    "ubicacionBodega": "Bodega A",
     "id": "4456371e-bfb3-471a-bcb0-00df13723940",
-    "titulo": "Methamorphosis",
+    "titulo": "Metamorphosis",
     "autor": "Franz Kafka",
     "categoria": "Filosofia",
     "precio": 70000.0,
     "stock": 15,
-    "imagen": "metamorfosis.jpg"
+    "imagen": "metamorfosis.jpg",
+    "origen": "Nacional"
   },
   {
+    "tipoClase": "FISICO",
+    "peso": 0.8,
+    "ubicacionBodega": "Bodega B",
     "id": "a7ca046e-c2cc-4b56-9d74-400a3b3325f0",
     "titulo": "El arte del Berserk",
     "autor": "Yamamoto",
     "categoria": "Literatura juvenil",
     "precio": 60000.0,
     "stock": 20,
-    "imagen": "berserk.jpg"
+    "imagen": "berserk.jpg",
+    "origen": "Nacional"
   },
   {
+    "tipoClase": "FISICO",
+    "peso": 0.2,
+    "ubicacionBodega": "Bodega A",
     "id": "7987b8be-66fc-4f23-b7a5-7700fecf2efc",
     "titulo": "El principito",
     "autor": "Antoine de Saint-Exupéry",
     "categoria": "Biografias y literatura",
     "precio": 50000.0,
     "stock": 50,
-    "imagen": "el-principito.jpg"
+    "imagen": "el-principito.jpg",
+    "origen": "Nacional"
   },
   {
+    "tipoClase": "FISICO",
+    "peso": 1.2,
+    "ubicacionBodega": "Bodega B",
     "id": "87b7df19-0552-4436-9e7a-0d0feec0b8b4",
-    "titulo": "The art if Design",
+    "titulo": "The Art of Design",
     "autor": "Tomas de Bruyne",
     "categoria": "Artes",
     "precio": 120000.0,
     "stock": 23,
-    "imagen": "the-art-of-design.jpg"
+    "imagen": "the-art-of-design.jpg",
+    "origen": "Nacional"
   },
   {
+    "tipoClase": "FISICO",
     "peso": 0.4,
     "ubicacionBodega": "Bodega A",
     "id": "9f258434-a3f6-4d4a-b630-6d5987b003f3",
-    "titulo": "La sombra",
+    "titulo": "La sombra del viento",
     "autor": "Carlos Ruiz Zafón",
     "categoria": "Biografias y literatura",
     "precio": 80000.0,
     "stock": 36,
-    "imagen": "la_sombra.jpg"
+    "imagen": "la_sombra.jpg",
+    "origen": "Nacional"
+  },
+  {
+    "tipoClase": "DIGITAL",
+    "rutaArchivo": "",
+    "disponibleDescarga": false,
+    "formato": "PDF",
+    "id": "d1000001-0000-0000-0000-000000000001",
+    "titulo": "Cien años de soledad",
+    "autor": "Gabriel García Márquez",
+    "categoria": "Biografias y literatura",
+    "precio": 35000.0,
+    "stock": 999,
+    "imagen": "cien-anios.jpg"
+  },
+  {
+    "tipoClase": "DIGITAL",
+    "rutaArchivo": "",
+    "disponibleDescarga": false,
+    "formato": "EPUB",
+    "id": "d1000002-0000-0000-0000-000000000002",
+    "titulo": "El amor en los tiempos del cólera",
+    "autor": "Gabriel García Márquez",
+    "categoria": "Biografias y literatura",
+    "precio": 30000.0,
+    "stock": 999,
+    "imagen": "amor-colera.jpg"
+  },
+  {
+    "tipoClase": "DIGITAL",
+    "rutaArchivo": "",
+    "disponibleDescarga": false,
+    "formato": "MOBI",
+    "id": "d1000003-0000-0000-0000-000000000003",
+    "titulo": "1984",
+    "autor": "George Orwell",
+    "categoria": "Filosofia",
+    "precio": 28000.0,
+    "stock": 999,
+    "imagen": "1984.jpg"
   }
 ]
