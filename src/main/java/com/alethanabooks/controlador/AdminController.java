@@ -36,20 +36,18 @@ import java.util.UUID;
 
 public class AdminController implements Initializable {
 
-    // ── Tabla ──────────────────────────────────────────────────────────────
     @FXML private TableView<Libro>           tablaLibros;
     @FXML private TableColumn<Libro,String>  colId, colTitulo, colAutor, colCategoria, colImagen;
     @FXML private TableColumn<Libro,Double>  colPrecio;
     @FXML private TableColumn<Libro,Integer> colStock;
 
-    // ── Formulario ────────────────────────────────────────────────────────
     @FXML private TextField      txtTitulo, txtAutor, txtPrecio, txtStock, txtBuscar;
     @FXML private ComboBox<String> cmbCategoria, cmbTipo, cmbFormato, cmbOrigen;
     @FXML private TableColumn<Libro, String> colOrigen;
+    @FXML private TableColumn<Libro, String> colTipoLibro;
     @FXML private Label          lblRutaImagen, lblRutaArchivo;
     @FXML private Button         btnAgregar, btnEliminar, btnModificar, btnArchivo;
 
-    // ── Pedidos ───────────────────────────────────────────────────────────
     @FXML private VBox           listaPedidos;
 
     private final CatalogoService  catalogoService  = new CatalogoService();
@@ -58,6 +56,7 @@ public class AdminController implements Initializable {
     private String imagenSeleccionada  = "";
     private String archivoDescargable  = "";
     private Libro  libroEnEdicion      = null;
+    private boolean cargandoLibros     = false;
 
     public static final List<String> CATEGORIAS = List.of(
             "Artes","Biografias y literatura","Ciencia","Tecnologia",
@@ -66,7 +65,6 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Columnas
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         colAutor.setCellValueFactory(new PropertyValueFactory<>("autor"));
@@ -74,17 +72,20 @@ public class AdminController implements Initializable {
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
         colImagen.setCellValueFactory(new PropertyValueFactory<>("imagen"));
-        // colOrigen usa celda personalizada para mostrar Nacional/Importado solo en LibroFisico
+        colTipoLibro.setCellValueFactory(data -> {
+            Libro l = data.getValue();
+            String tipo = (l instanceof com.alethanabooks.modelo.LibroFisico) ? "Físico" : "Digital";
+            return new javafx.beans.property.SimpleStringProperty(tipo);
+        });
         colOrigen.setCellValueFactory(data -> {
             Libro l = data.getValue();
             if (l instanceof com.alethanabooks.modelo.LibroFisico lf) {
                 return new javafx.beans.property.SimpleStringProperty(
                         lf.getOrigen() != null ? lf.getOrigen() : "Nacional");
             }
-            return new javafx.beans.property.SimpleStringProperty("Digital");
+            return new javafx.beans.property.SimpleStringProperty("—");
         });
 
-        // ComboBox
         cmbCategoria.setItems(FXCollections.observableArrayList(CATEGORIAS));
         cmbCategoria.setPromptText("Seleccionar categoría");
         cmbTipo.setItems(FXCollections.observableArrayList("Físico", "Digital"));
@@ -95,7 +96,6 @@ public class AdminController implements Initializable {
         cmbFormato.setItems(FXCollections.observableArrayList("PDF", "EPUB", "MOBI"));
         cmbFormato.setValue("PDF");
 
-        // Mostrar/ocultar campos según tipo
         cmbTipo.valueProperty().addListener((obs, old, tipo) -> {
             boolean esDigital = "Digital".equals(tipo);
             cmbOrigen.setVisible(!esDigital);
@@ -107,7 +107,6 @@ public class AdminController implements Initializable {
             lblRutaArchivo.setVisible(esDigital);
             lblRutaArchivo.setManaged(esDigital);
         });
-        // Estado inicial: Nacional, campos digitales ocultos
         cmbFormato.setVisible(false); cmbFormato.setManaged(false);
         btnArchivo.setVisible(false);  btnArchivo.setManaged(false);
         lblRutaArchivo.setVisible(false); lblRutaArchivo.setManaged(false);
@@ -115,16 +114,14 @@ public class AdminController implements Initializable {
         cargarLibros();
         cargarPedidos();
 
-        // Búsqueda en tiempo real
         txtBuscar.textProperty().addListener((obs, old, texto) -> {
             FiltroLibro filtro = libro -> libro.coincideCon(texto);
             tablaLibros.setItems(FXCollections.observableArrayList(
                     catalogoService.obtenerTodos().stream().filter(filtro::filtrar).toList()));
         });
 
-        // Selección fila → carga formulario
         tablaLibros.getSelectionModel().selectedItemProperty().addListener((obs, old, sel) -> {
-            if (sel != null) cargarEnFormulario(sel);
+            if (sel != null && !cargandoLibros) cargarEnFormulario(sel);
         });
 
         btnEliminar.disableProperty().bind(tablaLibros.getSelectionModel().selectedItemProperty().isNull());
@@ -150,12 +147,13 @@ public class AdminController implements Initializable {
             lblRutaArchivo.setStyle("-fx-font-size: 12px; -fx-text-fill: #10b981;");
             cmbOrigen.setVisible(false); cmbOrigen.setManaged(false);
         } else if (libro instanceof com.alethanabooks.modelo.LibroFisico lf) {
-            cmbTipo.setValue("Físico");
-            cmbOrigen.setValue(lf.getOrigen() != null ? lf.getOrigen() : "Nacional");
             cmbOrigen.setVisible(true); cmbOrigen.setManaged(true);
             archivoDescargable = "";
             lblRutaArchivo.setText("Sin archivo seleccionado");
             lblRutaArchivo.setStyle("-fx-font-size: 12px; -fx-text-fill: #94a3b8;");
+            cmbTipo.setValue("Físico");
+            String origenReal = lf.getOrigen();
+            cmbOrigen.setValue(origenReal);
         }
         btnAgregar.setText("Cancelar edición");
     }
@@ -232,7 +230,6 @@ public class AdminController implements Initializable {
                     titulo, autor, categoria, precio, stock, imagenSeleccionada,
                     formato, archivoDescargable, origen);
 
-            // Validar si implementa Validable
             if (nuevo instanceof Validable v && !v.esValido()) {
                 mostrarAlerta("Libro inválido", v.obtenerMensajeError());
                 return;
@@ -241,7 +238,6 @@ public class AdminController implements Initializable {
             catalogoService.agregar(nuevo);
             cargarLibros();
             limpiarCampos();
-            // Refrescar catálogo del cliente si está abierto
             Object ctrl = com.alethanabooks.modelo.SesionActual.getCatalogoController();
             if (ctrl instanceof InicioController ic) ic.refrescarCatalogo();
         } catch (NumberFormatException e) {
@@ -275,7 +271,6 @@ public class AdminController implements Initializable {
             sel.setStock(stock);
             if (!imagenSeleccionada.isBlank()) sel.setImagen(imagenSeleccionada);
 
-            // Si es libro digital, actualizar campos específicos
             if (sel instanceof com.alethanabooks.modelo.LibroDigital ld) {
                 if (!archivoDescargable.isBlank()) ld.setRutaArchivo(archivoDescargable);
                 if (cmbFormato.getValue() != null) ld.setFormato(cmbFormato.getValue());
@@ -287,10 +282,10 @@ public class AdminController implements Initializable {
 
             catalogoService.actualizar(sel);
             cargarLibros();
+            tablaLibros.refresh();
             limpiarCampos();
             libroEnEdicion = null;
             btnAgregar.setText("+ Agregar");
-            // Refrescar catálogo del cliente si está abierto
             Object ctrl2 = com.alethanabooks.modelo.SesionActual.getCatalogoController();
             if (ctrl2 instanceof InicioController ic2) ic2.refrescarCatalogo();
         } catch (NumberFormatException e) {
@@ -331,16 +326,14 @@ public class AdminController implements Initializable {
             return;
         }
 
-        // Resumen total del día
         double totalDia = ventas.stream()
                 .filter(v -> v.getFecha() != null &&
                         v.getFecha().toLocalDate().equals(java.time.LocalDate.now()))
                 .mapToDouble(Venta::getTotal).sum();
         Label lblResumen = new Label(String.format(
-                "📊  Pedidos totales: %d   |   Ventas hoy: COP %,.0f", ventas.size(), totalDia));
+                "Pedidos totales: %d   |   Ventas hoy: COP %,.0f", ventas.size(), totalDia));
         lblResumen.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #7c3aed;" +
                 " -fx-background-color: #ede9fe; -fx-background-radius: 8; -fx-padding: 8 14;");
-        // color set in style above
         listaPedidos.getChildren().add(lblResumen);
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -355,15 +348,14 @@ public class AdminController implements Initializable {
                     "-fx-border-width: 1.5; -fx-border-radius: 12;");
             card.setPadding(new Insets(14, 18, 14, 18));
 
-            // Cabecera: usuario + fecha + estado
             HBox cabecera = new HBox(12);
             cabecera.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
             String iconMetodo = switch (v.getMetodoPago() != null ? v.getMetodoPago() : "") {
-                case "Tarjeta" -> "💳";
-                case "PSE"     -> "🏦";
-                case "Efecty"  -> "🏪";
-                default        -> "💰";
+                case "Tarjeta" -> "";
+                case "PSE"     -> "";
+                case "Efecty"  -> "";
+                default        -> "";
             };
 
             VBox infoUsuario = new VBox(2);
@@ -371,42 +363,34 @@ public class AdminController implements Initializable {
 
             String nombreUsuario = v.getUsuario() != null ? v.getUsuario().getNombre() : "Desconocido";
             String correoUsuario = v.getUsuario() != null ? v.getUsuario().getCorreo() : "";
-            Label lblUsuario = new Label("👤  " + nombreUsuario + "  ·  " + correoUsuario);
+            Label lblUsuario = new Label("" + nombreUsuario + "  ·  " + correoUsuario);
             lblUsuario.setStyle("-fx-font-size: 13px; -fx-font-weight: 800; -fx-text-fill: #0f172a;");
-            // color set in style above
 
             String fechaStr = v.getFecha() != null ? v.getFecha().format(fmt) : "—";
-            Label lblFecha = new Label("📅  " + fechaStr + "   " + iconMetodo + "  " + v.getMetodoPago());
+            Label lblFecha = new Label("" + fechaStr + "   " + iconMetodo + "  " + v.getMetodoPago());
             lblFecha.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
-            // color set in style above
 
             infoUsuario.getChildren().addAll(lblUsuario, lblFecha);
 
-            // Badge de estado
-            Label lblEstado = new Label(pagado ? "✅  PAGADO" : "⏳  PENDIENTE");
-            lblEstado.setStyle("-fx-background-color: " + (pagado ? "#dcfce7" : "#fef3c7") + "; " +
+            Label lblEstado = new Label(pagado ? "PAGADO" : "PENDIENTE");
+            lblEstado.setStyle("-fx-background-color: " + (pagado ? "#2aef6d" : "#fddd64") + "; " +
                     "-fx-background-radius: 8; -fx-font-size: 11px; -fx-font-weight: 900; -fx-padding: 5 10;");
-            // color set in style above
 
             cabecera.getChildren().addAll(infoUsuario, lblEstado);
             card.getChildren().add(cabecera);
 
-            // Separador
             card.getChildren().add(new Separator());
 
-            // Ítems del pedido
             for (com.alethanabooks.modelo.DetalleVenta d : v.getDetalles()) {
                 HBox fila = new HBox();
                 fila.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-                Label lblLibro = new Label("  📖  " + d.getLibro().getTitulo() +
+                Label lblLibro = new Label(" " + d.getLibro().getTitulo() +
                         "  ×" + d.getCantidad());
                 lblLibro.setStyle("-fx-font-size: 13px; -fx-text-fill: #334155;");
-                // color set in style above
                 javafx.scene.layout.HBox.setHgrow(lblLibro, javafx.scene.layout.Priority.ALWAYS);
 
                 Label lblSub = new Label("COP " + String.format("%,.0f", d.getSubtotal()));
                 lblSub.setStyle("-fx-font-size: 13px; -fx-font-weight: 700; -fx-text-fill: #7c3aed;");
-                // color set in style above
 
                 fila.getChildren().addAll(lblLibro, lblSub);
                 card.getChildren().add(fila);
@@ -414,17 +398,28 @@ public class AdminController implements Initializable {
 
             card.getChildren().add(new Separator());
 
-            // Total
+            com.alethanabooks.modelo.DatosEnvio envio = v.getDatosEnvio();
+            if (envio != null && envio.estaCompleto()) {
+                VBox envioBox = new VBox(2);
+                Label lblEnvioTitulo = new Label("Datos de envío");
+                lblEnvioTitulo.setStyle("-fx-font-size: 12px; -fx-font-weight: 800; -fx-text-fill: #475569;");
+                Label lblEnvioDatos = new Label(
+                        envio.getNombre() + "  ·  " + envio.getTelefono() + "\n" +
+                                envio.getDireccion() + ", " + envio.getCiudad());
+                lblEnvioDatos.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
+                lblEnvioDatos.setWrapText(true);
+                envioBox.getChildren().addAll(lblEnvioTitulo, lblEnvioDatos);
+                card.getChildren().add(envioBox);
+                card.getChildren().add(new Separator());
+            }
             HBox filaTotal = new HBox();
             filaTotal.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
             Label lblTotalLbl = new Label("TOTAL");
             lblTotalLbl.setStyle("-fx-font-size: 14px; -fx-font-weight: 900; -fx-text-fill: #0f172a;");
-            // color set in style above
             javafx.scene.layout.HBox.setHgrow(lblTotalLbl, javafx.scene.layout.Priority.ALWAYS);
 
             Label lblTotalVal = new Label("COP " + String.format("%,.0f", v.getTotal()));
             lblTotalVal.setStyle("-fx-font-size: 16px; -fx-font-weight: 900; -fx-text-fill: #7c3aed;");
-            // color set in style above
 
             filaTotal.getChildren().addAll(lblTotalLbl, lblTotalVal);
             card.getChildren().add(filaTotal);
@@ -434,8 +429,10 @@ public class AdminController implements Initializable {
     }
 
     private void cargarLibros() {
+        cargandoLibros = true;
         librosObservable = FXCollections.observableArrayList(catalogoService.obtenerTodos());
         tablaLibros.setItems(librosObservable);
+        cargandoLibros = false;
     }
 
     private void limpiarCampos() {

@@ -6,6 +6,7 @@ public class Usuario {
     private String correo;
     private String contrasena;
     private Rol rol;
+    private DatosEnvio datosEnvio;
 
     public Usuario(String id, String nombre, String correo, String contrasena, Rol rol) {
         this.id = id;
@@ -23,4 +24,6 @@ public class Usuario {
     public String getNombre() { return nombre; }
     public String getCorreo() { return correo; }
     public Rol getRol() { return rol; }
+    public DatosEnvio getDatosEnvio()                { return datosEnvio; }
+    public void setDatosEnvio(DatosEnvio datosEnvio) { this.datosEnvio = datosEnvio; }
 }

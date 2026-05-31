@@ -174,6 +174,15 @@ public class CarritoController implements Initializable {
             return;
         }
 
+        Usuario usuarioActual = SesionActual.getUsuario();
+        if (usuarioActual == null || usuarioActual.getDatosEnvio() == null
+                || !usuarioActual.getDatosEnvio().estaCompleto()) {
+            mostrarAlerta("Datos de envío incompletos",
+                    "Debes completar tu dirección de envío antes de comprar.\n" +
+                            "Ve a 'Mi cuenta' y llena los campos de envío.");
+            return;
+        }
+
         for (ItemCarrito item : carrito.getItems()) {
             Libro libro = catalogoService.buscarPorId(item.getLibro().getId());
 
@@ -231,7 +240,8 @@ public class CarritoController implements Initializable {
         }
 
         Venta venta = new Venta(UUID.randomUUID().toString(),
-                SesionActual.getUsuario(), detalles, metodoPago, total, "PAGADO");
+                SesionActual.getUsuario(), detalles, metodoPago, total, "PAGADO",
+                SesionActual.getUsuario().getDatosEnvio());
 
         ventaRepository.guardar(venta);
 

@@ -1,9 +1,11 @@
 package com.alethanabooks.controlador;
 
+import com.alethanabooks.modelo.DatosEnvio;
 import com.alethanabooks.modelo.SesionActual;
 import com.alethanabooks.modelo.DetalleVenta;
 import com.alethanabooks.modelo.Usuario;
 import com.alethanabooks.modelo.Venta;
+import com.alethanabooks.persistence.UsuarioRepository;
 import com.alethanabooks.persistence.VentaRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +30,8 @@ public class CuentaController implements Initializable {
     @FXML private Label lblGuardado;
     @FXML private VBox listaCompras;
 
-    private final VentaRepository ventaRepository = new VentaRepository();
+    private final VentaRepository    ventaRepository    = new VentaRepository();
+    private final UsuarioRepository  usuarioRepository  = new UsuarioRepository();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -36,6 +39,14 @@ public class CuentaController implements Initializable {
         if (u != null) {
             lblBienvenida.setText("Hola, " + u.getNombre() + "  ·  " + u.getCorreo());
             txtNombreCompleto.setText(u.getNombre());
+
+            DatosEnvio envio = u.getDatosEnvio();
+            if (envio != null) {
+                txtNombreCompleto.setText(envio.getNombre() != null ? envio.getNombre() : u.getNombre());
+                txtDireccion.setText(envio.getDireccion() != null ? envio.getDireccion() : "");
+                txtCiudad.setText(envio.getCiudad()    != null ? envio.getCiudad()    : "");
+                txtTelefono.setText(envio.getTelefono() != null ? envio.getTelefono() : "");
+            }
         }
         cargarHistorial();
     }
@@ -57,7 +68,15 @@ public class CuentaController implements Initializable {
             lblGuardado.setTextFill(Color.web("#ef4444"));
             return;
         }
-        lblGuardado.setText("Datos de envío guardados correctamente.");
+
+        Usuario u = SesionActual.getUsuario();
+        if (u != null) {
+            DatosEnvio envio = new DatosEnvio(nombre, direccion, ciudad, telefono);
+            u.setDatosEnvio(envio);
+            usuarioRepository.actualizar(u);
+        }
+
+        lblGuardado.setText("✓ Datos de envío guardados correctamente.");
         lblGuardado.setTextFill(Color.web("#10b981"));
     }
 
@@ -90,6 +109,7 @@ public class CuentaController implements Initializable {
             Label lblFecha = new Label("" + fecha + "" + v.getMetodoPago());
             lblFecha.setStyle("-fx-font-size: 12px;");
             lblFecha.setTextFill(Color.web("#64748b"));
+            card.getChildren().add(lblFecha);
 
             for (DetalleVenta d : v.getDetalles()) {
                 Label l = new Label("  • " + d.getLibro().getTitulo() +
@@ -100,11 +120,19 @@ public class CuentaController implements Initializable {
                 card.getChildren().add(l);
             }
 
+            DatosEnvio envio = v.getDatosEnvio();
+            if (envio != null && envio.estaCompleto()) {
+                Label lblEnvio = new Label("Envío: " + envio.getDireccion() + ", " + envio.getCiudad());
+                lblEnvio.setStyle("-fx-font-size: 12px;");
+                lblEnvio.setTextFill(Color.web("#64748b"));
+                card.getChildren().add(lblEnvio);
+            }
+
             Label lblTotal = new Label("Total: COP " + String.format("%,.0f", v.getTotal()));
             lblTotal.setStyle("-fx-font-size: 14px; -fx-font-weight: 900;");
             lblTotal.setTextFill(Color.web("#7c3aed"));
+            card.getChildren().add(lblTotal);
 
-            card.getChildren().addAll(lblFecha, lblTotal);
             listaCompras.getChildren().add(card);
         }
     }

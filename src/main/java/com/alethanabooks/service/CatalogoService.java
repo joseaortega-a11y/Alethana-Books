@@ -48,7 +48,7 @@ public class CatalogoService {
         List<Libro> todos = obtenerTodos();
         int desde = Math.max(0, todos.size() - limite);
         List<Libro> ultimos = new ArrayList<>(todos.subList(desde, todos.size()));
-        Collections.reverse(ultimos); // más reciente primero
+        Collections.reverse(ultimos);
         return ultimos;
     }
 

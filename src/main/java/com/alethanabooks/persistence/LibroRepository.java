@@ -33,12 +33,22 @@ public class LibroRepository {
             for (JsonElement el : array) {
                 JsonObject obj = el.getAsJsonObject();
                 Libro libro;
-                if (obj.has("rutaArchivo")) {
+                String tipoClase = obj.has("tipoClase") ? obj.get("tipoClase").getAsString() : "";
+                boolean esDigital = "DIGITAL".equalsIgnoreCase(tipoClase) || obj.has("rutaArchivo");
+                boolean esFisico  = "FISICO".equalsIgnoreCase(tipoClase)  || obj.has("ubicacionBodega") || obj.has("peso") || obj.has("origen");
+
+                if (esDigital) {
                     libro = gson.fromJson(obj, LibroDigital.class);
-                } else if (obj.has("ubicacionBodega")) {
-                    libro = gson.fromJson(obj, LibroFisico.class);
+                } else if (esFisico) {
+                    LibroFisico lf = gson.fromJson(obj, LibroFisico.class);
+                    if (lf.getOrigen() == null || lf.getOrigen().isBlank()) {
+                        lf.setOrigen("Nacional");
+                    }
+                    libro = lf;
                 } else {
-                    libro = gson.fromJson(obj, Libro.class);
+                    LibroFisico lf = gson.fromJson(obj, LibroFisico.class);
+                    lf.setOrigen("Nacional");
+                    libro = lf;
                 }
                 libros.add(libro);
             }
@@ -53,7 +63,7 @@ public class LibroRepository {
             if (ruta.getParent() != null) Files.createDirectories(ruta.getParent());
             JsonArray array = new JsonArray();
             for (Libro l : libros) {
-                array.add(JsonParser.parseString(gson.toJson(l)));
+                array.add(JsonParser.parseString(gson.toJson(l, l.getClass())));
             }
             Files.writeString(ruta, new GsonBuilder().setPrettyPrinting().create().toJson(array));
         } catch (IOException e) {

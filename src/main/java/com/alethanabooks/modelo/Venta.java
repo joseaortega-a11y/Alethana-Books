@@ -12,11 +12,13 @@ public class Venta {
     private double total;
     private String metodoPago;
     private String estadoPago;
+    private com.alethanabooks.modelo.DatosEnvio datosEnvio;
 
     public Venta() {}
 
     public Venta(String id, Usuario usuario, List<DetalleVenta> detalles,
-                 String metodoPago, double total, String estadoPago) {
+                 String metodoPago, double total, String estadoPago,
+                 com.alethanabooks.modelo.DatosEnvio datosEnvio) {
         this.id          = id;
         this.usuario     = usuario;
         this.fecha       = LocalDateTime.now();
@@ -24,6 +26,7 @@ public class Venta {
         this.metodoPago  = metodoPago;
         this.total       = total;
         this.estadoPago  = estadoPago;
+        this.datosEnvio  = datosEnvio;
     }
 
     public String getId()                   { return id; }
@@ -33,4 +36,5 @@ public class Venta {
     public double getTotal()                { return total; }
     public String getMetodoPago()           { return metodoPago; }
     public String getEstadoPago()           { return estadoPago != null ? estadoPago : "PENDIENTE"; }
+    public com.alethanabooks.modelo.DatosEnvio getDatosEnvio() { return datosEnvio; }
 }

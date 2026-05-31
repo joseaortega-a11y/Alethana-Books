@@ -24,4 +24,11 @@ public class UsuarioRepository {
         lista.add(usuario);
         guardarTodos(lista);
     }
+
+    public void actualizar(Usuario usuarioActualizado) {
+        List<Usuario> lista = obtenerTodos();
+        lista.replaceAll(u -> u.getCorreo().equalsIgnoreCase(usuarioActualizado.getCorreo())
+                ? usuarioActualizado : u);
+        guardarTodos(lista);
+    }
 }

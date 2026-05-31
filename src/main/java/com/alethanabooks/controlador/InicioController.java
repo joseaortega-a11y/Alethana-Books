@@ -38,14 +38,12 @@ public class InicioController implements Initializable {
         actualizarNovedad();
     }
 
-    /** Recarga las tarjetas del catálogo — llamado tras una compra para mostrar el stock actualizado. */
     public void refrescarCatalogo() {
         cargarLibros(null);
         actualizarBanner();
         actualizarNovedad();
     }
 
-    // Llamado desde HeaderController al buscar
     public void buscarDesdeHeader(String texto) {
         gridLibros.getChildren().clear();
         List<Libro> libros = texto.isEmpty()
@@ -97,7 +95,6 @@ public class InicioController implements Initializable {
                 "-fx-font-size: 13px; -fx-font-weight: 800; -fx-padding: 7 18;");
         lblCategoria.setTextFill(Color.WHITE);
 
-        // Stock novedad
         Label lblStock = new Label("Stock: " + novedad.getStock());
         lblStock.setStyle("-fx-font-size: 13px; -fx-font-weight: 700;");
         lblStock.setTextFill(novedad.getStock() > 0
@@ -193,7 +190,6 @@ public class InicioController implements Initializable {
 
         StackPane imgPane = ImagenUtil.crearPanelImagen(libro.getImagen(), 154, 210);
 
-        // Badge "⬇ Digital" en top-left si es libro digital
         if (libro instanceof com.alethanabooks.modelo.LibroDigital) {
             Label badge = new Label("⬇ Digital");
             badge.setStyle("-fx-background-color: #0ea574; -fx-background-radius: 6; " +
@@ -202,10 +198,9 @@ public class InicioController implements Initializable {
             imgPane.getChildren().add(badge);
         }
 
-        // Badge "🌍 Importado" en top-right solo si es físico importado
         if (libro instanceof com.alethanabooks.modelo.LibroFisico lf
                 && "Importado".equals(lf.getOrigen())) {
-            Label badgeImp = new Label("🌍 Importado");
+            Label badgeImp = new Label("Importado");
             badgeImp.setStyle("-fx-background-color: #f59e0b; -fx-background-radius: 6; " +
                     "-fx-font-size: 10px; -fx-font-weight: 800; -fx-padding: 3 8; -fx-text-fill: white;");
             StackPane.setAlignment(badgeImp, Pos.TOP_RIGHT);
@@ -229,8 +224,6 @@ public class InicioController implements Initializable {
         Label lblPrecio = new Label(String.format("COP %,.0f", libro.getPrecio()));
         lblPrecio.setStyle("-fx-font-size: 20px; -fx-font-weight: 900;");
         lblPrecio.setTextFill(Color.web("#7c3aed"));
-
-        // Stock
         boolean hayStock = libro.getStock() > 0;
         Label lblStock = new Label(hayStock ? "Stock: " + libro.getStock() : "Sin stock");
         lblStock.setStyle("-fx-font-size: 12px; -fx-font-weight: 700;");
