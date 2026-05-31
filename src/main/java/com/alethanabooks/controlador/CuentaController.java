@@ -76,7 +76,7 @@ public class CuentaController implements Initializable {
             usuarioRepository.actualizar(u);
         }
 
-        lblGuardado.setText("✓ Datos de envío guardados correctamente.");
+        lblGuardado.setText("Datos de envío guardados correctamente.");
         lblGuardado.setTextFill(Color.web("#10b981"));
     }
 
