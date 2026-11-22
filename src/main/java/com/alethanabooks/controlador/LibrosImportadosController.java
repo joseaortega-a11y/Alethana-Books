@@ -3,6 +3,7 @@ package com.alethanabooks.controlador;
 import com.alethanabooks.modelo.Libro;
 import com.alethanabooks.service.CatalogoService;
 import com.alethanabooks.Util.ImagenUtil;
+import com.alethanabooks.Util.TarjetaUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -21,6 +22,7 @@ public class LibrosImportadosController implements Initializable {
     private FlowPane flowLibros;
 
     private final CatalogoService catalogoService = new CatalogoService();
+    /** Colores de la etiqueta "IMPORTADO" (el botón usa un único color). */
     private static final String[] COLORES = {"#7c3aed", "#ec4899", "#10b981", "#f59e0b", "#3b82f6", "#0ea574"};
 
     @Override
@@ -49,9 +51,9 @@ public class LibrosImportadosController implements Initializable {
         }
     }
 
-    private VBox crearTarjetaLibro(Libro libro, String colorBtn) {
+    private VBox crearTarjetaLibro(Libro libro, String colorEtiqueta) {
         VBox card = new VBox(10);
-        card.setPrefWidth(210);
+        TarjetaUtil.anchoAdaptable(card, flowLibros, 5, 200);
         card.setStyle("-fx-background-color: white; -fx-background-radius: 14; " +
                 "-fx-border-color: #e5e7eb; -fx-border-radius: 14; " +
                 "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 8, 0, 0, 2);");
@@ -59,17 +61,18 @@ public class LibrosImportadosController implements Initializable {
 
         StackPane imgPane = ImagenUtil.crearPanelImagen(libro.getImagen(), 174, 220);
         Label lblImportado = new Label("IMPORTADO");
-        lblImportado.setStyle("-fx-background-color: " + colorBtn + "; -fx-background-radius: 6; " +
+        lblImportado.setStyle("-fx-background-color: " + colorEtiqueta + "; -fx-background-radius: 6; " +
                 "-fx-font-size: 10px; -fx-font-weight: 800; -fx-padding: 4 8; -fx-text-fill: white;");
         StackPane.setAlignment(lblImportado, Pos.TOP_RIGHT);
         imgPane.getChildren().add(lblImportado);
 
         Label lblTitulo = new Label(libro.getTitulo());
         lblTitulo.setStyle("-fx-font-size: 15px; -fx-font-weight: 800; -fx-text-fill: #0f172a;");
-        lblTitulo.setWrapText(true);
+        TarjetaUtil.tituloUnaLinea(lblTitulo);
 
         Label lblAutor = new Label(libro.getAutor());
         lblAutor.setStyle("-fx-font-size: 12px; -fx-text-fill: #64748b;");
+        TarjetaUtil.unaLinea(lblAutor);
 
         Label lblCategoria = new Label(libro.getCategoria());
         lblCategoria.setStyle("-fx-background-color: #ede9fe; -fx-background-radius: 6; -fx-font-size: 11px; -fx-font-weight: 700; -fx-padding: 3 8; -fx-text-fill: #7c3aed;");
@@ -86,7 +89,7 @@ public class LibrosImportadosController implements Initializable {
         btnCarrito.setMaxWidth(Double.MAX_VALUE);
         btnCarrito.setTextFill(Color.WHITE);
         btnCarrito.setDisable(!hayStock);
-        btnCarrito.setStyle("-fx-background-color: " + (hayStock ? colorBtn : "#94a3b8") +
+        btnCarrito.setStyle("-fx-background-color: " + (hayStock ? TarjetaUtil.COLOR_BOTON : "#94a3b8") +
                 "; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;");
         btnCarrito.setOnAction(e -> agregarAlCarrito(libro));
 

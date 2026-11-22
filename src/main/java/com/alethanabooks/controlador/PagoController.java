@@ -8,12 +8,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-/**
- * Controlador de simulación de pago.
- * Muestra un formulario diferente según el método elegido,
- * simula el procesamiento y notifica si fue aprobado o rechazado.
- */
 public class PagoController {
 
     @FXML private Label      lblMetodo;

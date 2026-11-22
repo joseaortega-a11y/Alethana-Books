@@ -3,6 +3,7 @@ package com.alethanabooks.controlador;
 import com.alethanabooks.modelo.Libro;
 import com.alethanabooks.service.CatalogoService;
 import com.alethanabooks.Util.ImagenUtil;
+import com.alethanabooks.Util.TarjetaUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -21,7 +22,6 @@ public class librosReControlador implements Initializable {
     private FlowPane flowLibros;
 
     private final CatalogoService catalogoService = new CatalogoService();
-    private static final String[] COLORES = {"#7c3aed", "#ec4899", "#10b981", "#f59e0b", "#0ea574", "#3b82f6"};
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,14 +46,14 @@ public class librosReControlador implements Initializable {
             return;
         }
 
-        for (int i = 0; i < recomendados.size(); i++) {
-            flowLibros.getChildren().add(crearTarjetaLibro(recomendados.get(i), COLORES[i % COLORES.length]));
+        for (Libro libro : recomendados) {
+            flowLibros.getChildren().add(crearTarjetaLibro(libro));
         }
     }
 
-    private VBox crearTarjetaLibro(Libro libro, String colorBtn) {
+    private VBox crearTarjetaLibro(Libro libro) {
         VBox card = new VBox(10);
-        card.setPrefWidth(200);
+        TarjetaUtil.anchoAdaptable(card, flowLibros, 5, 200);
         card.setStyle("-fx-background-color: white; -fx-background-radius: 14; " +
                 "-fx-border-color: #e5e7eb; -fx-border-radius: 14;");
         card.setPadding(new Insets(18));
@@ -63,11 +63,12 @@ public class librosReControlador implements Initializable {
         Label lblTitulo = new Label(libro.getTitulo());
         lblTitulo.setStyle("-fx-font-size: 16px; -fx-font-weight: 800;");
         lblTitulo.setTextFill(Color.web("#0f172a"));
-        lblTitulo.setWrapText(true);
+        TarjetaUtil.tituloUnaLinea(lblTitulo);
 
         Label lblAutor = new Label(libro.getAutor());
         lblAutor.setStyle("-fx-font-size: 13px;");
         lblAutor.setTextFill(Color.web("#64748b"));
+        TarjetaUtil.unaLinea(lblAutor);
 
         Label lblCategoria = new Label(libro.getCategoria());
         lblCategoria.setStyle("-fx-background-color: #ede9fe; -fx-background-radius: 6; " +
@@ -88,7 +89,7 @@ public class librosReControlador implements Initializable {
         btnCarrito.setMaxWidth(Double.MAX_VALUE);
         btnCarrito.setTextFill(Color.WHITE);
         btnCarrito.setDisable(!hayStock);
-        btnCarrito.setStyle("-fx-background-color: " + (hayStock ? colorBtn : "#94a3b8") +
+        btnCarrito.setStyle("-fx-background-color: " + (hayStock ? TarjetaUtil.COLOR_BOTON : "#94a3b8") +
                 "; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;");
         btnCarrito.setOnAction(e -> agregarAlCarrito(libro));
 

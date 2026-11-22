@@ -2,6 +2,7 @@ package com.alethanabooks.controlador;
 
 import com.alethanabooks.modelo.SesionActual;
 import com.alethanabooks.modelo.*;
+import com.alethanabooks.persistence.CodigoDescuentoRepository;
 import com.alethanabooks.persistence.VentaRepository;
 import com.alethanabooks.service.CarritoService;
 import com.alethanabooks.service.CatalogoService;
@@ -32,7 +33,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 public class CarritoController implements Initializable {
 
@@ -50,16 +50,13 @@ public class CarritoController implements Initializable {
     private final CatalogoService catalogoService = new CatalogoService();
     private final VentaRepository ventaRepository = new VentaRepository();
 
+    private final CodigoDescuentoRepository codigoRepository = new CodigoDescuentoRepository();
+
     private EstrategiaDescuento estrategia = new DescuentoNormal();
     private double porcentajeDescuento = 0;
+    private String codigoAplicado = null;
 
     private InicioController inicioController;
-
-    private static final java.util.Map<String, Double> CODIGOS = java.util.Map.of(
-            "CYBER20", 0.20,
-            "PROMO10", 0.10,
-            "LECTOR15", 0.15
-    );
 
     public void setInicioController(InicioController c) {
         this.inicioController = c;
@@ -139,14 +136,20 @@ public class CarritoController implements Initializable {
     private void onAplicarCodigo() {
         String codigo = txtCodigo.getText().trim().toUpperCase();
 
-        if (CODIGOS.containsKey(codigo)) {
-            porcentajeDescuento = CODIGOS.get(codigo);
-            estrategia = new DescuentoPromocional(porcentajeDescuento);
+        java.util.Optional<Integer> porcentaje = codigo.isEmpty()
+                ? java.util.Optional.empty()
+                : codigoRepository.buscarPorcentaje(codigo);
+
+        if (porcentaje.isPresent()) {
+            porcentajeDescuento = porcentaje.get() / 100.0;
+            codigoAplicado = codigo;
+            estrategia = new DescuentoPromocional(porcentajeDescuento, codigo);
             lblDescuento.setText("Descuento del " + (int) (porcentajeDescuento * 100) + "% aplicado");
             lblDescuento.setTextFill(Color.web("#10b981"));
         } else {
             estrategia = new DescuentoNormal();
             porcentajeDescuento = 0;
+            codigoAplicado = null;
             lblDescuento.setText("Código no válido.");
             lblDescuento.setTextFill(Color.web("#ef4444"));
         }
@@ -233,17 +236,25 @@ public class CarritoController implements Initializable {
             Libro libro = catalogoService.buscarPorId(item.getLibro().getId());
 
             if (libro != null) {
-                libro.reducirStock(item.getCantidad());
-                catalogoService.actualizar(libro);
+                // El stock lo descuenta el trigger trg_detalle_venta_ai de la BD
                 detalles.add(new DetalleVenta(libro, item.getCantidad()));
             }
         }
 
-        Venta venta = new Venta(UUID.randomUUID().toString(),
+        Venta venta = new Venta(null,
                 SesionActual.getUsuario(), detalles, metodoPago, total, "PAGADO",
                 SesionActual.getUsuario().getDatosEnvio());
+        if (codigoAplicado != null) {
+            venta.setTipoDescuento("PROMOCIONAL");
+            venta.setCodigo(codigoAplicado);
+        }
 
-        ventaRepository.guardar(venta);
+        try {
+            ventaRepository.guardar(venta);
+        } catch (RuntimeException e) {
+            mostrarAlerta("No se pudo registrar la compra", e.getMessage());
+            return;
+        }
 
         carritoService.vaciarCarrito();
         renderizarItems();

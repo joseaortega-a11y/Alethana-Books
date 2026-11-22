@@ -5,6 +5,7 @@ import com.alethanabooks.interfaces.Descargable;
 import com.alethanabooks.modelo.Libro;
 import com.alethanabooks.service.CatalogoService;
 import com.alethanabooks.Util.ImagenUtil;
+import com.alethanabooks.Util.TarjetaUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -26,8 +27,10 @@ public class InicioController implements Initializable {
 
     private final CatalogoService catalogoService = new CatalogoService();
 
-    private static final String[] COLORES_BTN    = {"#7c3aed","#ec4899","#10b981","#f59e0b","#0ea574"};
     private static final String[] COLORES_BANNER = {"#1e293b","#33fdcb","#be185d","#7c3aed","#0ea574"};
+
+    /** Tarjetas por fila: su ancho se reparte para ocupar todo el panel. */
+    private static final int TARJETAS_POR_FILA = 3;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,7 +129,7 @@ public class InicioController implements Initializable {
         });
         sidebarCategorias.getChildren().add(btnTodas);
 
-        for (String cat : AdminController.CATEGORIAS) {
+        for (String cat : new com.alethanabooks.service.CatalogoService().obtenerCategorias()) {
             Button btnCat = new Button(cat);
             btnCat.setMaxWidth(Double.MAX_VALUE);
             btnCat.setAlignment(Pos.CENTER_LEFT);
@@ -158,8 +161,8 @@ public class InicioController implements Initializable {
             gridLibros.getChildren().add(lbl);
             return;
         }
-        for (int i = 0; i < libros.size(); i++) {
-            gridLibros.getChildren().add(crearTarjeta(libros.get(i), COLORES_BTN[i % COLORES_BTN.length]));
+        for (Libro libro : libros) {
+            gridLibros.getChildren().add(crearTarjeta(libro));
         }
     }
 
@@ -181,9 +184,9 @@ public class InicioController implements Initializable {
         return pane;
     }
 
-    private VBox crearTarjeta(Libro libro, String colorBtn) {
+    private VBox crearTarjeta(Libro libro) {
         VBox card = new VBox(10);
-        card.setPrefWidth(190);
+        TarjetaUtil.anchoAdaptable(card, gridLibros, TARJETAS_POR_FILA, 190);
         card.setStyle("-fx-background-color: white; -fx-background-radius: 14; " +
                 "-fx-border-color: #e5e7eb; -fx-border-radius: 14;");
         card.setPadding(new Insets(18));
@@ -210,11 +213,12 @@ public class InicioController implements Initializable {
         Label lblTitulo = new Label(libro.getTitulo());
         lblTitulo.setStyle("-fx-font-size: 16px; -fx-font-weight: 800;");
         lblTitulo.setTextFill(Color.web("#0f172a"));
-        lblTitulo.setWrapText(true);
+        TarjetaUtil.tituloUnaLinea(lblTitulo);   // una línea con "..." y tooltip con el título completo
 
         Label lblAutor = new Label(libro.getAutor());
         lblAutor.setStyle("-fx-font-size: 13px;");
         lblAutor.setTextFill(Color.web("#64748b"));
+        TarjetaUtil.unaLinea(lblAutor);
 
         Label lblCategoria = new Label(libro.getCategoria());
         lblCategoria.setStyle("-fx-background-color: #ede9fe; -fx-background-radius: 6; " +
@@ -233,7 +237,7 @@ public class InicioController implements Initializable {
         btnCarrito.setMaxWidth(Double.MAX_VALUE);
         btnCarrito.setTextFill(Color.WHITE);
         btnCarrito.setDisable(!hayStock);
-        btnCarrito.setStyle("-fx-background-color: " + (hayStock ? colorBtn : "#94a3b8") +
+        btnCarrito.setStyle("-fx-background-color: " + (hayStock ? TarjetaUtil.COLOR_BOTON : "#94a3b8") +
                 "; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;");
         btnCarrito.setOnAction(e -> agregarAlCarrito(libro));
 

@@ -1,16 +1,1 @@
-[
-  {
-    "id": "5229d8e8-2cdc-4b8a-a924-f0e971a8b1ae",
-    "nombre": "Admin",
-    "correo": "admin@alethana.com",
-    "contrasena": "admin123",
-    "rol": "ADMIN"
-  },
-  {
-    "id": "0386fbbc-d75b-4578-8c29-6146031003a8",
-    "nombre": "Jose A. Ortega",
-    "correo": "Jose@correro.com",
-    "contrasena": "123456",
-    "rol": "USUARIO"
-  }
-]
+[]

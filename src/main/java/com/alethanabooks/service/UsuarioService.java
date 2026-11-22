@@ -4,19 +4,15 @@ import com.alethanabooks.modelo.Rol;
 import com.alethanabooks.modelo.Usuario;
 import com.alethanabooks.persistence.UsuarioRepository;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository = new UsuarioRepository();
 
     public Optional<Usuario> autenticar(String correo, String contrasena) {
-        List<Usuario> todos = usuarioRepository.obtenerTodos();
-        return todos.stream()
-                .filter(u -> u.credencialesCoinciden(correo, contrasena))
-                .findFirst();
+        return usuarioRepository.buscarPorCorreo(correo)
+                .filter(u -> u.credencialesCoinciden(correo, contrasena));
     }
 
     public boolean esAdmin(String correo, String contrasena) {
@@ -25,33 +21,17 @@ public class UsuarioService {
                 .orElse(false);
     }
 
+    /** Registra un cliente nuevo. Si el correo ya existe no hace nada. */
     public void registrar(String nombre, String correo, String contrasena) {
-        Usuario nuevo = new Usuario(
-                UUID.randomUUID().toString(),
-                nombre,
-                correo,
-                contrasena,
-                Rol.USUARIO
-        );
-        usuarioRepository.agregar(nuevo);
+        if (usuarioRepository.buscarPorCorreo(correo).isPresent()) return;
+        Usuario nuevo = new Usuario(null, nombre, correo, null, Rol.USUARIO);
+        usuarioRepository.agregar(nuevo, Usuario.hashear(contrasena));
     }
 
     public void inicializarAdminPorDefecto() {
-        List<Usuario> todos = usuarioRepository.obtenerTodos();
-        boolean hayAdmin = todos.stream().anyMatch(u -> u.getRol() == Rol.ADMIN);
-        if (!hayAdmin) {
-            registrarAdmin("Admin", "admin@alethana.com", "admin123");
+        if (!usuarioRepository.existeAdmin()) {
+            Usuario admin = new Usuario(null, "Admin", "admin@alethana.com", null, Rol.ADMIN);
+            usuarioRepository.agregar(admin, Usuario.hashear("admin123"));
         }
-    }
-
-    private void registrarAdmin(String nombre, String correo, String contrasena) {
-        Usuario admin = new Usuario(
-                UUID.randomUUID().toString(),
-                nombre,
-                correo,
-                contrasena,
-                Rol.ADMIN
-        );
-        usuarioRepository.agregar(admin);
     }
 }

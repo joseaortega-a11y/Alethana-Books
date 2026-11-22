@@ -16,9 +16,11 @@ public class CatalogoService {
     }
 
     public Optional<Libro> buscarPorIdOpt(String id) {
-        return obtenerTodos().stream()
-                .filter(l -> l.getId().equals(id))
-                .findFirst();
+        return libroRepository.buscarPorId(id);
+    }
+
+    public List<String> obtenerCategorias() {
+        return libroRepository.obtenerCategorias();
     }
 
     public Libro buscarPorId(String id) {

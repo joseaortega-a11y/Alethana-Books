@@ -18,7 +18,6 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class CuentaController implements Initializable {
 
@@ -73,7 +72,13 @@ public class CuentaController implements Initializable {
         if (u != null) {
             DatosEnvio envio = new DatosEnvio(nombre, direccion, ciudad, telefono);
             u.setDatosEnvio(envio);
-            usuarioRepository.actualizar(u);
+            try {
+                usuarioRepository.actualizar(u);
+            } catch (RuntimeException e) {
+                lblGuardado.setText("No se pudieron guardar los datos de envío.");
+                lblGuardado.setTextFill(Color.web("#ef4444"));
+                return;
+            }
         }
 
         lblGuardado.setText("Datos de envío guardados correctamente.");
@@ -85,10 +90,7 @@ public class CuentaController implements Initializable {
         Usuario u = SesionActual.getUsuario();
         if (u == null) return;
 
-        List<Venta> ventas = ventaRepository.obtenerTodas().stream()
-                .filter(v -> v.getUsuario() != null &&
-                        v.getUsuario().getCorreo().equalsIgnoreCase(u.getCorreo()))
-                .collect(Collectors.toList());
+        List<Venta> ventas = ventaRepository.obtenerPorUsuario(u.getId());
 
         if (ventas.isEmpty()) {
             Label lbl = new Label("Aún no tienes compras registradas.");

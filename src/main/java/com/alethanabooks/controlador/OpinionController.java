@@ -14,7 +14,6 @@ import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 public class OpinionController implements Initializable {
 
@@ -48,12 +47,21 @@ public class OpinionController implements Initializable {
         int estrellas = rb1.isSelected() ? 1 : rb2.isSelected() ? 2 :
                 rb3.isSelected() ? 3 : rb4.isSelected() ? 4 : 5;
 
-        String nombre = SesionActual.haySesion()
-                ? SesionActual.getUsuario().getNombre()
-                : "Anónimo";
+        if (!SesionActual.haySesion()) {
+            lblMensaje.setText("Debes iniciar sesión para publicar una opinión.");
+            lblMensaje.setTextFill(Color.web("#ef4444"));
+            return;
+        }
 
-        Opinion opinion = new Opinion(UUID.randomUUID().toString(), nombre, texto, estrellas);
-        opinionRepository.agregar(opinion);
+        var usuario = SesionActual.getUsuario();
+        Opinion opinion = new Opinion(null, usuario.getId(), usuario.getNombre(), texto, estrellas, null);
+        try {
+            opinionRepository.agregar(opinion);
+        } catch (RuntimeException e) {
+            lblMensaje.setText("No se pudo publicar la opinión.");
+            lblMensaje.setTextFill(Color.web("#ef4444"));
+            return;
+        }
 
         txtOpinion.clear();
         rb3.setSelected(true);

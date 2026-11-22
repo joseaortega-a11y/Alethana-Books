@@ -99,6 +99,8 @@ public class HeaderController implements Initializable {
                         "  → Agrégalo al carrito y confirma la compra en el carrito.\n\n" +
                         "¿Qué métodos de pago hay?\n" +
                         "  → Tarjeta crédito/débito, PSE y Efecty/Baloto.\n\n" +
+                        "¿Qué códigos promocionales hay?\n" +
+                        "  → Usa estos códigos promocionales ;): CYBER20, PROMO10 o LECTOR15.\n\n" +
                         "¿Los libros digitales cómo los descargo?\n" +
                         "  → Después de comprar aparece la ruta de descarga en tu cuenta.\n\n" +
                         "¿Cómo uso un código de descuento?\n" +
@@ -125,8 +127,8 @@ public class HeaderController implements Initializable {
     }
     private void navegar(String fxml, String titulo, double ancho, double alto) {
         try {
-            Stage stage = (Stage) txtBusqueda.getScene().getWindow();
-            Parent rootActual = stage.getScene().getRoot();
+            Stage stage = (Stage) txtBusqueda.getScene().getWindow(); //ventana actual
+            Parent rootActual = stage.getScene().getRoot(); // pantalla actual
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent rootNuevo = loader.load();
             rootNuevo.setOpacity(0);

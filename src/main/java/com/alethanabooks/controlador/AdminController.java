@@ -32,7 +32,6 @@ import java.nio.file.StandardCopyOption;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.UUID;
 
 public class AdminController implements Initializable {
 
@@ -58,11 +57,6 @@ public class AdminController implements Initializable {
     private Libro  libroEnEdicion      = null;
     private boolean cargandoLibros     = false;
 
-    public static final List<String> CATEGORIAS = List.of(
-            "Artes","Biografias y literatura","Ciencia","Tecnologia",
-            "Negocios y finanzas","Ficcion","Filosofia","Historia","Literatura juvenil"
-    );
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -86,7 +80,7 @@ public class AdminController implements Initializable {
             return new javafx.beans.property.SimpleStringProperty("—");
         });
 
-        cmbCategoria.setItems(FXCollections.observableArrayList(CATEGORIAS));
+        cmbCategoria.setItems(FXCollections.observableArrayList(catalogoService.obtenerCategorias()));
         cmbCategoria.setPromptText("Seleccionar categoría");
         cmbTipo.setItems(FXCollections.observableArrayList("Físico", "Digital"));
         cmbTipo.setValue("Físico");
@@ -178,7 +172,7 @@ public class AdminController implements Initializable {
     }
 
     @FXML
-    private void onSeleccionarArchivo() {
+    private void onSeleccionarArchivo() { //libros didgitales
         String formato = cmbFormato.getValue() != null ? cmbFormato.getValue() : "PDF";
         FileChooser fc = new FileChooser();
         fc.setTitle("Seleccionar archivo descargable");
@@ -226,7 +220,7 @@ public class AdminController implements Initializable {
                     ? LibroFactory.TipoLibro.DIGITAL : LibroFactory.TipoLibro.FISICO;
 
             String origen = cmbOrigen.getValue() != null ? cmbOrigen.getValue() : "Nacional";
-            Libro nuevo = LibroFactory.crearLibro(tipoLibro, UUID.randomUUID().toString(),
+            Libro nuevo = LibroFactory.crearLibro(tipoLibro, null,   // el id lo genera la BD
                     titulo, autor, categoria, precio, stock, imagenSeleccionada,
                     formato, archivoDescargable, origen);
 
@@ -243,6 +237,8 @@ public class AdminController implements Initializable {
         } catch (NumberFormatException e) {
             mostrarAlerta("Error de formato", "Precio y stock deben ser números válidos.\n" +
                     "Precio: usa punto decimal (ej: 29000.0)\nStock: solo números enteros.");
+        } catch (RuntimeException e) {
+            mostrarAlerta("Error de base de datos", e.getMessage());
         }
     }
 
@@ -290,6 +286,8 @@ public class AdminController implements Initializable {
             if (ctrl2 instanceof InicioController ic2) ic2.refrescarCatalogo();
         } catch (NumberFormatException e) {
             mostrarAlerta("Error de formato", "Precio y stock deben ser números válidos.");
+        } catch (RuntimeException e) {
+            mostrarAlerta("Error de base de datos", e.getMessage());
         }
     }
 
@@ -429,7 +427,7 @@ public class AdminController implements Initializable {
     }
 
     private void cargarLibros() {
-        cargandoLibros = true;
+        cargandoLibros = true; //evita que el listener de seleccion actue mientras carga la tabla
         librosObservable = FXCollections.observableArrayList(catalogoService.obtenerTodos());
         tablaLibros.setItems(librosObservable);
         cargandoLibros = false;

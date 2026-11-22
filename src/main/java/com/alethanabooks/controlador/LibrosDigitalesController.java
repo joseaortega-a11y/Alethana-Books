@@ -6,6 +6,7 @@ import com.alethanabooks.modelo.LibroDigital;
 import com.alethanabooks.modelo.SesionActual;
 import com.alethanabooks.service.CatalogoService;
 import com.alethanabooks.Util.ImagenUtil;
+import com.alethanabooks.Util.TarjetaUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -74,16 +75,14 @@ public class LibrosDigitalesController implements Initializable {
             return;
         }
 
-        String[] colores = {"#7c3aed", "#ec4899", "#10b981", "#f59e0b", "#0ea574"};
-        for (int i = 0; i < digitales.size(); i++) {
-            gridDigitales.getChildren().add(
-                    crearTarjetaDigital((LibroDigital) digitales.get(i), colores[i % colores.length]));
+        for (Libro libro : digitales) {
+            gridDigitales.getChildren().add(crearTarjetaDigital((LibroDigital) libro));
         }
     }
 
-    private VBox crearTarjetaDigital(LibroDigital libro, String colorBtn) {
+    private VBox crearTarjetaDigital(LibroDigital libro) {
         VBox card = new VBox(10);
-        card.setPrefWidth(195);
+        TarjetaUtil.anchoAdaptable(card, gridDigitales, 5, 195);
         card.setStyle("-fx-background-color: white; -fx-background-radius: 14; " +
                 "-fx-border-color: #e5e7eb; -fx-border-radius: 14; " +
                 "-fx-effect: dropshadow(gaussian, rgba(124,58,237,0.07), 8, 0, 0, 2);");
@@ -107,11 +106,12 @@ public class LibrosDigitalesController implements Initializable {
         Label lblTitulo = new Label(libro.getTitulo());
         lblTitulo.setStyle("-fx-font-size: 15px; -fx-font-weight: 800;");
         lblTitulo.setTextFill(Color.web("#0f172a"));
-        lblTitulo.setWrapText(true);
+        TarjetaUtil.tituloUnaLinea(lblTitulo);
 
         Label lblAutor = new Label(libro.getAutor());
         lblAutor.setStyle("-fx-font-size: 12px;");
         lblAutor.setTextFill(Color.web("#64748b"));
+        TarjetaUtil.unaLinea(lblAutor);
 
         Label lblCategoria = new Label(libro.getCategoria());
         lblCategoria.setStyle("-fx-background-color: #ede9fe; -fx-background-radius: 6; " +
@@ -143,7 +143,7 @@ public class LibrosDigitalesController implements Initializable {
         Button btnCarrito = new Button("Agregar al carrito");
         btnCarrito.setMaxWidth(Double.MAX_VALUE);
         btnCarrito.setTextFill(Color.WHITE);
-        btnCarrito.setStyle("-fx-background-color: " + colorBtn +
+        btnCarrito.setStyle("-fx-background-color: " + TarjetaUtil.COLOR_BOTON +
                 "; -fx-background-radius: 10; -fx-font-size: 13px; -fx-font-weight: 800;");
         btnCarrito.setOnAction(e -> agregarAlCarrito(libro));
 
