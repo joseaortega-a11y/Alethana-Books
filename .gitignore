@@ -42,3 +42,8 @@ instalador/
 runtime-fx/
 hs_err_pid*.log
 dependency-reduced-pom.xml
+
+### Alethana Books PHP ###
+# Archivos de e-books subidos desde el panel admin (pueden tener derechos de autor)
+php/descargables/archivos/*
+!php/descargables/archivos/.gitkeep
